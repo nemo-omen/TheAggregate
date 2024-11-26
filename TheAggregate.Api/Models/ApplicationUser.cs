@@ -4,5 +4,5 @@ namespace TheAggregate.Api.Models;
 
 public class ApplicationUser : IdentityUser
 {
-    // public required string Name { get; set; }
+    public required string Name { get; set; }
 }

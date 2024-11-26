@@ -1,67 +1,132 @@
 [
   {
-    "name": "Salon",
-    "url": "https://www.salon.com/",
-    "feedUrl": "https://www.salon.com/feed"
+    "title": "Salon",
+    "description": "",
+    "webUrl": "https://www.salon.com/",
+    "feedUrl": "https://www.salon.com/feed",
+    "imageUrl": "",
+    "language": "EN",
+    "categories": ["news"],
+    "items": []
   },
   {
-    "name": "The Intercept",
-    "url": "https://theintercept.com/",
-    "feedUrl": "https://theintercept.com/feed/?lang=en"
+    "title": "The Intercept",
+    "description":  "",
+    "webUrl": "https://theintercept.com/",
+    "feedUrl": "https://theintercept.com/feed/?lang=en",
+    "imageUrl":  "",
+    "language":  "EN",
+    "categories":  ["news"],
+    "items":  []
   },
   {
-    "name": "Vox",
-    "url": "https://www.vox.com/",
-    "feedUrl": "https://www.vox.com/rss/index.xml"
+    "title": "Vox",
+    "description":  "",
+    "webUrl": "https://www.vox.com/",
+    "feedUrl": "https://www.vox.com/rss/index.xml",
+    "imageUrl":  "",
+    "language":  "EN",
+    "categories":  ["news"],
+    "items":  []
   },
   {
-    "name": "The Washington Times",
-    "url": "https://www.washingtontimes.com/",
-    "feedUrl": "https://www.washingtontimes.com/rss/headlines/news/"
+    "title": "The Washington Times",
+    "description":  "",
+    "webUrl": "https://www.washingtontimes.com/",
+    "feedUrl": "https://www.washingtontimes.com/rss/headlines/news/",
+    "imageUrl":  "",
+    "language":  "EN",
+    "categories":  ["news"],
+    "items":  []
   },
   {
-    "name": "The Guardian",
-    "url": "https://www.theguardian.com/us",
-    "feedUrl": "https://www.theguardian.com/us/rss"
+    "title": "The Guardian",
+    "description":  "",
+    "webUrl": "https://www.theguardian.com/us",
+    "feedUrl": "https://www.theguardian.com/us/rss",
+    "imageUrl":  "",
+    "language":  "EN",
+    "categories":  ["news"],
+    "items":  []
   },
   {
-    "name": "Politico",
-    "url": "https://www.politico.com/",
-    "feedUrl": "https://www.politico.com/rss/politicopicks.xml"
+    "title": "Politico",
+    "description":  "",
+    "webUrl": "https://www.politico.com/",
+    "feedUrl": "https://www.politico.com/rss/politicopicks.xml",
+    "imageUrl":  "",
+    "language":  "EN",
+    "categories":  ["news"],
+    "items":  []
   },
   {
-    "name": "NPR",
-    "url": "https://www.npr.org/",
-    "feedUrl": "https://feeds.npr.org/1001/rss.xml"
+    "title": "NPR",
+    "description":  "",
+    "webUrl": "https://www.npr.org/",
+    "feedUrl": "https://feeds.npr.org/1001/rss.xml",
+    "imageUrl":  "",
+    "language":  "EN",
+    "categories":  ["news"],
+    "items":  []
   },
   {
-    "name": "The Hill",
-    "url": "https://thehill.com/",
-    "feedUrl": "https://thehill.com/rss/syndicator/19110"
+    "title": "The Hill",
+    "description":  "",
+    "webUrl": "https://thehill.com/",
+    "feedUrl": "https://thehill.com/rss/syndicator/19110",
+    "imageUrl":  "",
+    "language":  "EN",
+    "categories":  ["news"],
+    "items":  []
   },
   {
-    "name": "CNN",
-    "url": "https://www.cnn.com/",
-    "feedUrl": "http://rss.cnn.com/rss/cnn_topstories.rss"
+    "title": "CNN",
+    "description":  "",
+    "webUrl": "https://www.cnn.com/",
+    "feedUrl": "http://rss.cnn.com/rss/cnn_topstories.rss",
+    "imageUrl":  "",
+    "language":  "EN",
+    "categories":  ["news"],
+    "items":  []
   },
   {
-    "name": "ABC News",
-    "url": "https://abcnews.go.com/",
-    "feedUrl": "https://abcnews.go.com/abcnews/topstories"
+    "title": "ABC News",
+    "description":  "",
+    "webUrl": "https://abcnews.go.com/",
+    "feedUrl": "https://abcnews.go.com/abcnews/topstories",
+    "imageUrl":  "",
+    "language":  "EN",
+    "categories":  ["news"],
+    "items":  []
   },
   {
-    "name": "Al Jazeera",
-    "url": "https://www.aljazeera.com/",
-    "feedUrl": "https://www.aljazeera.com/xml/rss/all.xml"
+    "title": "Al Jazeera",
+    "description":  "",
+    "webUrl": "https://www.aljazeera.com/",
+    "feedUrl": "https://www.aljazeera.com/xml/rss/all.xml",
+    "imageUrl":  "",
+    "language":  "EN",
+    "categories":  ["news"],
+    "items":  []
   },
   {
-    "name": "BBC",
-    "url": "https://www.bbc.com/",
-    "feedUrl": "http://feeds.bbci.co.uk/news/rss.xml"
+    "title": "BBC",
+    "description":  "",
+    "webUrl": "https://www.bbc.com/",
+    "feedUrl": "http://feeds.bbci.co.uk/news/rss.xml",
+    "imageUrl":  "",
+    "language":  "EN",
+    "categories":  ["news"],
+    "items":  []
   },
   {
-    "name": "ProPublica",
-    "url": "https://www.propublica.org/",
-    "feedUrl": "https://www.propublica.org/feeds/propublica/main"
+    "title": "ProPublica",
+    "description":  "",
+    "webUrl": "https://www.propublica.org/",
+    "feedUrl": "https://www.propublica.org/feeds/propublica/main",
+    "imageUrl":  "",
+    "language":  "EN",
+    "categories":  ["news"],
+    "items":  []
   }
 ]

@@ -1,7 +1,4 @@
-using System.Text.Json;
-using FastEndpoints;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using TheAggregate.Api.Models;
 using TheAggregate.Shared;
 using TheAggregate.Shared.SeedData;
@@ -20,60 +17,39 @@ public static class Seeder
             FeedsSeed = feedsSeedPath,
         };
         
-        // var newsSourcesSeed = SeedDataHelper.LoadSeedData<NewsSource>(seedSettings.NewsSourcesSeed); 
-        // var dataSourcesSeed = SeedDataHelper.LoadSeedData<DataSource>(seedSettings.DataSourcesSeed);
-        // var existingNewsSourceRecords = await context.NewsSources.ToListAsync();
-        // var existingDataSourceRecords = await context.DataSources.ToListAsync();
+        var feedsSeed = SeedDataHelper.LoadSeedData<Feed>(seedSettings.FeedsSeed); 
+        var existingFeedRecords = await context.Feeds.ToListAsync();
 
-        // foreach (var nsSeed in newsSourcesSeed)
-        // {
-        //     var existingNewsSource = existingNewsSourceRecords.FirstOrDefault(ns => ns.Url == nsSeed.Url);
-        //     if (existingNewsSource is null)
-        //     {
-        //         var newsSourceWithId = new NewsSource
-        //         {
-        //             Id = Guid.NewGuid(),
-        //             Name = nsSeed.Name,
-        //             Url = nsSeed.Url,
-        //             FeedUrl = nsSeed.FeedUrl
-        //         };
-        //
-        //         await context.AddAsync(newsSourceWithId);
-        //     }
-        //     else
-        //     {
-        //         existingNewsSource.Name = nsSeed.Name;
-        //         existingNewsSource.Url = nsSeed.Url;
-        //         existingNewsSource.FeedUrl = nsSeed.FeedUrl;
-        //     }
-        // }
-        //
-        // foreach (var dsSeed in dataSourcesSeed)
-        // {
-        //     var existingDataSource = existingDataSourceRecords.FirstOrDefault(ns => ns.Url == dsSeed.Url);
-        //     if (existingDataSource is null)
-        //     {
-        //         var dataSourceWithId = new DataSource {
-        //             Id = Guid.NewGuid(),
-        //             Name = dsSeed.Name,
-        //             ShortName = dsSeed.ShortName,
-        //             Url = dsSeed.Url,
-        //             DataUrl = dsSeed.DataUrl,
-        //             Category = dsSeed.Category
-        //         };
-        //
-        //         await context.AddAsync(dataSourceWithId);
-        //     }
-        //     else
-        //     {
-        //         existingDataSource.Name = dsSeed.Name;
-        //         existingDataSource.ShortName = dsSeed.ShortName;
-        //         existingDataSource.Url = dsSeed.Url;
-        //         existingDataSource.DataUrl = dsSeed.DataUrl;
-        //         existingDataSource.Category = dsSeed.Category;
-        //     }
-        // }
-        //
-        // await context.SaveChangesAsync();
+        foreach (var fSeed in feedsSeed)
+        {
+            var existingFeed = existingFeedRecords.FirstOrDefault(f => f.WebUrl == fSeed.WebUrl);
+            if (existingFeed is null)
+            {
+                var feedWithId = new Feed
+                {
+                    Id = Guid.NewGuid(),
+                    Title = fSeed.Title,
+                    Description = fSeed.Description,
+                    WebUrl = fSeed.WebUrl,
+                    FeedUrl = fSeed.FeedUrl,
+                    ImageUrl = fSeed.ImageUrl,
+                    Language = fSeed.Language,
+                    Categories = fSeed.Categories,
+                };
+        
+                await context.AddAsync(feedWithId);
+            }
+            else
+            {
+                existingFeed.Title = fSeed.Title;
+                existingFeed.Description = fSeed.Description;
+                existingFeed.WebUrl = fSeed.WebUrl;
+                existingFeed.FeedUrl = fSeed.FeedUrl;
+                existingFeed.ImageUrl = fSeed.ImageUrl;
+                existingFeed.Language = fSeed.Language;
+                existingFeed.Categories = fSeed.Categories;
+            }
+        }
+        await context.SaveChangesAsync();
     }
 }

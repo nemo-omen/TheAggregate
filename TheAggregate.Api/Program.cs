@@ -28,7 +28,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     
 var app = builder.Build();
 
-// await Seeder.SeedAsync(app.Services);
+await Seeder.SeedAsync(app.Services);
 
 app.UseDefaultExceptionHandler()
     .UseFastEndpoints(c =>

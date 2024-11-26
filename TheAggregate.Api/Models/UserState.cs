@@ -1,5 +1,8 @@
+using Microsoft.EntityFrameworkCore;
+
 namespace TheAggregate.Api.Models;
 
+[Index(nameof(UserId), nameof(FeedItemId), IsUnique = true)]
 public class UserState : BaseModel
 {
     public string UserId { get; set; }
