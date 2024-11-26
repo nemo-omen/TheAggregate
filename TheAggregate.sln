@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheAggregate.Api", "TheAggregate.Api\TheAggregate.Api.csproj", "{CA5C643B-49DB-42F4-836A-1ADB37A033EF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheAggregate.Test", "TheAggregate.Test\TheAggregate.Test.csproj", "{6ABF627C-AB4A-4AB3-BC18-4F3923890EDD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheAggregate.Shared", "TheAggregate.Shared\TheAggregate.Shared.csproj", "{CFD6C3BE-4CFD-41A3-8CCE-F01D16AB6283}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CA5C643B-49DB-42F4-836A-1ADB37A033EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA5C643B-49DB-42F4-836A-1ADB37A033EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA5C643B-49DB-42F4-836A-1ADB37A033EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA5C643B-49DB-42F4-836A-1ADB37A033EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6ABF627C-AB4A-4AB3-BC18-4F3923890EDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6ABF627C-AB4A-4AB3-BC18-4F3923890EDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6ABF627C-AB4A-4AB3-BC18-4F3923890EDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6ABF627C-AB4A-4AB3-BC18-4F3923890EDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CFD6C3BE-4CFD-41A3-8CCE-F01D16AB6283}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFD6C3BE-4CFD-41A3-8CCE-F01D16AB6283}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFD6C3BE-4CFD-41A3-8CCE-F01D16AB6283}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFD6C3BE-4CFD-41A3-8CCE-F01D16AB6283}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
