@@ -2,10 +2,9 @@ using System.ServiceModel.Syndication;
 using System.Xml;
 using FluentResults;
 using Polly;
-using Polly.Retry;
 using TheAggregate.Shared.Infrastructure;
 
-namespace TheAggregate.Api.Features.FeedHandling;
+namespace TheAggregate.Api.Features.FeedAggregation;
 
 public interface IFeedReader
 {

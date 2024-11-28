@@ -2,14 +2,22 @@ using System.Text.Json;
 using FastEndpoints;
 using Microsoft.EntityFrameworkCore;
 using TheAggregate.Api.Data;
+using TheAggregate.Api.Features.FeedAggregation;
+using TheAggregate.Api.Features.Feeds;
 using TheAggregate.Api.Models;
 using TheAggregate.Api.Shared;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services
-    .AddFastEndpoints()
-    .AddJobQueues<JobRecord, JobStorageProvider>();
-    
+    .AddFastEndpoints();
+    // .AddJobQueues<JobRecord, JobStorageProvider>();
+
+builder.Services.AddScoped<IFeedsRepository, FeedsRepository>();
+builder.Services.AddScoped<IFeedsService, FeedsService>();
+builder.Services.AddScoped<IFeedReader, FeedReader>();
+builder.Services.AddScoped<IAggregationService, AggregationService>();
+
+
 var env = builder.Environment;
 string connectionString;
 if (env.IsDevelopment())
@@ -34,7 +42,7 @@ app.UseDefaultExceptionHandler()
     .UseFastEndpoints(c =>
     {
         c.Serializer.Options.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
-    })
-    .UseJobQueues();
+    });
+    // .UseJobQueues();
 
 app.Run();

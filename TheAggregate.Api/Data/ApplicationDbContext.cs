@@ -4,7 +4,7 @@ using TheAggregate.Api.Models;
 
 namespace TheAggregate.Api.Data;
 
-public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+public class ApplicationDbContext : DbContext
 {
     public ApplicationDbContext() {}
     

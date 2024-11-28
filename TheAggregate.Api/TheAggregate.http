@@ -1,6 +1,6 @@
 @TheAggregate_HostAddress = http://localhost:5119
 
-GET {{TheAggregate_HostAddress}}/weatherforecast/
+GET {{TheAggregate_HostAddress}}/test/Jeff
 Accept: application/json
 
 ###
