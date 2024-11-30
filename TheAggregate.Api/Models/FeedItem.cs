@@ -8,10 +8,10 @@ public class FeedItem : BaseModel
 {
     [MaxLength(255)]
     public required string Title { get; set; }
-    public string? Content { get; set; }
+    public string? PlainTextContent { get; set; }
+    public string? HtmlContent { get; set; }
     [MaxLength(255)]
     public required string Url { get; set; }
-    [MaxLength(1023)]
     public string? Summary { get; set; }
     [MaxLength(255)]
     public string? ImageUrl { get; set; }
@@ -20,5 +20,6 @@ public class FeedItem : BaseModel
     public string? Author { get; set; }
     [MaxLength(255)]
     public Guid FeedId { get; set; }
+    public ICollection<string> Categories { get; set; } = [];
     public Feed Feed { get; set; }
 }

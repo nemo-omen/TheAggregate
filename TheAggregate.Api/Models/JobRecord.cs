@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using FastEndpoints;
 
 namespace TheAggregate.Api.Models;
@@ -35,7 +36,7 @@ public class JobRecord : IJobStorageRecord, IJobResultStorage
             : default;
 
     void IJobResultStorage.SetResult<TResult>(TResult result)
-        => ResultJson = JsonSerializer.Serialize(result);
+        => ResultJson = JsonSerializer.Serialize(result, new JsonSerializerOptions{ReferenceHandler = ReferenceHandler.Preserve});
 
     // MessagePack alternative: https://gist.github.com/dj-nitehawk/02420788fb0a72c4be4752be8bd4c40b
 }

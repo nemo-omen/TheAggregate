@@ -54,7 +54,12 @@ public class FeedReader : IFeedReader
             // using var httpClient = new HttpClient();
             var pipelineResponse = await _retryPipeline.ExecuteAsync(async token =>
             {
-                var response = await _httpClient.GetAsync(url, token);
+                var request = new HttpRequestMessage(HttpMethod.Get, url);
+                request.Headers.UserAgent.ParseAdd("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36");
+                // request.Headers.Referrer = new Uri("https://www.google.com"); // Some servers check referrer
+                request.Headers.Accept.ParseAdd("text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+
+                var response = await _httpClient.SendAsync(request, cancellationToken);
                 return response;
             }, cancellationToken);
 

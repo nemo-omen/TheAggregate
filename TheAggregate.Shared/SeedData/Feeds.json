@@ -1,95 +1,5 @@
 [
   {
-    "title": "Salon",
-    "description": "",
-    "webUrl": "https://www.salon.com/",
-    "feedUrl": "https://www.salon.com/feed",
-    "imageUrl": "",
-    "language": "EN",
-    "categories": ["news"],
-    "items": []
-  },
-  {
-    "title": "The Intercept",
-    "description":  "",
-    "webUrl": "https://theintercept.com/",
-    "feedUrl": "https://theintercept.com/feed/?lang=en",
-    "imageUrl":  "",
-    "language":  "EN",
-    "categories":  ["news"],
-    "items":  []
-  },
-  {
-    "title": "Vox",
-    "description":  "",
-    "webUrl": "https://www.vox.com/",
-    "feedUrl": "https://www.vox.com/rss/index.xml",
-    "imageUrl":  "",
-    "language":  "EN",
-    "categories":  ["news"],
-    "items":  []
-  },
-  {
-    "title": "The Washington Times",
-    "description":  "",
-    "webUrl": "https://www.washingtontimes.com/",
-    "feedUrl": "https://www.washingtontimes.com/rss/headlines/news/",
-    "imageUrl":  "",
-    "language":  "EN",
-    "categories":  ["news"],
-    "items":  []
-  },
-  {
-    "title": "The Guardian",
-    "description":  "",
-    "webUrl": "https://www.theguardian.com/us",
-    "feedUrl": "https://www.theguardian.com/us/rss",
-    "imageUrl":  "",
-    "language":  "EN",
-    "categories":  ["news"],
-    "items":  []
-  },
-  {
-    "title": "Politico",
-    "description":  "",
-    "webUrl": "https://www.politico.com/",
-    "feedUrl": "https://www.politico.com/rss/politicopicks.xml",
-    "imageUrl":  "",
-    "language":  "EN",
-    "categories":  ["news"],
-    "items":  []
-  },
-  {
-    "title": "NPR",
-    "description":  "",
-    "webUrl": "https://www.npr.org/",
-    "feedUrl": "https://feeds.npr.org/1001/rss.xml",
-    "imageUrl":  "",
-    "language":  "EN",
-    "categories":  ["news"],
-    "items":  []
-  },
-  {
-    "title": "The Hill",
-    "description":  "",
-    "webUrl": "https://thehill.com/",
-    "feedUrl": "https://thehill.com/rss/syndicator/19110",
-    "imageUrl":  "",
-    "language":  "EN",
-    "categories":  ["news"],
-    "items":  []
-  },
-  {
-    "title": "CNN",
-    "description":  "",
-    "webUrl": "https://www.cnn.com/",
-    "feedUrl": "http://rss.cnn.com/rss/cnn_topstories.rss",
-    "imageUrl":  "",
-    "language":  "EN",
-    "categories":  ["news"],
-    "items":  []
-  },
-  {
     "title": "ABC News",
     "description":  "",
     "webUrl": "https://abcnews.go.com/",
@@ -120,10 +30,90 @@
     "items":  []
   },
   {
+    "title": "The Guardian",
+    "description":  "",
+    "webUrl": "https://www.theguardian.com/us",
+    "feedUrl": "https://www.theguardian.com/us/rss",
+    "imageUrl":  "",
+    "language":  "EN",
+    "categories":  ["news"],
+    "items":  []
+  },
+  {
+    "title": "The Hill",
+    "description":  "",
+    "webUrl": "https://thehill.com/",
+    "feedUrl": "https://thehill.com/rss/syndicator/19110",
+    "imageUrl":  "",
+    "language":  "EN",
+    "categories":  ["news"],
+    "items":  []
+  },
+  {
+    "title": "The Intercept",
+    "description":  "",
+    "webUrl": "https://theintercept.com/",
+    "feedUrl": "https://theintercept.com/feed/?lang=en",
+    "imageUrl":  "",
+    "language":  "EN",
+    "categories":  ["news"],
+    "items":  []
+  },
+  {
+    "title": "NPR",
+    "description":  "",
+    "webUrl": "https://www.npr.org/",
+    "feedUrl": "https://feeds.npr.org/1001/rss.xml",
+    "imageUrl":  "",
+    "language":  "EN",
+    "categories":  ["news"],
+    "items":  []
+  },
+  {
+    "title": "Politico",
+    "description":  "",
+    "webUrl": "https://www.politico.com/",
+    "feedUrl": "https://www.politico.com/rss/politicopicks.xml",
+    "imageUrl":  "",
+    "language":  "EN",
+    "categories":  ["news"],
+    "items":  []
+  },
+  {
     "title": "ProPublica",
     "description":  "",
     "webUrl": "https://www.propublica.org/",
     "feedUrl": "https://www.propublica.org/feeds/propublica/main",
+    "imageUrl":  "",
+    "language":  "EN",
+    "categories":  ["news"],
+    "items":  []
+  },
+  {
+    "title": "Salon",
+    "description": "",
+    "webUrl": "https://www.salon.com/",
+    "feedUrl": "https://www.salon.com/feed",
+    "imageUrl": "",
+    "language": "EN",
+    "categories": ["news"],
+    "items": []
+  },
+  {
+    "title": "Vox",
+    "description":  "",
+    "webUrl": "https://www.vox.com/",
+    "feedUrl": "https://www.vox.com/rss/index.xml",
+    "imageUrl":  "",
+    "language":  "EN",
+    "categories":  ["news"],
+    "items":  []
+  },
+  {
+    "title": "The Washington Times",
+    "description":  "",
+    "webUrl": "https://www.washingtontimes.com/",
+    "feedUrl": "https://www.washingtontimes.com/rss/headlines/news/",
     "imageUrl":  "",
     "language":  "EN",
     "categories":  ["news"],

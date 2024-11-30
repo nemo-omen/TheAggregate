@@ -1,6 +1,7 @@
 using System.ServiceModel.Syndication;
 using FastEndpoints;
 using FluentResults;
+using TheAggregate.Api.Shared.Util;
 
 namespace TheAggregate.Api.Features.FeedAggregation;
 
@@ -9,14 +10,15 @@ public class GetSyndicationFeedsCommandHandler
 {
     private readonly IAggregationService _aggregationService;
     
-    public GetSyndicationFeedsCommandHandler(IAggregationService aggregationService)
+    public GetSyndicationFeedsCommandHandler(IServiceScopeFactory serviceScopeFactory)
     {
-        _aggregationService = aggregationService;
+        _aggregationService = serviceScopeFactory.CreateScope().ServiceProvider.GetRequiredService<IAggregationService>();
     }
     
     public async Task<Result<List<SyndicationFeed>>> ExecuteAsync(GetSyndicationFeedsCommand command,
         CancellationToken cancellationToken)
     {
+        Banner.Log($"[GetSyndicationFeedsCommandHandler] - Getting SyndicationFeeds for {command.Feeds.Count} feeds");
         var syndicationFeedsResults = await _aggregationService.GetSyndicationFeedsFromFeedsAsync(command.Feeds);
 
         var feeds = new List<SyndicationFeed>();
@@ -29,7 +31,11 @@ public class GetSyndicationFeedsCommandHandler
                 feeds.Add(syndicationFeedsResult.Value);
             }
         }
-        
+        Banner.Log($"[GetSyndicationFeedsCommandHandler] - Got {feeds.Count} SyndicationFeeds");
+        await new GetSyndicationFeedsEvent
+        {
+            SyndicationFeeds = feeds,
+        }.PublishAsync(Mode.WaitForAll, cancellationToken);
         return Result.Ok(feeds);
     }
 }
