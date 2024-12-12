@@ -1,5 +1,6 @@
 using FastEndpoints;
 using TheAggregate.Api.Features.Feeds;
+using TheAggregate.Api.Features.Feeds.GetFeeds;
 
 namespace TheAggregate.Api.Shared.Services;
 

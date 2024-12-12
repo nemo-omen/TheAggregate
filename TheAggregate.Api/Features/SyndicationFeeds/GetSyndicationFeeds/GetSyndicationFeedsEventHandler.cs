@@ -1,7 +1,7 @@
 using FastEndpoints;
-using TheAggregate.Api.Features.FeedAggregation;
+using TheAggregate.Api.Features.Feeds;
 
-namespace TheAggregate.Api.Features.Feeds;
+namespace TheAggregate.Api.Features.SyndicationFeeds.GetSyndicationFeeds;
 
 public class GetSyndicationFeedsEventHandler : IEventHandler<GetSyndicationFeedsEvent>
 {

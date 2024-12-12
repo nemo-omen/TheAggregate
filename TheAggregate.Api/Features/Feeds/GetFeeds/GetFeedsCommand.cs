@@ -1,9 +1,8 @@
-using System.ServiceModel.Syndication;
 using FastEndpoints;
 using FluentResults;
 using TheAggregate.Api.Models;
 
-namespace TheAggregate.Api.Features.Feeds;
+namespace TheAggregate.Api.Features.Feeds.GetFeeds;
 
 public class GetFeedsCommand : ICommand<Result<List<Feed>>>
 {

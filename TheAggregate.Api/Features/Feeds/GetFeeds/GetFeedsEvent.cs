@@ -1,7 +1,7 @@
 using FastEndpoints;
 using TheAggregate.Api.Models;
 
-namespace TheAggregate.Api.Features.Feeds;
+namespace TheAggregate.Api.Features.Feeds.GetFeeds;
 
 public class GetFeedsEvent : IEvent
 {

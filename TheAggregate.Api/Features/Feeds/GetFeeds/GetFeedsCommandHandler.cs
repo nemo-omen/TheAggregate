@@ -3,7 +3,7 @@ using FluentResults;
 using TheAggregate.Api.Models;
 using TheAggregate.Api.Shared.Util;
 
-namespace TheAggregate.Api.Features.Feeds;
+namespace TheAggregate.Api.Features.Feeds.GetFeeds;
 
 public class GetFeedsCommandHandler : ICommandHandler<GetFeedsCommand, Result<List<Feed>>>
 {

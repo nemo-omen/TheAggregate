@@ -1,9 +1,10 @@
 using System.ServiceModel.Syndication;
 using FastEndpoints;
 using FluentResults;
+using TheAggregate.Api.Features.FeedAggregation;
 using TheAggregate.Api.Shared.Util;
 
-namespace TheAggregate.Api.Features.FeedAggregation;
+namespace TheAggregate.Api.Features.SyndicationFeeds.GetSyndicationFeeds;
 
 public class GetSyndicationFeedsCommandHandler 
     : ICommandHandler<GetSyndicationFeedsCommand, Result<List<SyndicationFeed>>>

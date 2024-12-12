@@ -3,7 +3,7 @@ using FastEndpoints;
 using FluentResults;
 using TheAggregate.Api.Models;
 
-namespace TheAggregate.Api.Features.FeedAggregation;
+namespace TheAggregate.Api.Features.SyndicationFeeds.GetSyndicationFeeds;
 
 public class GetSyndicationFeedsCommand : ICommand<Result<List<SyndicationFeed>>>
 {
