@@ -32,7 +32,7 @@ public class FeedsRepository : IFeedsRepository
     {
         var feeds = await _context.Feeds
             .AsNoTracking()
-            .Include(f => f.Items)
+            .Include(f => f.Items.OrderByDescending(i => i.Published))
             .OrderBy(f => f.Title)
             .ToListAsync();
         
