@@ -47,6 +47,7 @@ app.UseDefaultExceptionHandler()
     {
         c.Serializer.Options.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
         c.Serializer.Options.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+        c.Endpoints.RoutePrefix = "api";
     })
     .UseJobQueues();
 
