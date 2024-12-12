@@ -1,7 +1,12 @@
 using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
+using NpgsqlTypes;
 
 namespace TheAggregate.Api.Models;
 
+[Index(nameof(WebUrl), IsUnique = true)]
+[Index(nameof(FeedUrl), IsUnique = true)]
+[Index(nameof(Title))]
 public class Feed : BaseModel
 {
     [MaxLength(255)]
@@ -18,4 +23,5 @@ public class Feed : BaseModel
     public string? Language { get; set; }
     public List<string> Categories { get; set; } = [];
     public List<FeedItem> Items { get; set; } = [];
+    public NpgsqlTsVector SearchVector { get; set; }
 }

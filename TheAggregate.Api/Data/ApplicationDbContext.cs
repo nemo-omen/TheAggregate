@@ -22,5 +22,22 @@ public class ApplicationDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+
+        // properties for enabling full-text search
+        modelBuilder.Entity<FeedItem>()
+            .HasGeneratedTsVectorColumn(
+                fi => fi.SearchVector,
+                "english",
+                fi => new { fi.Title, fi.Summary })
+            .HasIndex(fi => fi.SearchVector)
+            .HasMethod("GIN");
+
+        modelBuilder.Entity<Feed>()
+            .HasGeneratedTsVectorColumn(
+                fi => fi.SearchVector,
+                "english",
+                fi => new { fi.Title, fi.Description })
+            .HasIndex(fi => fi.SearchVector)
+            .HasMethod("GIN");
     }
 }
