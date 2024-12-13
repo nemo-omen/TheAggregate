@@ -1,11 +1,11 @@
 using System.ServiceModel.Syndication;
-using FastEndpoints;
 using FluentResults;
+using MediatR;
 using TheAggregate.Api.Models;
 
 namespace TheAggregate.Api.Features.SyndicationFeeds.GetSyndicationFeeds;
 
-public class GetSyndicationFeedsCommand : ICommand<Result<List<SyndicationFeed>>>
+public class GetSyndicationFeedsCommand : IRequest<Result<List<SyndicationFeed>>>
 {
     public List<Feed> Feeds { get; set; }
     public GetSyndicationFeedsCommand(List<Feed> feeds)

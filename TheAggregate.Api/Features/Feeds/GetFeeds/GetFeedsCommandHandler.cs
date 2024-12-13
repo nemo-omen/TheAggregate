@@ -1,20 +1,22 @@
-using FastEndpoints;
 using FluentResults;
+using MediatR;
 using TheAggregate.Api.Models;
 using TheAggregate.Api.Shared.Util;
 
 namespace TheAggregate.Api.Features.Feeds.GetFeeds;
 
-public class GetFeedsCommandHandler : ICommandHandler<GetFeedsCommand, Result<List<Feed>>>
+public class GetFeedsCommandHandler : IRequestHandler<GetFeedsCommand, Result<List<Feed>>>
 {
+    private readonly IMediator _mediator;
     private readonly IFeedsService _feedsService;
 
-    public GetFeedsCommandHandler(IServiceScopeFactory serviceScopeFactory)
+    public GetFeedsCommandHandler(IFeedsService feedsService, IMediator mediator)
     {
-        _feedsService = serviceScopeFactory.CreateScope().ServiceProvider.GetRequiredService<IFeedsService>();
+        _mediator = mediator;
+        _feedsService = feedsService;
     }
 
-    public async Task<Result<List<Feed>>> ExecuteAsync(GetFeedsCommand command,
+    public async Task<Result<List<Feed>>> Handle(GetFeedsCommand command,
         CancellationToken cancellationToken)
     {
         Banner.Log($"[GetFeedsCommandHandler] - Getting feeds");
@@ -22,8 +24,7 @@ public class GetFeedsCommandHandler : ICommandHandler<GetFeedsCommand, Result<Li
 
         if (feedsResult.IsSuccess)
         {
-            await new GetFeedsEvent(feedsResult.Value)
-                .PublishAsync(Mode.WaitForAll, cancellationToken);
+            await _mediator.Publish(new GetFeedsEvent(feedsResult.Value), cancellationToken);
         }
         
         return Result.Ok(feedsResult.Value);

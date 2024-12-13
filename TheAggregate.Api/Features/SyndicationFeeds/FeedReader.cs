@@ -4,7 +4,7 @@ using FluentResults;
 using Polly;
 using TheAggregate.Shared.Infrastructure;
 
-namespace TheAggregate.Api.Features.FeedAggregation;
+namespace TheAggregate.Api.Features.SyndicationFeeds;
 
 public interface IFeedReader
 {

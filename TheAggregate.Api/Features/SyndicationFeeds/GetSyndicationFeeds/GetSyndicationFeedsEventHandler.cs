@@ -1,23 +1,23 @@
-using FastEndpoints;
-using TheAggregate.Api.Features.Feeds;
+using MediatR;
+using TheAggregate.Api.Features.Feeds.SaveFeedsFromSyndication;
 
 namespace TheAggregate.Api.Features.SyndicationFeeds.GetSyndicationFeeds;
 
-public class GetSyndicationFeedsEventHandler : IEventHandler<GetSyndicationFeedsEvent>
+public class GetSyndicationFeedsEventHandler : INotificationHandler<GetSyndicationFeedsEvent>
 {
+    private readonly IMediator _mediator;
     private readonly ILogger<GetSyndicationFeedsEventHandler> _logger;
     
-    public GetSyndicationFeedsEventHandler(ILogger<GetSyndicationFeedsEventHandler> logger)
+    public GetSyndicationFeedsEventHandler(IMediator mediator, ILogger<GetSyndicationFeedsEventHandler> logger)
     {
+        _mediator = mediator;
         _logger = logger;
     }
     
-    public async Task HandleAsync(GetSyndicationFeedsEvent e, CancellationToken ct)
+    public async Task Handle(GetSyndicationFeedsEvent e, CancellationToken ct)
     {
         _logger.LogInformation($"[GetSyndicationFeedsEventHandler] Handling {e.SyndicationFeeds.Count} syndication feeds");
-        await new SaveFeedsFromSyndicationCommand
-        {
-            SyndicationFeeds = e.SyndicationFeeds
-        }.ExecuteAsync(ct);
+
+        await _mediator.Send(new SaveFeedsFromSyndicationCommand(e.SyndicationFeeds), ct);
     }
 }

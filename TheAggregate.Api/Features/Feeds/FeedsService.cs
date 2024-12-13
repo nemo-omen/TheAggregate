@@ -77,9 +77,9 @@ public class FeedsService : IFeedsService
                     UrlUtil.NormalizeUrl(i.Url) == UrlUtil.NormalizeUrl(syndicationItem.Links[0].Uri.OriginalString));
                 if (savedItem is null)
                 {
-                    var author = syndicationItem.Authors.FirstOrDefault()?.Name;
-                    var summary = syndicationItem.Summary.Text;
-                    var categories = syndicationItem.Categories.Select(c => c.Name).ToList();
+                    var author = syndicationItem.Authors?.FirstOrDefault()?.Name?? "";
+                    var summary = syndicationItem.Summary?.Text?? "";
+                    var categories = syndicationItem.Categories?.Select(c => c.Name).ToList();
 
                     var newItem = new FeedItem
                     {

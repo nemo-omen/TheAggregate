@@ -1,26 +1,27 @@
 using System.ServiceModel.Syndication;
-using FastEndpoints;
 using FluentResults;
-using TheAggregate.Api.Features.FeedAggregation;
+using MediatR;
 using TheAggregate.Api.Shared.Util;
 
 namespace TheAggregate.Api.Features.SyndicationFeeds.GetSyndicationFeeds;
 
-public class GetSyndicationFeedsCommandHandler 
-    : ICommandHandler<GetSyndicationFeedsCommand, Result<List<SyndicationFeed>>>
+public class GetSyndicationFeedsCommandHandler : IRequestHandler<GetSyndicationFeedsCommand, Result<List<SyndicationFeed>>>
 {
     private readonly IAggregationService _aggregationService;
+    private readonly IMediator _mediator;
     
-    public GetSyndicationFeedsCommandHandler(IServiceScopeFactory serviceScopeFactory)
+    public GetSyndicationFeedsCommandHandler(IAggregationService aggregationService, IMediator mediator)
     {
-        _aggregationService = serviceScopeFactory.CreateScope().ServiceProvider.GetRequiredService<IAggregationService>();
+        _aggregationService = aggregationService;
+        _mediator = mediator;
     }
     
-    public async Task<Result<List<SyndicationFeed>>> ExecuteAsync(GetSyndicationFeedsCommand command,
+    public async Task<Result<List<SyndicationFeed>>> Handle(GetSyndicationFeedsCommand command,
         CancellationToken cancellationToken)
     {
         Banner.Log($"[GetSyndicationFeedsCommandHandler] - Getting SyndicationFeeds for {command.Feeds.Count} feeds");
-        var syndicationFeedsResults = await _aggregationService.GetSyndicationFeedsFromFeedsAsync(command.Feeds);
+        var syndicationFeedsResults = await _aggregationService
+            .GetSyndicationFeedsFromFeedsAsync(command.Feeds);
 
         var feeds = new List<SyndicationFeed>();
         
@@ -33,10 +34,7 @@ public class GetSyndicationFeedsCommandHandler
             }
         }
         Banner.Log($"[GetSyndicationFeedsCommandHandler] - Got {feeds.Count} SyndicationFeeds");
-        await new GetSyndicationFeedsEvent
-        {
-            SyndicationFeeds = feeds,
-        }.PublishAsync(Mode.WaitForAll, cancellationToken);
+        await _mediator.Publish(new GetSyndicationFeedsEvent { SyndicationFeeds = feeds }, cancellationToken);
         return Result.Ok(feeds);
     }
 }

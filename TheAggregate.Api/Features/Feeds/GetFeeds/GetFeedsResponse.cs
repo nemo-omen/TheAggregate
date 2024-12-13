@@ -1,5 +1,4 @@
 using TheAggregate.Api.Features.Feeds.Types;
-using TheAggregate.Api.Models;
 
 namespace TheAggregate.Api.Features.Feeds.GetFeeds;
 

@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using TheAggregate.Api.Models;
 
@@ -17,8 +16,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<Feed> Feeds { get; set; }
     public DbSet<FeedItem> FeedItems { get; set; }
     public DbSet<UserState> UserStates { get; set; }
-    public DbSet<JobRecord> Jobs { get; set; }
-    
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);

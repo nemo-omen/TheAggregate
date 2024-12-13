@@ -7,7 +7,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="FastEndpoints" Version="5.31.0" />
+        <PackageReference Include="FluentResults" Version="3.16.0" />
+        <PackageReference Include="FluentValidation" Version="11.11.0" />
+        <PackageReference Include="Hangfire" Version="1.8.17" />
+        <PackageReference Include="Hangfire.AspNetCore" Version="1.8.17" />
+        <PackageReference Include="Hangfire.PostgreSql" Version="1.20.10" />
+        <PackageReference Include="MediatR" Version="12.4.1" />
         <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.0" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.0"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.0" />
@@ -15,18 +20,14 @@
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Npgsql" Version="9.0.1" />
-        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.1" />
+        <PackageReference Include="Npgsql" Version="9.0.2" />
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.2" />
         <PackageReference Include="Polly" Version="8.5.0" />
         <PackageReference Include="System.ServiceModel.Syndication" Version="9.0.0" />
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="BackgroundJobs\" />
-      <Folder Include="Shared\Util\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\TheAggregate.Shared\TheAggregate.Shared.csproj" />
     </ItemGroup>
+
 </Project>

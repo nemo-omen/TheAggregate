@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
+using NpgsqlTypes;
 using TheAggregate.Api.Data;
 
 #nullable disable
@@ -13,8 +14,8 @@ using TheAggregate.Api.Data;
 namespace TheAggregate.Api.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241130134959_AddPlainTextContentAndHtmlContentToFeedItem")]
-    partial class AddPlainTextContentAndHtmlContentToFeedItem
+    [Migration("20241213030115_Reinitialize")]
+    partial class Reinitialize
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -163,6 +164,13 @@ namespace TheAggregate.Api.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
+                    b.Property<NpgsqlTsVector>("SearchVector")
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("tsvector")
+                        .HasAnnotation("Npgsql:TsVectorConfig", "english")
+                        .HasAnnotation("Npgsql:TsVectorProperties", new[] { "Title", "Description" });
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(255)
@@ -174,6 +182,18 @@ namespace TheAggregate.Api.Migrations
                         .HasColumnType("character varying(255)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("FeedUrl")
+                        .IsUnique();
+
+                    b.HasIndex("SearchVector");
+
+                    NpgsqlIndexBuilderExtensions.HasMethod(b.HasIndex("SearchVector"), "GIN");
+
+                    b.HasIndex("Title");
+
+                    b.HasIndex("WebUrl")
+                        .IsUnique();
 
                     b.ToTable("Feeds");
                 });
@@ -187,6 +207,10 @@ namespace TheAggregate.Api.Migrations
                     b.Property<string>("Author")
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
+
+                    b.PrimitiveCollection<string[]>("Categories")
+                        .IsRequired()
+                        .HasColumnType("text[]");
 
                     b.Property<Guid>("FeedId")
                         .HasMaxLength(255)
@@ -205,9 +229,15 @@ namespace TheAggregate.Api.Migrations
                     b.Property<DateTime>("Published")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<NpgsqlTsVector>("SearchVector")
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("tsvector")
+                        .HasAnnotation("Npgsql:TsVectorConfig", "english")
+                        .HasAnnotation("Npgsql:TsVectorProperties", new[] { "Title", "Summary" });
+
                     b.Property<string>("Summary")
-                        .HasMaxLength(1023)
-                        .HasColumnType("character varying(1023)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -221,44 +251,16 @@ namespace TheAggregate.Api.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("FeedId");
+
+                    b.HasIndex("SearchVector");
+
+                    NpgsqlIndexBuilderExtensions.HasMethod(b.HasIndex("SearchVector"), "GIN");
+
                     b.HasIndex("FeedId", "Title")
                         .IsUnique();
 
                     b.ToTable("FeedItems");
-                });
-
-            modelBuilder.Entity("TheAggregate.Api.Models.JobRecord", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("CommandJson")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("ExecuteAfter")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime>("ExpireOn")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<bool>("IsComplete")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("QueueID")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("ResultJson")
-                        .HasColumnType("text");
-
-                    b.Property<Guid>("TrackingID")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Jobs");
                 });
 
             modelBuilder.Entity("TheAggregate.Api.Models.UserState", b =>

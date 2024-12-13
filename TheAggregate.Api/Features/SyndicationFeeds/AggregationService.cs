@@ -3,7 +3,7 @@ using FluentResults;
 using TheAggregate.Api.Models;
 using TheAggregate.Shared.Infrastructure;
 
-namespace TheAggregate.Api.Features.FeedAggregation;
+namespace TheAggregate.Api.Features.SyndicationFeeds;
 
 public interface IAggregationService
 {

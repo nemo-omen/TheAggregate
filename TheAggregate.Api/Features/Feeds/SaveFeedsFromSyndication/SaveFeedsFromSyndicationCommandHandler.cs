@@ -1,21 +1,20 @@
-using System.ServiceModel.Syndication;
-using FastEndpoints;
 using FluentResults;
+using MediatR;
 using TheAggregate.Api.Models;
 using TheAggregate.Api.Shared.Util;
 
-namespace TheAggregate.Api.Features.Feeds;
+namespace TheAggregate.Api.Features.Feeds.SaveFeedsFromSyndication;
 
-public class SaveFeedsFromSyndicationCommandHandler : ICommandHandler<SaveFeedsFromSyndicationCommand, List<Result<Feed>>>
+public class SaveFeedsFromSyndicationCommandHandler : IRequestHandler<SaveFeedsFromSyndicationCommand, List<Result<Feed>>>
 {
     private readonly IFeedsService _feedsService;
     
-    public SaveFeedsFromSyndicationCommandHandler(IServiceScopeFactory serviceScopeFactory)
+    public SaveFeedsFromSyndicationCommandHandler(IFeedsService feedsService)
     {
-        _feedsService = serviceScopeFactory.CreateScope().ServiceProvider.GetRequiredService<IFeedsService>();
+        _feedsService = feedsService;
     }
     
-    public async Task<List<Result<Feed>>> ExecuteAsync(SaveFeedsFromSyndicationCommand command, CancellationToken cancellationToken)
+    public async Task<List<Result<Feed>>> Handle(SaveFeedsFromSyndicationCommand command, CancellationToken cancellationToken)
     {
         Banner.Log($"Saving items for {command.SyndicationFeeds.Count()} feeds.");
         var saveResult = await _feedsService.UpdateFeedItemsFromSyndicationAsync(command.SyndicationFeeds);

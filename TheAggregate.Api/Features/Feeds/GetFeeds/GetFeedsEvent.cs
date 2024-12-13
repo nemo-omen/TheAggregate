@@ -1,16 +1,11 @@
-using FastEndpoints;
+using MediatR;
 using TheAggregate.Api.Models;
 
 namespace TheAggregate.Api.Features.Feeds.GetFeeds;
 
-public class GetFeedsEvent : IEvent
+public class GetFeedsEvent : INotification
 {
     public List<Feed> Feeds { get; set; }
-    
-    public GetFeedsEvent()
-    {
-    }
-    
     public GetFeedsEvent(List<Feed> feeds)
     {
         Feeds = feeds;

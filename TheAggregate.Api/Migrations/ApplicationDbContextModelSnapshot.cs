@@ -260,40 +260,6 @@ namespace TheAggregate.Api.Migrations
                     b.ToTable("FeedItems");
                 });
 
-            modelBuilder.Entity("TheAggregate.Api.Models.JobRecord", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("CommandJson")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("ExecuteAfter")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime>("ExpireOn")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<bool>("IsComplete")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("QueueID")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("ResultJson")
-                        .HasColumnType("text");
-
-                    b.Property<Guid>("TrackingID")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Jobs");
-                });
-
             modelBuilder.Entity("TheAggregate.Api.Models.UserState", b =>
                 {
                     b.Property<Guid>("Id")
