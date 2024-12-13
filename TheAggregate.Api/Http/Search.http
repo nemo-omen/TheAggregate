@@ -1,4 +1,4 @@
 ### POST request to api/feeds/search
 @HostAddress = http://localhost:5240
-POST {{HostAddress}}/api/feeds/search?searchTerm=hegseth
+POST {{HostAddress}}/api/feeds/search?searchTerm=dog
 ###

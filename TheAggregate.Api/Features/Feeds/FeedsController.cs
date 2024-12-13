@@ -35,7 +35,7 @@ public class FeedsController : Controller
     [HttpPost("search")]
     [ProducesResponseType<SearchResponse>(200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult<List<FeedItem>>> Search(string searchTerm)
+    public async Task<ActionResult<SearchResponse>> Search(string searchTerm)
     {
         var res = await _mediator.Send(new SearchQuery(searchTerm));
         if(res.IsFailed) return StatusCode(500, res.Errors);
