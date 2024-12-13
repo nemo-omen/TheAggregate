@@ -20,9 +20,9 @@ public class FeedItem : BaseModel
     public DateTime Published { get; set; }
     [MaxLength(255)]
     public string? Author { get; set; }
+    public ICollection<string> Categories { get; set; } = [];
     [MaxLength(255)]
     public Guid FeedId { get; set; }
-    public ICollection<string> Categories { get; set; } = [];
     public Feed Feed { get; set; }
-    public NpgsqlTsVector SearchVector { get; set; }
+    public NpgsqlTsVector? SearchVector { get; set; }
 }

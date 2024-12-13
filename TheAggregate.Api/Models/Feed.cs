@@ -23,5 +23,5 @@ public class Feed : BaseModel
     public string? Language { get; set; }
     public List<string> Categories { get; set; } = [];
     public List<FeedItem> Items { get; set; } = [];
-    public NpgsqlTsVector SearchVector { get; set; }
+    public NpgsqlTsVector? SearchVector { get; set; }
 }

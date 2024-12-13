@@ -1,6 +1,0 @@
-@TheAggregate.ControllerApi_HostAddress = http://localhost:5240
-
-GET {{TheAggregate.ControllerApi_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

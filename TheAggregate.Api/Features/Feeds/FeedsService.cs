@@ -11,6 +11,7 @@ public interface IFeedsService
     Task<Result<Feed>> GetFeedByIdAsync(int id);
     Task<Result<Feed>> GetFeedByFeedUrlAsync(string feedUrl);
     Task<List<Result<Feed>>> UpdateFeedItemsFromSyndicationAsync(List<SyndicationFeed> feeds);
+    Task<Result<List<FeedItem>>> SearchAsync(string searchTerm);
     // Task<Result<Feed>> CreateFeedAsync(Feed feed);
     // Task<Result<Feed>> UpdateFeedAsync(Feed feed);
     // Task<Result<Feed>> DeleteFeedAsync(int id);
@@ -102,4 +103,10 @@ public class FeedsService : IFeedsService
         return feeds;
     }
 
+    public async Task<Result<List<FeedItem>>> SearchAsync(string searchTerm)
+    {
+        var itemsSearchResult = await _feedsRepository.SearchItems(searchTerm);
+        if(itemsSearchResult.IsFailed) return Result.Fail<List<FeedItem>>("Failed to search");
+        return itemsSearchResult.Value;
+    }
 }

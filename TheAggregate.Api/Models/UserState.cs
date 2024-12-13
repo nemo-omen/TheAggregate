@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
 
 namespace TheAggregate.Api.Models;
@@ -5,7 +6,8 @@ namespace TheAggregate.Api.Models;
 [Index(nameof(UserId), nameof(FeedItemId), IsUnique = true)]
 public class UserState : BaseModel
 {
-    public string UserId { get; set; }
+    [MaxLength(255)]
+    public required string UserId { get; set; }
     public Guid FeedItemId { get; set; }
     public bool IsRead { get; set; }
     public bool IsBookmarked { get; set; }

@@ -1,5 +1,9 @@
+using System.Text.Encodings.Web;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using Hangfire;
 using Hangfire.PostgreSql;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TheAggregate.Api.Data;
 using TheAggregate.Api.Features.Feeds;
@@ -8,6 +12,16 @@ using TheAggregate.Api.Jobs;
 using TheAggregate.Api.Shared.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// configure json serialization
+builder.Services.Configure<JsonOptions>(options =>
+{
+    options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    options.JsonSerializerOptions.Encoder = JavaScriptEncoder.Default;
+    options.JsonSerializerOptions.WriteIndented = false;
+    options.JsonSerializerOptions.NumberHandling = JsonNumberHandling.AllowReadingFromString;
+});
 
 // Add services to the container.
 

@@ -1,0 +1,5 @@
+@HostAddress = http://localhost:5240
+
+GET {{HostAddress}}/api/Feeds
+Accept: application/json
+###
