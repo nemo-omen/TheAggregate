@@ -8,7 +8,7 @@ using NpgsqlTypes;
 namespace TheAggregate.Api.Migrations
 {
     /// <inheritdoc />
-    public partial class Reinitialize : Migration
+    public partial class reindex : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -18,7 +18,7 @@ namespace TheAggregate.Api.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "text", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     UserName = table.Column<string>(type: "text", nullable: true),
                     NormalizedUserName = table.Column<string>(type: "text", nullable: true),
                     Email = table.Column<string>(type: "text", nullable: true),
@@ -51,7 +51,7 @@ namespace TheAggregate.Api.Migrations
                     ImageUrl = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: true),
                     Language = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: true),
                     Categories = table.Column<List<string>>(type: "text[]", nullable: false),
-                    SearchVector = table.Column<NpgsqlTsVector>(type: "tsvector", nullable: false)
+                    SearchVector = table.Column<NpgsqlTsVector>(type: "tsvector", nullable: true)
                         .Annotation("Npgsql:TsVectorConfig", "english")
                         .Annotation("Npgsql:TsVectorProperties", new[] { "Title", "Description" })
                 },
@@ -65,7 +65,7 @@ namespace TheAggregate.Api.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    UserId = table.Column<string>(type: "text", nullable: false),
+                    UserId = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     FeedItemId = table.Column<Guid>(type: "uuid", nullable: false),
                     IsRead = table.Column<bool>(type: "boolean", nullable: false),
                     IsBookmarked = table.Column<bool>(type: "boolean", nullable: false),
@@ -110,9 +110,9 @@ namespace TheAggregate.Api.Migrations
                     ImageUrl = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: true),
                     Published = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     Author = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: true),
-                    FeedId = table.Column<Guid>(type: "uuid", maxLength: 255, nullable: false),
                     Categories = table.Column<string[]>(type: "text[]", nullable: false),
-                    SearchVector = table.Column<NpgsqlTsVector>(type: "tsvector", nullable: false)
+                    FeedId = table.Column<Guid>(type: "uuid", maxLength: 255, nullable: false),
+                    SearchVector = table.Column<NpgsqlTsVector>(type: "tsvector", nullable: true)
                         .Annotation("Npgsql:TsVectorConfig", "english")
                         .Annotation("Npgsql:TsVectorProperties", new[] { "Title", "Summary" })
                 },
@@ -165,16 +165,16 @@ namespace TheAggregate.Api.Migrations
                 column: "FeedId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_FeedItems_FeedId_Title",
-                table: "FeedItems",
-                columns: new[] { "FeedId", "Title" },
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_FeedItems_SearchVector",
                 table: "FeedItems",
                 column: "SearchVector")
                 .Annotation("Npgsql:IndexMethod", "GIN");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FeedItems_Title",
+                table: "FeedItems",
+                column: "Title",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Feeds_FeedUrl",

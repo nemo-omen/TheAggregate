@@ -41,13 +41,8 @@ public static class Seeder
             }
             else
             {
-                existingFeed.Title = fSeed.Title;
-                existingFeed.Description = fSeed.Description;
-                existingFeed.WebUrl = fSeed.WebUrl;
-                existingFeed.FeedUrl = fSeed.FeedUrl;
-                existingFeed.ImageUrl = fSeed.ImageUrl;
-                existingFeed.Language = fSeed.Language;
-                existingFeed.Categories = fSeed.Categories;
+                existingFeed.ImageUrl ??= fSeed.ImageUrl;
+                existingFeed.Language ??= fSeed.Language;
             }
         }
         await context.SaveChangesAsync();

@@ -14,8 +14,8 @@ using TheAggregate.Api.Data;
 namespace TheAggregate.Api.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241213030115_Reinitialize")]
-    partial class Reinitialize
+    [Migration("20241214023636_reindex")]
+    partial class reindex
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -52,7 +52,8 @@ namespace TheAggregate.Api.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
 
                     b.Property<string>("NormalizedEmail")
                         .HasColumnType("text");
@@ -165,7 +166,6 @@ namespace TheAggregate.Api.Migrations
                         .HasColumnType("character varying(255)");
 
                     b.Property<NpgsqlTsVector>("SearchVector")
-                        .IsRequired()
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("tsvector")
                         .HasAnnotation("Npgsql:TsVectorConfig", "english")
@@ -230,7 +230,6 @@ namespace TheAggregate.Api.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<NpgsqlTsVector>("SearchVector")
-                        .IsRequired()
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("tsvector")
                         .HasAnnotation("Npgsql:TsVectorConfig", "english")
@@ -257,7 +256,7 @@ namespace TheAggregate.Api.Migrations
 
                     NpgsqlIndexBuilderExtensions.HasMethod(b.HasIndex("SearchVector"), "GIN");
 
-                    b.HasIndex("FeedId", "Title")
+                    b.HasIndex("Title")
                         .IsUnique();
 
                     b.ToTable("FeedItems");
@@ -286,7 +285,8 @@ namespace TheAggregate.Api.Migrations
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
 
                     b.HasKey("Id");
 

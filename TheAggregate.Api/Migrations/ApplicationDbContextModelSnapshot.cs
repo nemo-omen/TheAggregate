@@ -253,7 +253,7 @@ namespace TheAggregate.Api.Migrations
 
                     NpgsqlIndexBuilderExtensions.HasMethod(b.HasIndex("SearchVector"), "GIN");
 
-                    b.HasIndex("FeedId", "Title")
+                    b.HasIndex("Title")
                         .IsUnique();
 
                     b.ToTable("FeedItems");
