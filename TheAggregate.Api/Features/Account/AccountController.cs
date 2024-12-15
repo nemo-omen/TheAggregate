@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using TheAggregate.Api.Features.Account.LoginUser;
 using TheAggregate.Api.Features.Identity.RegisterUser;
-using TheAggregate.Api.Models;
+using TheAggregate.Api.Shared.Types;
 
 namespace TheAggregate.Api.Features.Account;
 
@@ -11,22 +11,15 @@ namespace TheAggregate.Api.Features.Account;
 [AllowAnonymous]
 public class AccountController : Controller
 {
-    private readonly UserManager<ApplicationUser> _userManager;
-    private readonly RoleManager<IdentityRole> _roleManager;
-    private readonly SignInManager<ApplicationUser> _signinManager;
+    private readonly IAccountService _accountService;
 
-    public AccountController(
-        UserManager<ApplicationUser> userManager,
-        RoleManager<IdentityRole> roleManager,
-        SignInManager<ApplicationUser> signinManager)
+    public AccountController(IAccountService accountService)
     {
-        _userManager = userManager;
-        _roleManager = roleManager;
-        _signinManager = signinManager;
+        _accountService = accountService;
     }
 
     [HttpPost("register")]
-    public async Task<ActionResult<ApplicationUser>> Register(RegisterUserRequest request)
+    public async Task<ActionResult<ApiResponse>> Register(RegisterUserRequest request)
     {
         if (!ModelState.IsValid)
         {
@@ -34,50 +27,48 @@ public class AccountController : Controller
                 .SelectMany(v => v.Errors)
                 .Select(e => e.ErrorMessage);
 
-            var errorResponse = new RegisterUserResponse
+            return BadRequest(new ApiResponse
             {
                 Success = false,
                 Errors = errors.ToList(),
-            };
-
-            return BadRequest(errorResponse);
+            });
         }
 
-        var user = new ApplicationUser
-        {
-            Name = request.Name,
-            Email = request.Email,
-            UserName = request.Email
-        };
+        var registerResponse = await _accountService.Register(request);
+        if (!registerResponse.Success) return BadRequest(registerResponse);
+        return Ok(registerResponse);
+    }
 
-        var result = await _userManager.CreateAsync(user, request.Password);
-        if (result.Succeeded)
+    [HttpPost("login")]
+    public async Task<ActionResult<LoginUserResponse>> Login(LoginUserRequest request)
+    {
+        if (!ModelState.IsValid)
         {
-            await _signinManager.SignInAsync(user, isPersistent: false);
-            var successResponse = new RegisterUserResponse
+            var errors = ModelState.Values
+                .SelectMany(v => v.Errors)
+                .Select(e => e.ErrorMessage);
+
+            return BadRequest(new LoginUserResponse
             {
-                Success = true,
-                Message = "User created successfully. Welcome to The Aggregate!"
-            };
-            return Ok(successResponse);
+                Success = false,
+                Errors = errors.ToList(),
+            });
         }
 
-        var failedResponse = new RegisterUserResponse
-        {
-            Success = false,
-            Errors = result.Errors.Select(e => e.Description).ToList()
-        };
-        return BadRequest(failedResponse);
+        var loginResponse = await _accountService.Login(request);
+        if(!loginResponse.Success) return BadRequest(loginResponse);
+        return Ok(loginResponse);
+    }
+
+    [HttpGet("logout")]
+    public async Task<ActionResult<ApiResponse>> Logout()
+    {
+        return Ok(await _accountService.Logout());
     }
 
     [HttpGet]
     public async Task<IActionResult> IsEmailRegistered(string email)
     {
-        var user = await _userManager.FindByEmailAsync(email);
-        if (user is null)
-        {
-            return Ok(true);
-        }
-        return Ok(false);
+        return Ok(await _accountService.IsEmailRegistered(email));
     }
 }
