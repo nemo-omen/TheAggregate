@@ -3,12 +3,15 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using Hangfire;
 using Hangfire.PostgreSql;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TheAggregate.Api.Data;
 using TheAggregate.Api.Features.Feeds;
 using TheAggregate.Api.Features.SyndicationFeeds;
 using TheAggregate.Api.Jobs;
+using TheAggregate.Api.Models;
 using TheAggregate.Api.Shared.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,9 +19,12 @@ var builder = WebApplication.CreateBuilder(args);
 // configure json serialization
 builder.Services.Configure<JsonOptions>(options =>
 {
+    // maps PascalCase .NET property keys to camelCase json keys
     options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+    // protect from infinite loops in json parent->child relationships
     options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
     options.JsonSerializerOptions.Encoder = JavaScriptEncoder.Default;
+    // turn off json indentation to save space
     options.JsonSerializerOptions.WriteIndented = false;
     options.JsonSerializerOptions.NumberHandling = JsonNumberHandling.AllowReadingFromString;
 });
@@ -26,6 +32,7 @@ builder.Services.Configure<JsonOptions>(options =>
 // Add services to the container.
 
 builder.Services.AddControllers();
+
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
@@ -63,6 +70,18 @@ builder.Services.AddHangfireServer(options => { options.SchedulePollingInterval 
 
 builder.Services.AddScoped<AggregationPipelineJob>();
 
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+{
+    options.Password.RequiredLength = 8;
+    options.Password.RequireNonAlphanumeric = true;
+    options.Password.RequireUppercase = true;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireDigit = true;
+})
+.AddEntityFrameworkStores<ApplicationDbContext>()
+.AddDefaultTokenProviders()
+.AddUserStore<UserStore<ApplicationUser, IdentityRole, ApplicationDbContext>>();
+
 var app = builder.Build();
 
 await Seeder.SeedAsync(app.Services);
@@ -74,11 +93,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseRouting();
+app.UseCors();
+app.UseAuthentication();
 app.UseAuthorization();
-
 app.UseHangfireDashboard();
-
 app.MapControllers();
-
 app.Run();

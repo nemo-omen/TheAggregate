@@ -5,7 +5,7 @@ using NpgsqlTypes;
 namespace TheAggregate.Api.Models;
 
 [Index(nameof(FeedId))]
-[Index(nameof(Title), IsUnique = true)]
+[Index(nameof(Title))]
 public class FeedItem : BaseModel
 {
     [MaxLength(255)]

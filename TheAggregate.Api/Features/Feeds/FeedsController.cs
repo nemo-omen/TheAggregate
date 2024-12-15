@@ -5,7 +5,7 @@ using TheAggregate.Api.Features.Feeds.Search;
 using TheAggregate.Api.Features.Feeds.Types;
 using TheAggregate.Api.Models;
 
-namespace TheAggregate.Api.Features.Feeds;
+namespace TheAggregate.Api.Features.Feeds.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
