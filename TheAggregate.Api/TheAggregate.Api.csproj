@@ -39,6 +39,9 @@
     <ItemGroup>
       <_ContentIncludedByDefault Remove="Features\Feeds\Pages\Index.cshtml" />
       <_ContentIncludedByDefault Remove="Features\Feeds\Views\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Shared\_Layout.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\_ViewImports.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\_ViewStart.cshtml" />
     </ItemGroup>
 
     <ItemGroup>

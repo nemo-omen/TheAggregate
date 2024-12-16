@@ -4,5 +4,4 @@ public record AuthenticationResponse : ApiResponse
 {
     public string? Token { get; init; }
     public DateTime Expiration { get; init; }
-    public string? Email { get; init; }
 }

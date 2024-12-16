@@ -3,9 +3,8 @@ POST http://localhost:5050/api/account/register
 Content-Type: application/json
 
 {
-  "name": "Jeff Caldwell",
-  "email": "jeff.caldwell@intellivega.com",
-  "password": "Password123!",
-  "passwordConfirmation": "Password123!"
+  "name": "Mister Test",
+  "email": "test@test.com",
+  "password": "Password123!"
 }
 ###

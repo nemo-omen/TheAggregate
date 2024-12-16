@@ -95,8 +95,8 @@ public class AccountService : IAccountService
         return new LoginUserResponse
         {
             Success = true,
-            Message = "User logged in. Welcome back to The Aggregate!",
-            Data = new UserDto { Name = user.Name, Email = user.UserName! }
+            Message = "User logged in.",
+            User = user
         };
     }
 

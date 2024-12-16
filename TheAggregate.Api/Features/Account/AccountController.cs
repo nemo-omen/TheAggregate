@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TheAggregate.Api.Features.Account.LoginUser;
 using TheAggregate.Api.Features.Identity.RegisterUser;
+using TheAggregate.Api.Shared.Services;
 using TheAggregate.Api.Shared.Types;
 
 namespace TheAggregate.Api.Features.Account;
@@ -11,11 +12,13 @@ namespace TheAggregate.Api.Features.Account;
 [AllowAnonymous]
 public class AccountController : Controller
 {
+    private readonly IJwtService _jwtService;
     private readonly IAccountService _accountService;
 
-    public AccountController(IAccountService accountService)
+    public AccountController(IAccountService accountService, IJwtService jwtService)
     {
         _accountService = accountService;
+        _jwtService = jwtService;
     }
 
     [HttpPost("register")]
@@ -40,7 +43,7 @@ public class AccountController : Controller
     }
 
     [HttpPost("login")]
-    public async Task<ActionResult<LoginUserResponse>> Login(LoginUserRequest request)
+    public async Task<ActionResult<AuthenticationResponse>> Login(LoginUserRequest request)
     {
         if (!ModelState.IsValid)
         {
@@ -57,7 +60,21 @@ public class AccountController : Controller
 
         var loginResponse = await _accountService.Login(request);
         if(!loginResponse.Success) return BadRequest(loginResponse);
-        return Ok(loginResponse);
+        if(loginResponse.User is null) return BadRequest(loginResponse);
+        try
+        {
+            var tokenResponse = _jwtService.MakeToken(loginResponse.User);
+            if (!tokenResponse.Success) return BadRequest(tokenResponse);
+            return Ok(tokenResponse);
+        }
+        catch (Exception e)
+        {
+            return StatusCode(500, new AuthenticationResponse
+            {
+                Success = false,
+                Errors = [e.Message]
+            });
+        }
     }
 
     [HttpGet("logout")]

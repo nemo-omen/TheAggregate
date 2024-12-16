@@ -30,12 +30,14 @@ public class JwtService : IJwtService
         byte[] key;
         if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
         {
-            key = Encoding.UTF8.GetBytes(_configuration.GetValue<string>("Jwt:Key"));
+            key = Encoding.UTF8.GetBytes(_configuration.GetValue<string>("Jwt:Key") ??
+                                         throw new InvalidOperationException());
         }
         else
         {
             //TODO: Some key storage API/SDK call here
-            key = Encoding.UTF8.GetBytes(_configuration.GetValue<string>("Jwt:Key"));
+            key = Encoding.UTF8.GetBytes(_configuration.GetValue<string>("Jwt:Key") ??
+                                         throw new InvalidOperationException());
         }
 
         var claims = new Claim[]
@@ -67,10 +69,10 @@ public class JwtService : IJwtService
         var tokenString = new JwtSecurityTokenHandler().WriteToken(tokenGenerator);
         return new AuthenticationResponse
         {
+            Expiration = expiration,
             Success = true,
-            Message = "Success generating JWT token",
+            Message = "User successfully authorized with. Welcome back to The Aggregate!",
             Token = tokenString,
-            Email = user.Email!
         };
     }
 }
