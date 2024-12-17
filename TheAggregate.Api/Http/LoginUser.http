@@ -1,9 +1,0 @@
-### POST request to register user
-POST http://localhost:5050/api/account/login
-Content-Type: application/json
-
-{
-  "email": "jeff.caldwell@intellivega.com",
-  "password": "Password123!"
-}
-###

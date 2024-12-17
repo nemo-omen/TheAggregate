@@ -71,7 +71,7 @@ public class JwtService : IJwtService
         {
             Expiration = expiration,
             Success = true,
-            Message = "User successfully authorized with. Welcome back to The Aggregate!",
+            Message = "User successfully authorized. Welcome back to The Aggregate!",
             Token = tokenString,
         };
     }

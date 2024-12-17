@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TheAggregate.Api.Data;
+using TheAggregate.Api.Features.Account;
 using TheAggregate.Api.Features.Feeds;
 using TheAggregate.Api.Features.SyndicationFeeds;
 using TheAggregate.Api.Jobs;
@@ -39,11 +40,11 @@ builder.Services.AddOpenApi();
 builder.Services.AddMediatR(config =>
     config.RegisterServicesFromAssemblies(typeof(Program).Assembly));
 
-// builder.Services.AddTransient<IJwtService, JwtService>();
+builder.Services.AddTransient<IJwtService, JwtService>();
 builder.Services.AddScoped<IFeedsRepository, FeedsRepository>();
 builder.Services.AddScoped<IFeedsService, FeedsService>();
 builder.Services.AddScoped<IAggregationService, AggregationService>();
-// builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddHostedService<PipelineInitializerHostedService>();
 
 string connectionString;

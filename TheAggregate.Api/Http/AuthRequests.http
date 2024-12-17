@@ -1,0 +1,31 @@
+@HostAddress = https://localhost:7070
+
+### POST request to register user
+# @name Register
+POST {{HostAddress}}/api/account/register
+Content-Type: application/json
+
+{
+  "name": "Mister Test",
+  "email": "test@test.com",
+  "password": "Password123!",
+  "passwordConfirmation": "Password123!"
+}
+###
+
+### POST request to log in user
+# @name Login
+POST {{HostAddress}}/api/account/login
+Content-Type: application/json
+
+{
+  "email": "test@test.com",
+  "password": "Password123!"
+}
+###
+
+### GET request to logout user
+# @name Logout
+GET {{HostAddress}}/api/Account/logout
+Accept: application/json
+###
