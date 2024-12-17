@@ -20,5 +20,40 @@ module.exports = {
     },
   },
   darkMode: "class",
-  plugins: [nextui()],
+  plugins: [nextui({
+    themes: {
+      light: {
+        colors: {
+          primary: {
+            DEFAULT: "#0891b2",
+            foreground: "#f1f5f9"
+          },
+          background: "#f1f5f9"
+        },
+        layout: {
+          radius: {
+            small: "2px",
+            medium: "4px",
+            large: "6px"
+          }
+        }
+      },
+      dark: {
+        colors: {
+          primary: {
+            DEFAULT: "#22d3ee",
+            foreground: "#020617"
+          },
+          background: "#020617"
+        },
+        layout: {
+          radius: {
+            small: "0.125rem",
+            medium: "0.25rem",
+            large: "0.375rem"
+          }
+        }
+      },
+    },
+  })],
 }
