@@ -37,7 +37,7 @@ export async function loginAction(formData: FormData) {
     let response: Response;
     try {
         console.log({apiBaseAddress});
-        response = await fetch(`${apiBaseAddress}/account/login`, {
+        response = await fetch(`${apiBaseAddress}/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -57,16 +57,23 @@ export async function loginAction(formData: FormData) {
     }
 
     const data = await response.json();
-    const maxAge = Date.parse(data.expiration).valueOf() - Date.now().valueOf();
-    console.log(maxAge);
+    console.log({data});
     cookieStore.set({
         name: 'token',
-        value: data.token,
+        value: data.accessToken,
         httpOnly: true,
         path: '/',
         sameSite: 'strict',
         secure: true,
-        maxAge: maxAge,
+        maxAge: data.expiresIn,
     });
+    cookieStore.set({
+        name: 'refreshToken',
+        value: data.refreshToken,
+        httpOnly: true,
+        path: '/',
+        sameSite: 'strict',
+        secure: true,
+    })
     return data;
 }
