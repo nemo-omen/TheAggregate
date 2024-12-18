@@ -1,6 +1,7 @@
 import { Link } from "@nextui-org/link";
 import { button as buttonStyles } from "@nextui-org/theme";
 import RegisterModal from "@/components/RegisterModal";
+import LoginForm from "@/components/LoginForm";
 
 export default function Home() {
   return (
@@ -13,7 +14,7 @@ export default function Home() {
       </div>
 
       <div className="flex gap-3">
-        <RegisterModal fontWeight="semibold" buttonSize={"md"}/>
+        <RegisterModal fontWeight="semibold" buttonSize="md"/>
         <Link
           isExternal={false}
           className={buttonStyles({ variant: "bordered", color: "primary" }) + " font-semibold btn"}

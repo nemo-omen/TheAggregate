@@ -50,6 +50,7 @@
 
     <ItemGroup>
       <Folder Include="Features\Account\RefreshToken\" />
+      <Folder Include="Features\Account\Types\" />
       <Folder Include="Features\Account\VerifyToken\" />
       <Folder Include="Features\Feeds\SubscribeToFeed\" />
     </ItemGroup>

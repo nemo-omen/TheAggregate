@@ -27,6 +27,7 @@ import {
 } from "@/components/icons";
 import LoginModal from "@/components/LoginModal";
 import RegisterModal from "@/components/RegisterModal";
+import LoginForm from "@/components/LoginForm";
 
 export const Navbar = () => {
     const searchInput = (
@@ -85,17 +86,9 @@ export const Navbar = () => {
                 justify="end"
             >
                 <NavbarItem>
-                    <LoginModal />
-                    {/*<NextLink*/}
-                    {/*    className={clsx(*/}
-                    {/*        linkStyles({color: "foreground"}),*/}
-                    {/*        "data-[active=true]:text-primary data-[active=true]:font-medium",*/}
-                    {/*    )}*/}
-                    {/*    color="foreground"*/}
-                    {/*    href="/auth/login"*/}
-                    {/*>*/}
-                    {/*    Log in*/}
-                    {/*</NextLink>*/}
+                    <LoginModal>
+                        <LoginForm fontWeight={"semibold"} />
+                    </LoginModal>
                 </NavbarItem>
                 <NavbarItem>
                     <RegisterModal fontWeight="semibold" buttonSize="sm" />

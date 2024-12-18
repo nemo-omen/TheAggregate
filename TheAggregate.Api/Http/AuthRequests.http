@@ -1,13 +1,13 @@
-@HostAddress = https://localhost:7070
+@HostAddress = http://localhost:5050
 
 ### POST request to register user
 # @name Register
-POST {{HostAddress}}/api/account/register
+POST {{HostAddress}}/register
 Content-Type: application/json
 
 {
-  "name": "Mister Test",
-  "email": "test@test.com",
+  "name": "Jeff Caldwell",
+  "email": "jeff.caldwell@intellivega.com",
   "password": "Password123!",
   "passwordConfirmation": "Password123!"
 }
@@ -15,17 +15,17 @@ Content-Type: application/json
 
 ### POST request to log in user
 # @name Login
-POST {{HostAddress}}/api/account/login
+POST {{HostAddress}}/login
 Content-Type: application/json
 
 {
-  "email": "test@test.com",
+  "email": "jeff.caldwell@intellivega.com",
   "password": "Password123!"
 }
 ###
 
 ### GET request to logout user
 # @name Logout
-GET {{HostAddress}}/api/Account/logout
+GET {{HostAddress}}/logout
 Accept: application/json
 ###

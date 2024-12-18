@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using TheAggregate.Api.Data;
 using TheAggregate.Api.Features.Account;
 using TheAggregate.Api.Features.Feeds;
+using TheAggregate.Api.Features.Identity;
 using TheAggregate.Api.Features.SyndicationFeeds;
 using TheAggregate.Api.Jobs;
 using TheAggregate.Api.Models;
@@ -73,18 +74,46 @@ builder.Services.AddHangfireServer(options => { options.SchedulePollingInterval 
 
 builder.Services.AddScoped<AggregationPipelineJob>();
 
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
-{
-    options.Password.RequiredLength = 8;
-    options.Password.RequireNonAlphanumeric = true;
-    options.Password.RequireUppercase = true;
-    options.Password.RequireLowercase = true;
-    options.Password.RequireDigit = true;
-})
-.AddEntityFrameworkStores<ApplicationDbContext>()
-.AddDefaultTokenProviders()
-.AddUserStore<UserStore<ApplicationUser, IdentityRole, ApplicationDbContext>>();
+// builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+// {
+//     options.Password.RequiredLength = 8;
+//     options.Password.RequireNonAlphanumeric = true;
+//     options.Password.RequireUppercase = true;
+//     options.Password.RequireLowercase = true;
+//     options.Password.RequireDigit = true;
+// })
+// .AddEntityFrameworkStores<ApplicationDbContext>()
+// .AddDefaultTokenProviders()
+// .AddUserStore<UserStore<ApplicationUser, IdentityRole, ApplicationDbContext>>();
 
+// auth endpoints, customized during middleware
+// configuration later in this file
+builder.Services.AddIdentityApiEndpoints<ApplicationUser>(options =>
+    {
+        options.Password.RequiredLength = 8;
+        options.Password.RequireNonAlphanumeric = true;
+        options.Password.RequireUppercase = true;
+        options.Password.RequireLowercase = true;
+        options.Password.RequireDigit = true;
+    })
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<ApplicationDbContext>();
+
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<IUserResolverService, UserResolverService>();
+builder.Services.AddAuthentication();
+builder.Services.AddAuthorization();
+
+var OnlyAllowLocalhostOrigins = "_onlyAllowLocalhostOrigins";
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: OnlyAllowLocalhostOrigins,
+        policy =>
+        {
+            policy.WithOrigins("http://localhost");
+        });
+});
 
 var app = builder.Build();
 
@@ -97,10 +126,26 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseRouting();
 app.UseCors();
 app.UseAuthentication();
 app.UseAuthorization();
+app.CustomMapIdentityApi<ApplicationUser>()
+    .RequireCors(OnlyAllowLocalhostOrigins);
 app.UseHangfireDashboard();
 app.MapControllers();
+
+app.MapPost("/logout", async (SignInManager<ApplicationUser> signInManager,
+        [FromBody] object empty) =>
+    {
+        if (empty != null)
+        {
+            await signInManager.SignOutAsync();
+            return Results.Ok();
+        }
+        return Results.Unauthorized();
+    })
+    .WithOpenApi()
+    .RequireAuthorization()
+    .RequireCors(OnlyAllowLocalhostOrigins);
+
 app.Run();
