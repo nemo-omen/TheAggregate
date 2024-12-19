@@ -2,8 +2,10 @@ import { Link } from "@nextui-org/link";
 import { button as buttonStyles } from "@nextui-org/theme";
 import RegisterModal from "@/components/RegisterModal";
 import LoginForm from "@/components/LoginForm";
+import { flattenSvg } from "@/lib/util/flattenSvg";
 
 export default function Home() {
+    // async () => await flattenSvg();
   return (
     <section className="flex flex-col items-center justify-center gap-8 py-8 md:py-10">
       <div className="flex flex-col gap-8 max-w-4xl text-center justify-center">

@@ -1,7 +1,10 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TheAggregate.Api.Features.Account.LoginUser;
+using TheAggregate.Api.Features.Account.Types;
 using TheAggregate.Api.Features.Identity.RegisterUser;
+using TheAggregate.Api.Models;
+using TheAggregate.Api.Shared.Exceptions;
 using TheAggregate.Api.Shared.Services;
 using TheAggregate.Api.Shared.Types;
 
@@ -77,15 +80,39 @@ public class AccountController : Controller
         }
     }
 
-    [HttpGet("logout")]
-    public async Task<ActionResult<ApiResponse>> Logout()
+    [HttpGet("user")]
+    [Authorize]
+    public async Task<ActionResult<ApiResponse<UserWithRolesResponse>>> GetUser()
     {
-        return Ok(await _accountService.Logout());
-    }
+        ApplicationUser? user = null;
+        try
+        {
+            user = await _accountService.GetUser();
+        }
+        catch (NotFoundException e)
+        {
+            NotFound(new ApiResponse
+            {
+                Success = false,
+                Message = "User not found."
+            });
+        }
 
-    [HttpGet]
-    public async Task<IActionResult> IsEmailRegistered(string email)
-    {
-        return Ok(await _accountService.IsEmailRegistered(email));
+        if(user is null) return NotFound(new ApiResponse
+        {
+            Success = false,
+            Message = "User not found."
+        });
+
+        return Ok(new ApiResponse<UserWithRolesResponse>
+        {
+            Success = true,
+            Data = new UserWithRolesResponse
+            {
+                Email = user.Email!,
+                Name = user.Name,
+                Roles = [] // TODO: get roles
+            }
+        });
     }
 }

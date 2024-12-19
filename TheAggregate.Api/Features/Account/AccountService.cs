@@ -2,12 +2,14 @@ using Microsoft.AspNetCore.Identity;
 using TheAggregate.Api.Features.Account.LoginUser;
 using TheAggregate.Api.Features.Identity.RegisterUser;
 using TheAggregate.Api.Models;
+using TheAggregate.Api.Shared.Exceptions;
 using TheAggregate.Api.Shared.Types;
 
 namespace TheAggregate.Api.Features.Account;
 
 public interface IAccountService
 {
+    Task<ApplicationUser> GetUser();
     Task<bool> IsEmailRegistered(string email);
     Task<ApiResponse> Register(RegisterUserRequest request);
     Task<LoginUserResponse> Login(LoginUserRequest request);
@@ -19,13 +21,26 @@ public class AccountService : IAccountService
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly RoleManager<IdentityRole> _roleManager;
     private readonly SignInManager<ApplicationUser> _signinManager;
-
+    private readonly IHttpContextAccessor _httpContextAccessor;
     public AccountService(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager,
-        SignInManager<ApplicationUser> signinManager)
+        SignInManager<ApplicationUser> signinManager, IHttpContextAccessor httpContextAccessor)
     {
         _userManager = userManager;
         _roleManager = roleManager;
         _signinManager = signinManager;
+        _httpContextAccessor = httpContextAccessor;
+    }
+
+    public async Task<ApplicationUser> GetUser()
+    {
+        var ctx = _httpContextAccessor.HttpContext;
+        var sessionIdName = ctx.User.Identity.Name;
+        var ctxUser = await _userManager.FindByEmailAsync(sessionIdName);
+        if (ctxUser is null)
+        {
+            throw new NotFoundException("User not found.");
+        }
+        return ctxUser;
     }
 
     public async Task<bool> IsEmailRegistered(string email)

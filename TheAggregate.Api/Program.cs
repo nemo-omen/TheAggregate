@@ -40,6 +40,7 @@ builder.Services.AddOpenApi();
 
 builder.Services.AddMediatR(config =>
     config.RegisterServicesFromAssemblies(typeof(Program).Assembly));
+builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddTransient<IJwtService, JwtService>();
 builder.Services.AddScoped<IFeedsRepository, FeedsRepository>();
