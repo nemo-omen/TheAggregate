@@ -1,0 +1,50 @@
+.container {
+    width: min(70rem, 100%);
+    margin: 0 auto;
+}
+
+header nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    /*background-color: var(--background-2);*/
+}
+
+nav menu {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+
+    & li {
+        margin: 0;
+    }
+
+    & li a {
+        font-weight: 600;
+        color: var(--text-body);
+    }
+
+    & li a:hover {
+        color: var(--link-hover-color);
+    }
+}
+
+a {
+    text-decoration: none;
+    line-height: 1;
+    transition: var(--transition-default);
+    color: var(--link-color);
+}
+
+button {
+    padding: 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 0.25rem;
+    background-color: var(--background-3);
+    color: var(--text-body);
+    cursor: pointer;
+}

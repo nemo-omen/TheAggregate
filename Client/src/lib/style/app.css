@@ -1,0 +1,41 @@
+@import 'colors.css';
+@import 'components.css';
+
+:root {
+  --transition-default: 200ms ease-in;
+  --sans: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif;
+  --serif: Iowan Old Style, Apple Garamond, Baskerville, Times New Roman, Droid Serif, Times, Source Serif Pro, serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+  --mono: Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  transition: color var(--transition-default), background-color var(--transition-default);
+  background-color: var(--background-1);
+  font-family: var(--sans);
+}
+
+.bg-transparent {
+  background-color: transparent;
+}
+
+.border-none {
+  border-color: transparent;
+  border: none;
+}
+
+.outline-hidden {
+  outline: 1px solid transparent;
+  box-shadow: unset;
+}
+
+.icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: currentColor;
+  transition: var(--transition-default);
+}
