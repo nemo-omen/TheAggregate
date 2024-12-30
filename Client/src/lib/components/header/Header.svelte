@@ -65,7 +65,7 @@
       </li>
     </menu>
     <menu id="nav-menu" bind:this={navMenu}>
-      <li class="flex justify-end"><button class="icon-btn" onclick={toggleNavMenu}><X /></button></li>
+      <li class="flex justify-end" id="mobile-nav-menu-toggle"><button class="icon-btn" onclick={toggleNavMenu}><X /></button></li>
       <li><a href="/">Home</a></li>
       <li><a href="/features">Features</a></li>
 <!--      <li><a href="/design-system">Design System</a></li>-->
@@ -146,7 +146,7 @@
       }
   }
 
-  #header-nav-toggle-btn {
+  #header-nav-toggle-btn, #mobile-nav-menu-toggle {
       display: block;
 
       @media(min-width: 850px) {
