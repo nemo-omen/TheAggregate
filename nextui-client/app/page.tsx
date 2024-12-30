@@ -19,7 +19,7 @@ export default function Home() {
         <RegisterModal fontWeight="semibold" buttonSize="md"/>
         <Link
           isExternal={false}
-          className={buttonStyles({ variant: "bordered", color: "primary" }) + " font-semibold btn"}
+          className={buttonStyles({ variant: "bordered", color: "primary" }) + " font-semibold button"}
           href="/features"
         >
           See the Features

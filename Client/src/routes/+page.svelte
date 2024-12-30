@@ -1,1 +1,57 @@
-<script lang="ts"></script>
+<script lang="ts">
+  import RegisterModal from '$lib/components/modal/RegisterModal.svelte';
+  import LoginModal from '$lib/components/modal/LoginModal.svelte';
+  import { getContext } from 'svelte';
+  import type { RegisterModalState } from '$lib/state/modalState.svelte';
+
+  let registerModalState: RegisterModalState = getContext('registerModalState');
+  let registerModal: RegisterModal;
+  let loginModal: LoginModal;
+  let { data, form } = $props();
+
+</script>
+
+<main class="container">
+  <div class="hero stack">
+    <h1>Make Your News <br><mark>Personal</mark></h1>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nunc sem, dictum vel elit sed, efficitur tristique turpis. Nunc a gravida metus.
+    </p>
+    <div class="container-small flex justify-center align-center gap-4">
+      <button class="button button-primary" onclick={() => registerModalState.toggle()}>Get Started</button>
+      <a href="/features" class="btn-secondary">Learn More</a>
+    </div>
+  </div>
+
+  <RegisterModal bind:this={registerModal} {form} />
+  <LoginModal bind:this={loginModal} {form} />
+</main>
+
+<style>
+  .hero {
+    align-items: center;
+      gap: calc(var(--gap-8) * 2);
+  }
+  h1 {
+      font-size: var(--step-6);
+      font-weight: var(--font-weight-extrabold);
+      text-align: center;
+      line-height: 1.2;
+      margin-bottom: 0;
+
+      & mark {
+          background-color: transparent;
+          color: currentColor;
+          text-decoration: underline;
+          text-decoration-color: var(--primary-color);
+          text-decoration-thickness: var(--step--2);
+          text-underline-offset: var(--step--2);
+      }
+  }
+  p {
+      font-size: var(--step-2);
+      max-width: 55ch;
+      text-align: center;
+      margin: 0;
+  }
+</style>

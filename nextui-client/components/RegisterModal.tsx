@@ -18,7 +18,7 @@ export default function RegisterModal({fontWeight = "semibold", buttonSize = "sm
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
     return (
         <>
-            <Button className={`text-md btn font-${fontWeight}`} size={buttonSize} variant="solid" color="primary" onPress={onOpen}>Create an Account</Button>
+            <Button className={`text-md button font-${fontWeight}`} size={buttonSize} variant="solid" color="primary" onPress={onOpen}>Create an Account</Button>
             <Modal isOpen={isOpen} onClose={onOpenChange} size="2xl" radius="md" className="bg-slate-950 shadow shadow-xl border border-slate-800 hover:border-slate-700 transition transition-colors duration-200">
                 <ModalContent>
                     {(onClose) => (
@@ -57,7 +57,7 @@ export default function RegisterModal({fontWeight = "semibold", buttonSize = "sm
                                         />
                                     </div>
                                     <div className="flex flex-col items-stretch text-center gap-4 w-full">
-                                        <Button className={`w-full text-lg btn font-${fontWeight}`} color="primary" type="submit"
+                                        <Button className={`w-full text-lg button font-${fontWeight}`} color="primary" type="submit"
                                                 variant="solid">Sign Up</Button>
                                         <div className="flex flex-col gap-2 items-center">
                                             <span className="text-sm">Already have an account?</span>

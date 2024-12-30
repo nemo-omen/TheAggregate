@@ -1,11 +1,22 @@
+@import 'reset.css';
 @import 'colors.css';
+@import 'spacing.css';
+@import 'borders.css';
+@import 'shadows.css';
+@import 'type.css';
+@import 'forms.css';
+@import 'util.css';
 @import 'components.css';
+
+/*@import 'sugar.css';*/
 
 :root {
   --transition-default: 200ms ease-in;
   --sans: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif;
   --serif: Iowan Old Style, Apple Garamond, Baskerville, Times New Roman, Droid Serif, Times, Source Serif Pro, serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
   --mono: Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace;
+
+  --layout-spacing: calc(var(--space-8) * 2);
 }
 
 *, *::before, *::after {
@@ -16,6 +27,18 @@ html, body {
   transition: color var(--transition-default), background-color var(--transition-default);
   background-color: var(--background-1);
   font-family: var(--sans);
+  color: var(--text-body);
+  padding: 0;
+  margin: 0;
+}
+
+body {
+    min-height: 100vh;
+}
+
+main {
+  margin-top: var(--layout-spacing);
+  padding-block-end: var(--space-8);
 }
 
 .bg-transparent {

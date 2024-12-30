@@ -59,7 +59,7 @@ export default function LoginForm({fontWeight = 'semibold'}: {fontWeight: string
                     radius="md"
                 />
             </div>
-            <Button className={`w-full text-lg btn font-${fontWeight}`} color="primary" type="submit"
+            <Button className={`w-full text-lg button font-${fontWeight}`} color="primary" type="submit"
                     variant="solid">Log In</Button>
             <div className="flex flex-col items-stretch text-center gap-4 w-full">
                 <div className="flex flex-col gap-2 items-center">

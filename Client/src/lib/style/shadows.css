@@ -1,0 +1,39 @@
+:root {
+    --shadow-1-light: 0.125rem 0.125rem 0.25rem rgb(0 0 0 / 0.125);
+    --shadow-1-hover-light: 0.25rem 0.25rem 0.75rem rgb(0 0 0 / 0.125);
+    --shadow-2-light: 0.5rem 0.5rem 1rem rgb(0 0 0 / 0.1);
+
+    --shadow-1-dark: 0.125rem 0.125rem 0.125rem rgb(0 0 0 / 0.3);
+    --shadow-1-hover-dark: 0.5rem 0.5rem 0.75rem rgb(0 0 0 / 0.2);
+    --shadow-2-dark: 0.5rem 0.5rem 1rem rgb(0 0 0 / 0.4);
+
+    --shadow-1: var(--shadow-1-light);
+    --shadow-2: var(--shadow-2-light);
+
+    --card-shadow: var(--shadow-1-light);
+    --card-hover-shadow: var(--shadow-1-hover-light);
+}
+
+@media(prefers-color-scheme: dark) {
+    :root {
+        --shadow-1: var(--shadow-1-dark);
+        --shadow-2: var(--shadow-2-dark);
+        --card-shadow: var(--shadow-1-dark);
+        --card-hover-shadow: var(--shadow-1-hover-dark);
+    }
+}
+
+html[data-theme='dark'] {
+    --shadow-1: var(--shadow-1-dark);
+    --shadow-2: var(--shadow-2-dark);
+    --card-shadow: var(--shadow-1-dark);
+    --card-hover-shadow: var(--shadow-1-hover-dark);
+}
+
+html[data-theme='light'] {
+    --shadow-1: var(--shadow-1-light);
+    --shadow-2: var(--shadow-2-light);
+
+    --card-shadow: var(--shadow-1-light);
+    --card-hover-shadow: var(--shadow-1-hover-light);
+}

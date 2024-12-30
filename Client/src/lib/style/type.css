@@ -1,0 +1,130 @@
+:root {
+    --step--2: clamp(0.7813rem, 0.7747rem + 0.0326vw, 0.8rem);
+    --step--1: clamp(0.9375rem, 0.9158rem + 0.1087vw, 1rem);
+    --step-0: clamp(1.125rem, 1.0815rem + 0.2174vw, 1.25rem);
+    --step-1: clamp(1.35rem, 1.2761rem + 0.3696vw, 1.5625rem);
+    --step-2: clamp(1.62rem, 1.5041rem + 0.5793vw, 1.9531rem);
+    --step-3: clamp(1.944rem, 1.771rem + 0.8651vw, 2.4414rem);
+    --step-4: clamp(2.3328rem, 2.0827rem + 1.2504vw, 3.0518rem);
+    --step-5: clamp(2.7994rem, 2.4462rem + 1.7658vw, 3.8147rem);
+    --step-6: clamp(3.3592rem, 2.8691rem + 2.4507vw, 4.7684rem);
+    --step-7: clamp(4.0311rem, 3.36rem + 3.3555vw, 5.9605rem);
+    --step-8: clamp(4.8373rem, 3.9283rem + 4.5448vw, 7.4506rem);
+
+    --font-size-body: var(--step-0);
+    --font-size-small: var(--step--1);
+    --font-size-large: var(--step-1);
+    --font-size-h1: var(--step-3);
+    --font-size-h2: var(--step-2);
+    --font-size-h3: var(--step-1);
+    --font-size-h4: var(--step-0);
+
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+    --font-weight-extrabold: 800;
+}
+
+body {
+    font-size: var(--font-size-body);
+}
+
+a {
+    color: var(--link-color);
+    text-decoration: none;
+    transition: color var(--transition-default);
+}
+
+a:not(.button):hover {
+    color: var(--link-hover-color);
+}
+
+h1, h2, h3, h4 {
+    font-weight: var(--font-weight-bold);
+    letter-spacing: 0.04em;
+}
+
+h1, .h1 {
+    font-size: var(--font-size-h1);
+}
+
+h2, .h2 {
+    font-size: var(--font-size-h2);
+}
+
+h3, .h3 {
+    font-size: var(--font-size-h3);
+}
+
+h4, .h4 {
+    font-size: var(--font-size-h4);
+}
+
+p, label {
+    font-size: var(--font-size-body);
+    font-weight: var(--font-weight-normal);
+}
+
+input, button, textarea, select {
+    font-size: inherit;
+    font-family: inherit;
+}
+
+textarea:not([rows]) {
+    min-height: 10em;
+}
+
+:target {
+    scroll-margin-block: 5ex;
+}
+
+:focus-visible {
+    outline: 2px solid var(--focus-ring-color);
+    outline-offset: 2px;
+}
+
+::selection {
+    background-color: var(--selection-color);
+    color: var(--selection-text-color);
+}
+
+.font-size-small {
+    font-size: var(--font-size-small);
+}
+
+.font-size-large {
+    font-size: var(--font-size-large);
+}
+
+.font-size-body {
+    font-size: var(--font-size-body);
+}
+
+.font-weight-normal {
+    font-weight: var(--font-weight-normal);
+}
+
+.font-weight-medium {
+    font-weight: var(--font-weight-medium);
+}
+
+.font-weight-semibold {
+    font-weight: var(--font-weight-semibold);
+}
+
+.font-weight-bold {
+    font-weight: var(--font-weight-bold);
+}
+
+.text-start {
+    text-align: start;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-end {
+    text-align: end;
+}
