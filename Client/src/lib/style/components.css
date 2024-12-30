@@ -158,7 +158,7 @@ a {
 
 .modal {
     --width: var(--width-3);
-    width: var(--width);
+    width: min(var(--width), 90vw);
     margin-inline: auto;
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius);
