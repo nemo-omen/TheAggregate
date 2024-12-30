@@ -44,6 +44,16 @@ button:hover, .button:hover {
     background-color: var(--primary-color-hover);
 }
 
+.button-info {
+    color: var(--text-1-light);
+    background-color: var(--info-color);
+}
+
+.button-info:hover, .button-info:active, .button-info:focus-visible {
+    color: var(--text-1-light);
+    background-color: var(--info-color-hover);
+}
+
 .button-warning {
     color: var(--text-1-light);
     background-color: var(--warning-color);

@@ -18,9 +18,7 @@
   }
 
   export function close() {
-    setTimeout(() => {
-      dialogForm.submit();
-    }, 300);
+    dialog.close();
   }
 
   export function toggle() {

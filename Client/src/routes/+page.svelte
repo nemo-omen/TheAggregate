@@ -2,9 +2,10 @@
   import RegisterModal from '$lib/components/modal/RegisterModal.svelte';
   import LoginModal from '$lib/components/modal/LoginModal.svelte';
   import { getContext } from 'svelte';
-  import type { RegisterModalState } from '$lib/state/modalState.svelte';
+  import type { LoginModalState, RegisterModalState } from '$lib/state/modalState.svelte';
 
   let registerModalState: RegisterModalState = getContext('registerModalState');
+  let loginModalState: LoginModalState = getContext('loginModalState');
   let registerModal: RegisterModal;
   let loginModal: LoginModal;
   let { data, form } = $props();
@@ -23,8 +24,56 @@
     </div>
   </div>
 
-  <RegisterModal bind:this={registerModal} {form} />
-  <LoginModal bind:this={loginModal} {form} />
+  <RegisterModal bind:this={registerModal}>
+    <form action="?/auth/register" class="stack gap-8 padding-4 padding-top-0">
+      <h2 class="margin-0 text-center">Create an Account</h2>
+      <fieldset>
+        <label for="registerEmail">Email</label>
+        <input name="email" id="registerEmail" type="email" placeholder="Email" required>
+      </fieldset>
+      <fieldset>
+        <label for="registerPassword">Password</label>
+        <input name="password" id="registerPassword" type="password" placeholder="Password" required>
+      </fieldset>
+      <fieldset>
+        <label for="registerConfirm">Confirm Password</label>
+        <input type="password" name="passwordConfirm" id="registerConfirm">
+      </fieldset>
+      <div class="stack align-center">
+        <button type="submit" class="button button-info">Register</button>
+      </div>
+    </form>
+    <div class="stack gap-4 align-center margin-bottom-4">
+      <span class="text-center">Already have an account?</span>
+      <button class="button button-primary" onclick={() => {
+        registerModalState.toggle();
+        loginModalState.toggle();
+      }}>Log In Instead</button>
+    </div>
+  </RegisterModal>
+  <LoginModal bind:this={loginModal}>
+    <form action="?/auth/login" class="stack gap-8 padding-4 padding-top-0">
+      <h2 class="margin-0 text-center">Log In</h2>
+      <fieldset>
+        <label for="loginEmail">Email</label>
+        <input name="email" id="loginEmail" type="email" placeholder="Email" required>
+      </fieldset>
+      <fieldset>
+        <label for="loginPassword">Password</label>
+        <input name="password" id="loginPassword" type="password" placeholder="Password" required>
+      </fieldset>
+      <div class="stack align-center">
+        <button type="submit" class="button button-info">Log In</button>
+      </div>
+    </form>
+    <div class="stack gap-4 align-center margin-bottom-4">
+      <span class="text-center">Don't have an account?</span>
+      <button class="button button-primary" onclick={() => {
+        loginModalState.toggle();
+        registerModalState.toggle();
+      }}>Create an Account</button>
+    </div>
+  </LoginModal>
 </main>
 
 <style>
