@@ -145,12 +145,16 @@
 
       & li {
           width: 100%;
-          padding-block: var(--space-4);
+          margin-block-start: var(--space-4);
           display: flex;
       }
 
-      & li:not(:has(button)) {
-          border-bottom: 1px solid var(--border-color-5);
+      & li a {
+          color: var(--text-color);
+          font-size: var(--step-1);
+          font-weight: var(--font-weight-semibold);
+          width: 100%;
+          height: 100%;
       }
 
       & li:has(button) {
@@ -182,6 +186,11 @@
           & li button {
               display: none;
           }
+
+          & li a {
+              font-size: var(--step-0);
+              font-weight: var(--font-weight-semibold);
+          }
       }
   }
 
@@ -191,13 +200,11 @@
       & li {
           width: 100%;
           padding-block: var(--space-4);
-          border-bottom: 1px solid var(--border-color-5);
           display: flex;
       }
 
       & li:has(button) {
           justify-content: flex-end;
-          border-bottom: none;
       }
   }
 
