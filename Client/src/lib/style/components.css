@@ -167,6 +167,20 @@ a {
     box-shadow: var(--shadow-2);
 }
 
-::backdrop {
+::backdrop, .backdrop {
     background-color: rgba(0, 0, 0, 0.6);
+}
+
+.backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    transform: translateX(-100%);
+    opacity: 0;
+    transition: opacity calc(var(--transition-default) - 100ms);
+}
+
+:has(.overlay[open]) .backdrop {
+    transform: translateX(0);
+    opacity: 1;
 }

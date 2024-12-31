@@ -52,7 +52,7 @@
     </div>
   </RegisterModal>
   <LoginModal bind:this={loginModal}>
-    <form action="?/auth/login" class="stack gap-8 padding-4 padding-top-0">
+    <form action="?/auth/login" class="stack gap-8 padding-4 padding-top-0 order-2">
       <h2 class="margin-0 text-center">Log In</h2>
       <fieldset>
         <label for="loginEmail">Email</label>

@@ -5,9 +5,11 @@
   import { RegisterModalState, LoginModalState } from '$lib/state/modalState.svelte.ts';
   import { onMount } from 'svelte';
   import { getContext } from 'svelte';
+  import { afterNavigate, beforeNavigate } from '$app/navigation';
 
   let { user } = $props();
   let theme = $state('light');
+  let navMenuOpen = $state(false);
   let navMenu: HTMLMenuElement;
   const registerModalState: RegisterModalState = getContext('registerModalState');
   const loginModalState: LoginModalState = getContext('loginModalState');
@@ -32,9 +34,22 @@
   }
 
   function toggleNavMenu() {
-    // navMenu.getAttribute('hidden') ? navMenu.removeAttribute('hidden') : navMenu.setAttribute('hidden', '');
-      navMenu.style.transform = navMenu.style.transform === 'translateX(0)' ? 'translateX(100%)' : 'translateX(0)';
+    navMenuOpen = !navMenuOpen;
   }
+
+  $effect(() => {
+    if(navMenuOpen) {
+      navMenu.setAttribute('open', '');
+    } else {
+      navMenu.removeAttribute('open');
+    }
+  });
+
+  afterNavigate(() => {
+    setTimeout(() => {
+      navMenuOpen = false;
+    }, 200);
+  });
 
   onMount(() => {
       if(browser) {
@@ -64,8 +79,10 @@
         </a>
       </li>
     </menu>
-    <menu id="nav-menu" bind:this={navMenu}>
-      <li class="flex justify-end" id="mobile-nav-menu-toggle"><button class="icon-btn" onclick={toggleNavMenu}><X /></button></li>
+    <menu id="nav-menu" class="overlay" bind:this={navMenu}>
+      <li class="flex" id="mobile-nav-menu-toggle">
+        <button class="icon-btn button-subtle" onclick={toggleNavMenu}><X /></button>
+      </li>
       <li><a href="/">Home</a></li>
       <li><a href="/features">Features</a></li>
 <!--      <li><a href="/design-system">Design System</a></li>-->
@@ -82,10 +99,12 @@
           {/if}
         </button>
       </li>
-      <li id="header-nav-toggle-btn"><button class="icon-btn" onclick={toggleNavMenu()}><Menu /></button></li>
+      <li id="header-nav-toggle-btn"><button class="icon-btn button-transparent" onclick={toggleNavMenu}><Menu /></button></li>
     </menu>
   </nav>
 </header>
+
+<div class="backdrop"></div>
 
 <style>
   .brand {
@@ -110,14 +129,34 @@
   }
 
   #nav-menu {
-      position: absolute;
+      position: fixed;
       inset: 0;
+      margin: 0;
       height: 100vh;
       transform: translateX(100%);
       flex-direction: column;
       align-items: start;
-      padding: var(--space-8);
+      padding-inline: var(--space-8);
+      padding-block: var(--space-4);
       background-color: var(--surface-color-0);
+      transition: transform var(--transition-default);
+      z-index: 101;
+      box-shadow: -5px 0 10px rgba(0, 0, 0, 0.1);
+
+      & li {
+          width: 100%;
+          padding-block: var(--space-4);
+          display: flex;
+      }
+
+      & li:not(:has(button)) {
+          border-bottom: 1px solid var(--border-color-5);
+      }
+
+      & li:has(button) {
+          justify-content: flex-end;
+      }
+
       @media(min-width: 850px) {
           position: inherit;
           flex-direction: row;
@@ -127,6 +166,38 @@
           background-color: transparent;
           transform: translateX(0);
           padding: unset;
+          box-shadow: none;
+
+          & li:has(button) {
+              justify-content: unset;
+          }
+
+          & li {
+              width: unset;
+              padding-block: unset;
+              border-bottom: none;
+              display: unset;
+          }
+
+          & li button {
+              display: none;
+          }
+      }
+  }
+
+  :global(#nav-menu[open]) {
+      transform: translateX(0);
+
+      & li {
+          width: 100%;
+          padding-block: var(--space-4);
+          border-bottom: 1px solid var(--border-color-5);
+          display: flex;
+      }
+
+      & li:has(button) {
+          justify-content: flex-end;
+          border-bottom: none;
       }
   }
 
