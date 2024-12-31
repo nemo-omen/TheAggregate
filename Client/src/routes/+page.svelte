@@ -3,6 +3,8 @@
   import LoginModal from '$lib/components/modal/LoginModal.svelte';
   import { getContext } from 'svelte';
   import type { LoginModalState, RegisterModalState } from '$lib/state/modalState.svelte';
+  import LoginForm from './auth/login/LoginForm.svelte';
+  import RegisterForm from './auth/register/RegisterForm.svelte';
 
   let registerModalState: RegisterModalState = getContext('registerModalState');
   let loginModalState: LoginModalState = getContext('loginModalState');
@@ -25,24 +27,7 @@
   </div>
 
   <RegisterModal bind:this={registerModal}>
-    <form action="?/auth/register" class="stack gap-8 padding-4 padding-top-0">
-      <h2 class="margin-0 text-center">Create an Account</h2>
-      <fieldset>
-        <label for="registerEmail">Email</label>
-        <input name="email" id="registerEmail" type="email" placeholder="Email" required>
-      </fieldset>
-      <fieldset>
-        <label for="registerPassword">Password</label>
-        <input name="password" id="registerPassword" type="password" placeholder="Password" required>
-      </fieldset>
-      <fieldset>
-        <label for="registerConfirm">Confirm Password</label>
-        <input type="password" name="passwordConfirm" id="registerConfirm">
-      </fieldset>
-      <div class="stack align-center">
-        <button type="submit" class="button button-primary">Register</button>
-      </div>
-    </form>
+    <RegisterForm {form} />
     <div class="stack gap-4 align-center margin-bottom-4">
       <small class="text-center">Already have an account?</small>
       <button class="button button-subtle" onclick={() => {
@@ -52,20 +37,7 @@
     </div>
   </RegisterModal>
   <LoginModal bind:this={loginModal}>
-    <form action="?/auth/login" class="stack gap-8 padding-4 padding-top-0 order-2">
-      <h2 class="margin-0 text-center">Log In</h2>
-      <fieldset>
-        <label for="loginEmail">Email</label>
-        <input name="email" id="loginEmail" type="email" placeholder="Email" required>
-      </fieldset>
-      <fieldset>
-        <label for="loginPassword">Password</label>
-        <input name="password" id="loginPassword" type="password" placeholder="Password" required>
-      </fieldset>
-      <div class="stack align-center">
-        <button type="submit" class="button button-primary">Log In</button>
-      </div>
-    </form>
+    <LoginForm {form} />
     <div class="stack gap-4 align-center margin-bottom-4">
       <small class="text-center">Don't have an account?</small>
       <button class="button button-subtle" onclick={() => {
