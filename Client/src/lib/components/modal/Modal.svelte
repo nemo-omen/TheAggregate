@@ -11,7 +11,7 @@
     modalState: ModalState;
   }
 
-  let { modalState }: Props = $props();
+  let { children, modalState }: Props = $props();
 
   export function open() {
     dialog.showModal();
@@ -38,7 +38,7 @@
   <dialog bind:this={dialog} class="modal">
     <div class="stack margin-start-0">
       <div class="modal-body order-2">
-        <slot/>
+        {@render children()}
       </div>
       <div class="flex justify-end order-1" style="width: 100%">
         <form method="dialog" bind:this={dialogForm} class="padding-2">
@@ -81,6 +81,7 @@
   }
 
   dialog {
+      overflow: hidden;
       transition: translate 0.3s ease-out, overlay 0.3s ease-out allow-discrete, display 0.3s ease-out allow-discrete;
       translate: 0 -20px;
       opacity: 0;
