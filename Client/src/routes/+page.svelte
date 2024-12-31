@@ -40,12 +40,12 @@
         <input type="password" name="passwordConfirm" id="registerConfirm">
       </fieldset>
       <div class="stack align-center">
-        <button type="submit" class="button button-info">Register</button>
+        <button type="submit" class="button button-primary">Register</button>
       </div>
     </form>
     <div class="stack gap-4 align-center margin-bottom-4">
-      <span class="text-center">Already have an account?</span>
-      <button class="button button-primary" onclick={() => {
+      <small class="text-center">Already have an account?</small>
+      <button class="button button-subtle" onclick={() => {
         registerModalState.toggle();
         loginModalState.toggle();
       }}>Log In Instead</button>
@@ -63,12 +63,12 @@
         <input name="password" id="loginPassword" type="password" placeholder="Password" required>
       </fieldset>
       <div class="stack align-center">
-        <button type="submit" class="button button-info">Log In</button>
+        <button type="submit" class="button button-primary">Log In</button>
       </div>
     </form>
     <div class="stack gap-4 align-center margin-bottom-4">
-      <span class="text-center">Don't have an account?</span>
-      <button class="button button-primary" onclick={() => {
+      <small class="text-center">Don't have an account?</small>
+      <button class="button button-subtle" onclick={() => {
         loginModalState.toggle();
         registerModalState.toggle();
       }}>Create an Account</button>

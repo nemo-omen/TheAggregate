@@ -37,15 +37,20 @@
 <div class="modal-wrapper" transition:fly={{ y: -20, opacity: 0, duration: 300 }}>
   <dialog bind:this={dialog} class="modal">
     <div class="stack margin-start-0">
-      <div class="flex justify-end" style="width: 100%">
-        <form method="dialog" bind:this={dialogForm}>
-          <button class="button-transparent icon-btn font-size-large" aria-label="Close" onclick={() => modalState.close()}>
+      <div class="modal-body order-2">
+        <slot/>
+      </div>
+      <div class="flex justify-end order-1" style="width: 100%">
+        <form method="dialog" bind:this={dialogForm} class="padding-2">
+          <button
+            class="button-transparent icon-btn font-size-large"
+            aria-label="Close"
+            onclick={() => modalState.close()}
+            tabindex="0"
+          >
             <X />
           </button>
         </form>
-      </div>
-      <div class="modal-body">
-        <slot/>
       </div>
     </div>
   </dialog>

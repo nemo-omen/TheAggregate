@@ -161,7 +161,7 @@ a {
     width: min(var(--width), 90vw);
     margin-inline: auto;
     border: 1px solid var(--border-color);
-    border-radius: var(--border-radius);
+    border-radius: var(--border-radius-2);
     padding: unset;
     background-color: var(--surface-color-0);
     box-shadow: var(--shadow-2);
