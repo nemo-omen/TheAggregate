@@ -20,7 +20,7 @@
     </p>
     <div class="container-small flex justify-center align-center gap-4">
       <button class="button button-primary" onclick={() => registerModalState.toggle()}>Get Started</button>
-      <a href="/features" class="btn-secondary">Learn More</a>
+      <a href="/features" class="button button-subtle">Learn More</a>
     </div>
   </div>
 
