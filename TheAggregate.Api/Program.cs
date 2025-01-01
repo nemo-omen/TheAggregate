@@ -4,10 +4,8 @@ using System.Text.Json.Serialization;
 using Hangfire;
 using Hangfire.PostgreSql;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi;
 using Scalar.AspNetCore;
 using TheAggregate.Api.Data;
 using TheAggregate.Api.Features.Account;
@@ -38,12 +36,8 @@ builder.Services.Configure<JsonOptions>(options =>
 
 builder.Services.AddControllers();
 
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-// builder.Services.AddOpenApi(options =>
-// {
-//     options.OpenApiVersion = OpenApiSpecVersion.OpenApi3_0;
-// });
-builder.Services.AddOpenApiDocument();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 builder.Services.AddMediatR(config =>
     config.RegisterServicesFromAssemblies(typeof(Program).Assembly));
@@ -130,17 +124,23 @@ await Seeder.SeedAsync(app.Services);
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    // app.MapOpenApi();
-    app.UseOpenApi(options =>
+    app.UseSwagger(options =>
     {
-        options.Path = "/openapi/v1.json";
+        options.RouteTemplate = "/openapi/{documentName}.json";
     });
-    // app.UseSwaggerUi();
+    app.UseSwaggerUI(
+        options =>
+        {
+            // http://localhost:5050/swagger/index.html
+            options.SwaggerEndpoint("/openapi/v1.json", "My API V1");
+            // options.RoutePrefix = "openapi";
+        });
     app.MapScalarApiReference(options =>
     {
+        // http://localhost:5050/scalar/v1
         options.WithTitle("My API");
         options.WithTheme(ScalarTheme.DeepSpace);
-        options.WithSidebar(false);
+        options.WithSidebar(true);
     });
 }
 
@@ -151,8 +151,8 @@ app.UseAuthorization();
 app.CustomMapIdentityApi<ApplicationUser>()
     .RequireCors(OnlyAllowLocalhostOrigins);
 app.UseHangfireDashboard();
-app.MapControllers();
 
+app.MapControllers().WithOpenApi();
 app.MapPost("/logout", async (SignInManager<ApplicationUser> signInManager,
         [FromBody] object empty) =>
     {
@@ -163,7 +163,6 @@ app.MapPost("/logout", async (SignInManager<ApplicationUser> signInManager,
         }
         return Results.Unauthorized();
     })
-    .WithOpenApi()
     .RequireAuthorization()
     .RequireCors(OnlyAllowLocalhostOrigins);
 
