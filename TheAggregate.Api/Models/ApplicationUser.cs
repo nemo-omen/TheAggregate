@@ -6,5 +6,5 @@ namespace TheAggregate.Api.Models;
 public class ApplicationUser : IdentityUser
 {
     [MaxLength(255)]
-    public string Name { get; set; } = null!;
+    public string? Name { get; set; }
 }

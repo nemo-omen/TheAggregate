@@ -181,6 +181,10 @@ export type UserWithRolesResponseApiResponse = {
   data?: UserWithRolesResponse;
 };
 
+export type Void = {
+  [key: string]: unknown;
+};
+
 export type PostApiAccountRegisterData = {
   body?: RegisterUserRequest;
 };
@@ -219,7 +223,7 @@ export type PostLogoutData = {
   body: unknown;
 };
 
-export type PostLogoutResponse = unknown;
+export type PostLogoutResponse = Void;
 
 export type PostLogoutError = unknown;
 

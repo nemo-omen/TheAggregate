@@ -156,13 +156,10 @@ app.MapControllers().WithOpenApi();
 app.MapPost("/logout", async (SignInManager<ApplicationUser> signInManager,
         [FromBody] object empty) =>
     {
-        if (empty != null)
-        {
-            await signInManager.SignOutAsync();
-            return Results.Ok();
-        }
-        return Results.Unauthorized();
+        await signInManager.SignOutAsync();
+        return Results.Ok();
     })
+    .WithOpenApi()
     .RequireAuthorization()
     .RequireCors(OnlyAllowLocalhostOrigins);
 
