@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi;
+using Scalar.AspNetCore;
 using TheAggregate.Api.Data;
 using TheAggregate.Api.Features.Account;
 using TheAggregate.Api.Features.Feeds;
@@ -29,6 +31,7 @@ builder.Services.Configure<JsonOptions>(options =>
     // turn off json indentation to save space
     options.JsonSerializerOptions.WriteIndented = false;
     options.JsonSerializerOptions.NumberHandling = JsonNumberHandling.AllowReadingFromString;
+    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
 });
 
 // Add services to the container.
@@ -36,7 +39,11 @@ builder.Services.Configure<JsonOptions>(options =>
 builder.Services.AddControllers();
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+// builder.Services.AddOpenApi(options =>
+// {
+//     options.OpenApiVersion = OpenApiSpecVersion.OpenApi3_0;
+// });
+builder.Services.AddOpenApiDocument();
 
 builder.Services.AddMediatR(config =>
     config.RegisterServicesFromAssemblies(typeof(Program).Assembly));
@@ -123,7 +130,18 @@ await Seeder.SeedAsync(app.Services);
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
+    // app.MapOpenApi();
+    app.UseOpenApi(options =>
+    {
+        options.Path = "/openapi/v1.json";
+    });
+    // app.UseSwaggerUi();
+    app.MapScalarApiReference(options =>
+    {
+        options.WithTitle("My API");
+        options.WithTheme(ScalarTheme.DeepSpace);
+        options.WithSidebar(false);
+    });
 }
 
 app.UseHttpsRedirection();
