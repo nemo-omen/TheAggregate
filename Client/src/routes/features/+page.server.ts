@@ -1,6 +1,8 @@
-export async function load(event) {
+import { isAuthorized } from '$lib/auth';
+import { redirect } from '@sveltejs/kit';
 
-  return {
-    props: {}
-  };
+export async function load(event) {
+  if(isAuthorized(event)) {
+    redirect(303, '/frontpage');
+  }
 }

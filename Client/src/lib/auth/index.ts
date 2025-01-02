@@ -50,29 +50,29 @@ export function setSessionCookies(accessToken: string, refreshToken: string, exp
     maxAge: expiresIn,
     httpOnly: false,
     sameSite: 'strict',
-    path: '/aggregate_at'
+    path: '/'
   };
 
   const refreshCookieOptions = {
     maxAge: expiresIn,
     httpOnly: false,
     sameSite: 'strict',
-    path: '/aggregate_rt'
+    path: '/'
   };
 
   const expirationCookieOptions = {
     maxAge: expiresIn,
     httpOnly: false,
     sameSite: 'strict',
-    path: 'aggregate_expires'
+    path: '/'
   };
 
   let now = Date.now();
   const expires = now + (expiresIn * 1000);
 
-  cookies.set('accessToken', accessToken, accessCookieOptions as CookieSerializeOptions);
-  cookies.set('refreshToken', refreshToken, refreshCookieOptions as CookieSerializeOptions);
-  cookies.set('expires', expires.toString(), expirationCookieOptions as CookieSerializeOptions);
+  cookies.set('aggregate_accessToken', accessToken, accessCookieOptions as CookieSerializeOptions);
+  cookies.set('aggregate_refreshToken', refreshToken, refreshCookieOptions as CookieSerializeOptions);
+  cookies.set('aggregate_expires', expires.toString(), expirationCookieOptions as CookieSerializeOptions);
 }
 
 function setAccessCookie(accessToken: string, expiresIn: number, cookies: Cookies) {
@@ -80,15 +80,15 @@ function setAccessCookie(accessToken: string, expiresIn: number, cookies: Cookie
     maxAge: expiresIn,
     httpOnly: false,
     sameSite: 'strict',
-    path: '/aggregate_at'
+    path: '/'
   };
 
-  cookies.set('accessToken', accessToken, accessCookieOptions as CookieSerializeOptions);
+  cookies.set('aggregate_accessToken', accessToken, accessCookieOptions as CookieSerializeOptions);
 }
 
 function unsetSessionCookies(cookies: Cookies) {
-  cookies.delete('accessToken', { path: '/aggregate_at' });
-  cookies.delete('refreshToken', { path: '/aggregate_rt' });
+  cookies.delete('aggregate_accessToken', { path: '/' });
+  cookies.delete('aggregate_refreshToken', { path: '/' });
 }
 
 export type RegisterResponse = {

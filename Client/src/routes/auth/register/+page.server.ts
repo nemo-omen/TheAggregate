@@ -1,7 +1,13 @@
-import { register } from '$lib/auth';
+import { isAuthorized, register } from '$lib/auth';
 import type { RegisterResponse } from '$lib/auth';
 import { z, ZodError } from 'zod';
-import { fail } from '@sveltejs/kit';
+import { fail, redirect } from '@sveltejs/kit';
+
+export async function load(event) {
+  if(isAuthorized(event)) {
+    redirect(303, '/frontpage');
+  }
+}
 
 const registerSchema = z.object({
   name: z.string().min(5, {message: "Name must to have at least 5 characters."}).optional(),

@@ -166,10 +166,11 @@
           flex-direction: row;
           align-items: center;
           gap: 1rem;
-          height: unset;
+          height: revert;
           background-color: transparent;
           transform: translateX(0);
-          padding: unset;
+          padding: 0;
+          margin: 0;
           box-shadow: none;
 
           & li:has(button) {
@@ -181,6 +182,7 @@
               padding-block: unset;
               border-bottom: none;
               display: unset;
+              margin: 0;
           }
 
           & li button {

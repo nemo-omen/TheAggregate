@@ -7,21 +7,21 @@ export async function handle({event, resolve}) {
     return resolve(event);
   }
 
-  let accessToken = cookies.get('accessToken');
+  let accessToken = cookies.get('aggregate_accessToken', );
   if(!accessToken) {
     console.log('no access cookie found');
     event.locals.user = undefined;
     return resolve(event);
   }
 
-  const refreshToken = cookies.get('refreshToken');
+  const refreshToken = cookies.get('aggregate_refreshToken');
   if(!refreshToken) {
     console.log('no refresh cookie found');
     event.locals.user = undefined;
     return resolve(event);
   }
 
-  const expiration = cookies.get('expires');
+  const expiration = cookies.get('aggregate_expires');
   if(!expiration) {
     console.log('no expiration cookie found');
     event.locals.user = undefined;
@@ -54,5 +54,6 @@ export async function handle({event, resolve}) {
   }
 
   event.locals.user = userInfo.data;
+  console.log('user info found: ', event.locals.user);
   return resolve(event);
 }

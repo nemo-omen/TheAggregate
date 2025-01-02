@@ -1,11 +1,17 @@
-import { getUserInfo, initCredentialedClient, login, setSessionCookies } from '$lib/auth';
-import { type Actions, fail } from '@sveltejs/kit';
+import { getUserInfo, initCredentialedClient, isAuthorized, login, setSessionCookies } from '$lib/auth';
+import { type Actions, fail, redirect } from '@sveltejs/kit';
 import { z } from 'zod';
 
 const loginSchema = z.object({
   email: z.string(),
   password: z.string(),
 });
+
+export async function load(event) {
+  if (isAuthorized(event)) {
+    redirect(303, '/frontpage');
+  }
+}
 
 export const actions: Actions = {
   default: async (event) => {
@@ -32,11 +38,6 @@ export const actions: Actions = {
 
     setSessionCookies(accessToken, refreshToken, expiresIn, cookies);
 
-    return {
-      status: 303,
-      headers: {
-        location: '/frontpage',
-      },
-    };
+    redirect(303, '/frontpage');
   }
 }
