@@ -129,3 +129,23 @@ textarea:not([rows]) {
 .text-end {
     text-align: end;
 }
+
+.text-body {
+    color: var(--text-1);
+}
+
+.text-primary {
+    color: var(--primary-color);
+}
+
+.text-info {
+    color: var(--info-color);
+}
+
+.text-warning {
+    color: var(--warning-color);
+}
+
+.text-danger {
+    color: var(--danger-color);
+}

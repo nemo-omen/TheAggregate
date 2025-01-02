@@ -25,4 +25,7 @@ Global
 		{4894D773-C2E6-442A-9B3A-618DD4A96194}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4894D773-C2E6-442A-9B3A-618DD4A96194}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
+	GlobalSection(RiderSharedRunConfigurations) = postSolution
+		File = apiclientdev.run\API and Client Dev.run.xml
+	EndGlobalSection
 EndGlobal

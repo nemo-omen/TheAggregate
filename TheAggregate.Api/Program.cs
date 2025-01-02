@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 using TheAggregate.Api.Data;
-using TheAggregate.Api.Features.Account;
 using TheAggregate.Api.Features.Feeds;
 using TheAggregate.Api.Features.Identity;
 using TheAggregate.Api.Features.SyndicationFeeds;
@@ -47,7 +46,6 @@ builder.Services.AddTransient<IJwtService, JwtService>();
 builder.Services.AddScoped<IFeedsRepository, FeedsRepository>();
 builder.Services.AddScoped<IFeedsService, FeedsService>();
 builder.Services.AddScoped<IAggregationService, AggregationService>();
-builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddHostedService<PipelineInitializerHostedService>();
 
 string connectionString;
@@ -75,18 +73,6 @@ builder.Services.AddHangfire(config =>
 builder.Services.AddHangfireServer(options => { options.SchedulePollingInterval = TimeSpan.FromSeconds(15); });
 
 builder.Services.AddScoped<AggregationPipelineJob>();
-
-// builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
-// {
-//     options.Password.RequiredLength = 8;
-//     options.Password.RequireNonAlphanumeric = true;
-//     options.Password.RequireUppercase = true;
-//     options.Password.RequireLowercase = true;
-//     options.Password.RequireDigit = true;
-// })
-// .AddEntityFrameworkStores<ApplicationDbContext>()
-// .AddDefaultTokenProviders()
-// .AddUserStore<UserStore<ApplicationUser, IdentityRole, ApplicationDbContext>>();
 
 // auth endpoints, customized during middleware
 // configuration later in this file

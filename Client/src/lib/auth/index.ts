@@ -10,6 +10,12 @@ import {
   type PostRegisterError
 } from '$lib/client';
 
+export function initBaseClient(client: Client) {
+  client.setConfig({
+    baseUrl: serverOptions.baseUrl
+  });
+}
+
 export function initCredentialedClient(accessToken: string, client: Client) {
   client.setConfig({
     baseUrl: serverOptions.baseUrl
@@ -39,6 +45,7 @@ export type RegisterResponse = {
 
 export async function register(name: string | undefined, email: string, password: string): Promise<RegisterResponse> {
   const registerData = { name, email, password };
+  initBaseClient(client);
   const response = await postRegister({ body: registerData });
   if (response.error) {
     return {

@@ -10,8 +10,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Options;
-using TheAggregate.Api.Features.Account.Types;
+using TheAggregate.Api.Features.Identity.Types;
 using TheAggregate.Api.Models;
+using TheAggregate.Api.Shared.Util;
 
 namespace TheAggregate.Api.Features.Identity;
 
@@ -84,6 +85,15 @@ public static class IdentityApiEndpointRouteBuilderExtensions
 
             if (!result.Succeeded)
             {
+                Banner.Log(result.Errors.First().Code);
+                if(result.Errors.Any(e => e.Code == "DuplicateUserName"))
+                {
+                    var problem = TypedResults.ValidationProblem(new Dictionary<string, string[]> {
+                        { "InvalidCredentials", ["Email or password are not valid."] }
+                    });
+                    problem.ProblemDetails.Status = StatusCodes.Status400BadRequest;
+                    return problem;
+                }
                 return CreateValidationProblem(result);
             }
 
@@ -344,6 +354,24 @@ public static class IdentityApiEndpointRouteBuilderExtensions
             if (await userManager.GetUserAsync(claimsPrincipal) is not { } user)
             {
                 return TypedResults.NotFound();
+            }
+
+            return TypedResults.Ok(await CreateUserWithRolesResponseAsync(user, userManager));
+        });
+
+        accountGroup.MapPost("/roles", async Task<Results<Ok<UserWithRolesResponse>, ValidationProblem, NotFound>>
+            (ClaimsPrincipal claimsPrincipal, [FromBody] ChangeRoleRequest request, [FromServices] IServiceProvider sp) =>
+        {
+            var userManager = sp.GetRequiredService<UserManager<TUser>>();
+            if (await userManager.GetUserAsync(claimsPrincipal) is not { } user)
+            {
+                return TypedResults.NotFound();
+            }
+
+            var changeRoleResult = await userManager.AddToRoleAsync(user, request.Role);
+            if (!changeRoleResult.Succeeded)
+            {
+                return CreateValidationProblem(changeRoleResult);
             }
 
             return TypedResults.Ok(await CreateUserWithRolesResponseAsync(user, userManager));

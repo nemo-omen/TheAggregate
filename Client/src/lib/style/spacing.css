@@ -15,6 +15,7 @@
     --width-3: calc(var(--space-8) * 16);
     --width-4: calc(var(--space-8) * 24);
 
+    --container-width--1: calc(var(--space-8) * 16);
     --container-width-1: calc(var(--space-8) * 24);
     --container-width-2: calc(var(--space-8) * 32);
     --container-width-3: calc(var(--space-8) * 48);

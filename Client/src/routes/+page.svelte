@@ -1,17 +1,5 @@
 <script lang="ts">
-  import RegisterModal from '$lib/components/modal/RegisterModal.svelte';
-  import LoginModal from '$lib/components/modal/LoginModal.svelte';
-  import { getContext } from 'svelte';
-  import type { LoginModalState, RegisterModalState } from '$lib/state/modalState.svelte';
-  import LoginForm from './auth/login/LoginForm.svelte';
-  import RegisterForm from './auth/register/RegisterForm.svelte';
-
-  let registerModalState: RegisterModalState = getContext('registerModalState');
-  let loginModalState: LoginModalState = getContext('loginModalState');
-  let registerModal: RegisterModal;
-  let loginModal: LoginModal;
-  let { data, form } = $props();
-
+  let { data } = $props();
 </script>
 
 <main class="container">
@@ -21,31 +9,31 @@
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nunc sem, dictum vel elit sed, efficitur tristique turpis. Nunc a gravida metus.
     </p>
     <div class="container-small flex justify-center align-center gap-4">
-      <button class="button button-primary" onclick={() => registerModalState.toggle()}>Get Started</button>
+      <a href="/auth/register" class="button button-primary">Get Started</a>
       <a href="/features" class="button button-subtle">Learn More</a>
     </div>
   </div>
 
-  <RegisterModal bind:this={registerModal}>
-    <RegisterForm {form} />
-    <div class="stack gap-4 align-center margin-bottom-4">
-      <small class="text-center">Already have an account?</small>
-      <button class="button button-subtle" onclick={() => {
-        registerModalState.toggle();
-        loginModalState.toggle();
-      }}>Log In Instead</button>
-    </div>
-  </RegisterModal>
-  <LoginModal bind:this={loginModal}>
-    <LoginForm {form} />
-    <div class="stack gap-4 align-center margin-bottom-4">
-      <small class="text-center">Don't have an account?</small>
-      <button class="button button-subtle" onclick={() => {
-        loginModalState.toggle();
-        registerModalState.toggle();
-      }}>Create an Account</button>
-    </div>
-  </LoginModal>
+<!--  <RegisterModal bind:this={registerModal}>-->
+<!--    <RegisterForm {form} />-->
+<!--    <div class="stack gap-4 align-center margin-bottom-4">-->
+<!--      <small class="text-center">Already have an account?</small>-->
+<!--      <button class="button button-subtle" onclick={() => {-->
+<!--        registerModalState.toggle();-->
+<!--        loginModalState.toggle();-->
+<!--      }}>Log In</button>-->
+<!--    </div>-->
+<!--  </RegisterModal>-->
+<!--  <LoginModal bind:this={loginModal}>-->
+<!--    <LoginForm {form} />-->
+<!--    <div class="stack gap-4 align-center margin-bottom-4">-->
+<!--      <small class="text-center">Don't have an account?</small>-->
+<!--      <button class="button button-subtle" onclick={() => {-->
+<!--        loginModalState.toggle();-->
+<!--        registerModalState.toggle();-->
+<!--      }}>Create an Account</button>-->
+<!--    </div>-->
+<!--  </LoginModal>-->
 </main>
 
 <style>

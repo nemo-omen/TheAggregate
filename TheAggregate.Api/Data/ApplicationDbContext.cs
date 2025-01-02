@@ -25,7 +25,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
         // properties for enabling full-text search
         modelBuilder.Entity<FeedItem>()
             .HasGeneratedTsVectorColumn(
-                fi => fi.SearchVector,
+                fi => fi.SearchVector!,
                 "english",
                 fi => new { fi.Title, fi.Summary })
             .HasIndex(fi => fi.SearchVector)

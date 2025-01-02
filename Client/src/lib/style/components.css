@@ -3,6 +3,11 @@
     --card-border: var(--border-color-4);
 }
 
+.container-xsmall {
+    width: min(var(--container-width--1), 90vw);
+    margin-inline: auto;
+}
+
 .container-small {
     width: min(var(--container-width-1), 90vw);
     margin-inline: auto;
@@ -183,4 +188,34 @@ a {
 :has(.overlay[open]) .backdrop {
     transform: translateX(0);
     opacity: 1;
+}
+
+.unstyled-list {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.alert {
+    --border-color: var(--border-color-4);
+    --background-color: var(--surface-color-0);
+    --color: var(--text-1);
+    --shadow: var(--shadow-1);
+    --transition: var(--transition-default);
+    display: flex;
+    gap: var(--padding);
+    padding: var(--padding);
+    border-radius: var(--border-radius);
+    border: var(--border-1) solid var(--border-color);
+    background-color: var(--background-color);
+    color: var(--color);
+    box-shadow: var(--shadow);
+    transition: background-color var(--transition), color var(--transition);
+}
+
+.alert-danger {
+    border-color: color-mix(in srgb, var(--danger-color) 60%, var(--background-color));
+    background-color: color-mix(in srgb, var(--danger-color) 5%, var(--background-color));
+    color: color-mix(in srgb, var(--danger-color) 40%, var(--text-1));
+    font-weight: var(--font-weight-semibold);
 }

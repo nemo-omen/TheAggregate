@@ -88,8 +88,8 @@
 <!--      <li><a href="/design-system">Design System</a></li>-->
     </menu>
     <menu id="auth-menu">
-      <li><button onclick={() => toggleLoginModal()} class="button-subtle">Log In</button></li>
-      <li id="header-register-btn"><button onclick={() => toggleRegisterModal()} class="button-primary">Create an Account</button></li>
+      <li><a href="/auth/login" class="button button-subtle">Log In</a></li>
+      <li id="header-register-btn"><a href="/auth/register" class="button button-primary">Create an Account</a></li>
       <li id="header-theme-toggle-btn">
         <button onclick={updateTheme} class="button-transparent icon-btn bg-transparent border-none">
           {#if theme === 'dark'}

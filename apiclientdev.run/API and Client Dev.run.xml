@@ -1,0 +1,7 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="API and Client Dev" type="CompoundRunConfigurationType">
+    <toRun name="TheAggregate: http" type="LaunchSettings" />
+    <toRun name="dev" type="js.build_tools.npm" />
+    <method v="2" />
+  </configuration>
+</component>

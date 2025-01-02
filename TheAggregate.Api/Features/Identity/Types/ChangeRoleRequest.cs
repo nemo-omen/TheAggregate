@@ -1,4 +1,4 @@
-namespace TheAggregate.Api.Features.Account.Types;
+namespace TheAggregate.Api.Features.Identity.Types;
 
 public record ChangeRoleRequest
 {

@@ -13,9 +13,10 @@ public class AggregationPipelineJob
         _mediator = mediator;
     }
 
-    public async Task StartPipeline()
+    public Task StartPipeline()
     {
         BackgroundJob.Enqueue(() => SendPipelineCommand());
+        return Task.CompletedTask;
     }
 
     public async Task SendPipelineCommand()
