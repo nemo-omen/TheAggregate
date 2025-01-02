@@ -7,12 +7,12 @@
   import { getContext } from 'svelte';
   import { afterNavigate, beforeNavigate } from '$app/navigation';
 
-  let { user } = $props();
   let theme = $state('light');
   let navMenuOpen = $state(false);
   let navMenu: HTMLMenuElement;
   const registerModalState: RegisterModalState = getContext('registerModalState');
   const loginModalState: LoginModalState = getContext('loginModalState');
+  const user = getContext('currentUser');
 
   function updateTheme() {
       const newTheme = theme === 'light' ? 'dark' : 'light';
@@ -88,8 +88,15 @@
 <!--      <li><a href="/design-system">Design System</a></li>-->
     </menu>
     <menu id="auth-menu">
+      {#if !user}
       <li><a href="/auth/login" class="button button-subtle">Log In</a></li>
-      <li id="header-register-btn"><a href="/auth/register" class="button button-primary">Create an Account</a></li>
+      <li id="header-logout-btn">
+        <a href="/auth/register" class="button button-subtle">Create an Account</a>
+      </li>
+      {:else}
+      <!-- TODO: Dropdown w/user email, logout button, profile link -->
+      <li><a href="/auth/logout" class="button button-subtle">Logout</a></li>
+      {/if}
       <li id="header-theme-toggle-btn">
         <button onclick={updateTheme} class="button-transparent icon-btn bg-transparent border-none">
           {#if theme === 'dark'}
