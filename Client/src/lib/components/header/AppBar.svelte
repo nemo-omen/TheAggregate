@@ -2,6 +2,7 @@
   import { getContext } from 'svelte';
   import type { UserWithRolesResponse } from '$lib/client';
   import Logo from '$lib/components/Logo.svelte';
+  import NavDropdown from '$lib/components/nav-dropdown/NavDropdown.svelte';
   let currentUser: () => UserWithRolesResponse = getContext('user');
   let user = $derived(currentUser);
 </script>
@@ -13,11 +14,14 @@
     </div>
 
     {#if user()}
-      <div class="flex align-center">
-        <form action="/auth/logout" method="post">
-          <button class="btn btn-subtle">Logout</button>
-        </form>
-      </div>
+      <nav>
+        <NavDropdown {user} />
+      </nav>
+<!--      <div class="flex align-center">-->
+<!--        <form action="/auth/logout" method="post">-->
+<!--          <button class="btn btn-subtle">Logout</button>-->
+<!--        </form>-->
+<!--      </div>-->
     {/if}
   </div>
 </header>
