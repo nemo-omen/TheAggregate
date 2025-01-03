@@ -23,6 +23,10 @@
     margin-inline: auto;
 }
 
+.container-xlarge {
+    margin-inline: var(--space-4);
+}
+
 .container {
     width: min(var(--container-width-2), 90vw);
     margin-inline: auto;

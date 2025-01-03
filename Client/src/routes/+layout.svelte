@@ -16,3 +16,4 @@
 
 <Header />
 {@render children()}
+<footer></footer>
