@@ -6,14 +6,18 @@
   import { onMount } from 'svelte';
   import { getContext } from 'svelte';
   import { afterNavigate, beforeNavigate } from '$app/navigation';
+  import type { UserWithRolesResponse } from '$lib/client';
 
   let theme = $state('light');
   let navMenuOpen = $state(false);
   let navMenu: HTMLMenuElement;
   const registerModalState: RegisterModalState = getContext('registerModalState');
   const loginModalState: LoginModalState = getContext('loginModalState');
-  const user = getContext('currentUser');
+  // let user: UserWithRolesResponse = $derived(getContext('user'));
 
+  let currentUser: () => UserWithRolesResponse = getContext('user');
+
+  let user = $derived(currentUser);
   function updateTheme() {
       const newTheme = theme === 'light' ? 'dark' : 'light';
       setTheme(newTheme);
@@ -88,14 +92,18 @@
 <!--      <li><a href="/design-system">Design System</a></li>-->
     </menu>
     <menu id="auth-menu">
-      {#if !user}
+      {#if !user()}
       <li><a href="/auth/login" class="button button-subtle">Log In</a></li>
       <li id="header-logout-btn">
         <a href="/auth/register" class="button button-subtle">Create an Account</a>
       </li>
       {:else}
       <!-- TODO: Dropdown w/user email, logout button, profile link -->
-      <li><a href="/auth/logout" class="button button-subtle">Logout</a></li>
+      <li>
+        <form action="/auth/logout" method="post">
+          <button type="submit" class="button button-subtle">Logout</button>
+        </form>
+      </li>
       {/if}
       <li id="header-theme-toggle-btn">
         <button onclick={updateTheme} class="button-transparent icon-btn bg-transparent border-none">

@@ -9,7 +9,8 @@ const loginSchema = z.object({
 
 export async function load(event) {
   if (isAuthorized(event)) {
-    redirect(303, '/frontpage');
+    console.log('login (authorized): redirecting to /frontpage');
+     redirect(303, '/frontpage');
   }
 }
 
@@ -38,6 +39,9 @@ export const actions: Actions = {
 
     setSessionCookies(accessToken, refreshToken, expiresIn, cookies);
 
-    redirect(303, '/frontpage');
+    // redirect(303, '/frontpage');
+    return {
+      success: true,
+    }
   }
 }

@@ -9,6 +9,7 @@
   class="stack gap-8 padding-4 padding-top-0 order-2"
   use:enhance={({ formElement, formData, action, cancel }) => {
   return async ({ result, update }) => {
+    loginErrors = [];
     console.log({ result });
     if (result.type === 'success') {
       const { data } = result;

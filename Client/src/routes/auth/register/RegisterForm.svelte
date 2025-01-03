@@ -13,6 +13,7 @@
   autocomplete="off"
   use:enhance={({ formElement, formData, action, cancel }) => {
     return async ({ result, update }) => {
+      registrationErrors = [];
       console.log({ result });
       if (result.type === 'success') {
         const { data } = result;

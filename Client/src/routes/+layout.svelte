@@ -8,14 +8,11 @@
   const registerModalState = new RegisterModalState();
   const loginModalState = new LoginModalState();
 	let { children, data } = $props();
-  let { user } = data;
 
-  const currentUser: UserWithRolesResponse | undefined = $state(user);
-
-  setContext('currentUser', currentUser);
+  setContext('user', () => data.user);
   setContext('registerModalState', registerModalState);
   setContext('loginModalState', loginModalState);
 </script>
 
-<Header user={{}} />
+<Header />
 {@render children()}

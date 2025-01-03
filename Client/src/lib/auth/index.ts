@@ -86,7 +86,7 @@ function setAccessCookie(accessToken: string, expiresIn: number, cookies: Cookie
   cookies.set('aggregate_accessToken', accessToken, accessCookieOptions as CookieSerializeOptions);
 }
 
-function unsetSessionCookies(cookies: Cookies) {
+export function unsetSessionCookies(cookies: Cookies) {
   cookies.delete('aggregate_accessToken', { path: '/' });
   cookies.delete('aggregate_refreshToken', { path: '/' });
 }
@@ -155,6 +155,7 @@ export async function logout() {
   if (response.error) {
     return response.error;
   }
+  return response;
 }
 
 export async function getUserInfo(accessToken: string) {

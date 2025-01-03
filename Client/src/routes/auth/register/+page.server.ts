@@ -1,7 +1,7 @@
-import { isAuthorized, register } from '$lib/auth';
 import type { RegisterResponse } from '$lib/auth';
 import { z, ZodError } from 'zod';
 import { fail, redirect } from '@sveltejs/kit';
+import { isAuthorized, register } from '$lib/auth';
 
 export async function load(event) {
   if(isAuthorized(event)) {
@@ -20,13 +20,7 @@ const registerSchema = z.object({
         message: 'Password must include at least one uppercase letter, one lowercase letter, one number, and one special character',
       }
     ),
-})
-
-export async function load(event) {
-  return {
-    props: {}
-  };
-}
+});
 
 export const actions = {
   default: async (event) => {
