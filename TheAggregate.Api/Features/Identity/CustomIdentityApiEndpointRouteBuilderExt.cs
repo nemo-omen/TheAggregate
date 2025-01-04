@@ -487,17 +487,17 @@ public static class IdentityApiEndpointRouteBuilderExtensions
         return TypedResults.ValidationProblem(errorDictionary);
     }
     
-    private static async Task<UserWithRolesResponse> CreateUserWithRolesResponseAsync<TUser>(TUser user, UserManager<TUser> userManager)
+    private static async Task<UserWithRolesResponse> CreateUserWithRolesResponseAsync<TUser>(ApplicationUser user, UserManager<TUser> userManager)
         where TUser : class
     {
-        var userRoles = await userManager.GetRolesAsync(user);
-        var userEmail = await userManager.GetEmailAsync(user) ?? throw new NotSupportedException("Users must have an email.");
-        var userName = await userManager.GetUserNameAsync(user) ?? throw new NotSupportedException("Users must have a name.");
+        var userRoles = await userManager.GetRolesAsync((user as TUser)!);
+        var userEmail = await userManager.GetEmailAsync((user as TUser)!) ?? throw new NotSupportedException("Users must have an email.");
+        var userName = await userManager.GetUserNameAsync((user as TUser)!) ?? throw new NotSupportedException("Users must have a name.");
         
         return new UserWithRolesResponse
         {
-            Name = userName,
-            Email = userName,
+            Name = user.Name?? userName,
+            Email = user.Email?? userEmail,
             Roles = userRoles,
         };
     }

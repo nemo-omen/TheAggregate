@@ -13,8 +13,18 @@ import { type Cookies, redirect, type RequestEvent, type ServerLoadEvent } from 
 // @ts-ignore
 import type { CookieSerializeOptions, SerializeOptions } from 'cookie';
 
+export function authorize(event: ServerLoadEvent | RequestEvent) {
+  if(!isAuthorized(event)) {
+    redirect (303, '/auth/login');
+  }
+}
+
 export function isAuthorized(event: ServerLoadEvent | RequestEvent): boolean {
-  return !!event.locals.user;
+  console.log(event.locals);
+  if(!event.locals || !event.locals.user) {
+    return false;
+  }
+  return true;
 }
 
 export function initBaseClient(client: Client) {
@@ -139,7 +149,12 @@ export async function refreshAccessToken(accessToken: string, refreshToken: stri
     throw new Error('No access token in response')
   }
 
-  setAccessCookie(newAccessToken, response.data?.expiresIn!, cookies);
+  const newRefreshToken = response.data?.refreshToken;
+  if (!newRefreshToken) {
+    throw new Error('No refresh token in response')
+  }
+
+  setSessionCookies(newAccessToken, newRefreshToken, response.data?.expiresIn!, cookies);
   return newAccessToken;
 }
 

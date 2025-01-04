@@ -114,7 +114,7 @@
 <menu id="nav-menu-dropdown" bind:this={popMenu}>
   <li>
     <button class="button font-size-large" id="nav-menu-toggle" popovertarget="nav-dropdown-popover">
-      {user().email.charAt(0).toUpperCase()}
+      {user().name.charAt(0).toUpperCase()}
     </button>
     <div
       id="nav-dropdown-popover"
