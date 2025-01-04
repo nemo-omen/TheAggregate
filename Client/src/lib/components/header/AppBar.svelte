@@ -3,6 +3,7 @@
   import type { UserWithRolesResponse } from '$lib/client';
   import Logo from '$lib/components/Logo.svelte';
   import NavDropdown from '$lib/components/nav-dropdown/NavDropdown.svelte';
+  import ThemeSwitcher from '$lib/components/header/ThemeSwitcher.svelte';
   let currentUser: () => UserWithRolesResponse = getContext('user');
   let user = $derived(currentUser);
 </script>
@@ -14,8 +15,9 @@
     </a>
 
     {#if user()}
-      <nav>
+      <nav class="gap-2">
         <NavDropdown {user} />
+        <ThemeSwitcher />
       </nav>
 <!--      <div class="flex align-center">-->
 <!--        <form action="/auth/logout" method="post">-->

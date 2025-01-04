@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Sun, Moon, Menu, X } from 'lucide-svelte';
+  import { Menu, X } from 'lucide-svelte';
   import { browser } from '$app/environment';
   import Logo from '$lib/components/Logo.svelte';
   import { RegisterModalState, LoginModalState } from '$lib/state/modalState.svelte.ts';
@@ -7,8 +7,8 @@
   import { getContext } from 'svelte';
   import { afterNavigate, beforeNavigate } from '$app/navigation';
   import type { UserWithRolesResponse } from '$lib/client';
+  import ThemeSwitcher from '$lib/components/header/ThemeSwitcher.svelte';
 
-  let theme = $state('light');
   let navMenuOpen = $state(false);
   let navMenu: HTMLMenuElement;
   const registerModalState: RegisterModalState = getContext('registerModalState');
@@ -18,16 +18,6 @@
   let currentUser: () => UserWithRolesResponse = getContext('user');
 
   let user = $derived(currentUser);
-  function updateTheme() {
-    const newTheme = theme === 'light' ? 'dark' : 'light';
-    setTheme(newTheme);
-  }
-
-  function setTheme(themeValue: string) {
-    theme = themeValue;
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('theme', theme);
-  }
 
   function toggleLoginModal() {
     loginModalState.toggle();
@@ -53,21 +43,6 @@
     setTimeout(() => {
       navMenuOpen = false;
     }, 200);
-  });
-
-  onMount(() => {
-    if(browser) {
-      (function() {
-        const storedTheme = localStorage.getItem('theme');
-        if(storedTheme) {
-          setTheme(storedTheme);
-          return;
-        }
-
-        const preferredScheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-        setTheme(preferredScheme);
-      }());
-    }
   });
 </script>
 
@@ -105,15 +80,7 @@
           </form>
         </li>
       {/if}
-      <li id="header-theme-toggle-btn">
-        <button onclick={updateTheme} class="button-transparent icon-btn bg-transparent border-none">
-          {#if theme === 'dark'}
-            <Sun />
-          {:else}
-            <Moon />
-          {/if}
-        </button>
-      </li>
+      <ThemeSwitcher />
       <li id="header-nav-toggle-btn"><button class="icon-btn button-transparent" onclick={toggleNavMenu}><Menu /></button></li>
     </menu>
   </nav>

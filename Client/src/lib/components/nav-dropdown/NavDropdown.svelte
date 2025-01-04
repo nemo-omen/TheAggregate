@@ -10,6 +10,7 @@
   let navMenuItems: NodeListOf<HTMLLIElement>;
 
   onMount(() => {
+    console.log(popMenu.getBoundingClientRect());
     popMenuRect.top = popMenu.getBoundingClientRect().top;
     popMenuRect.left = popMenu.getBoundingClientRect().left;
     popMenuRect.right = popMenu.getBoundingClientRect().right;
@@ -112,8 +113,8 @@
 
 <menu id="nav-menu-dropdown" bind:this={popMenu}>
   <li>
-    <button class="button button-subtle" id="nav-menu-toggle" popovertarget="nav-dropdown-popover">
-      {user().email}
+    <button class="button font-size-large" id="nav-menu-toggle" popovertarget="nav-dropdown-popover">
+      {user().email.charAt(0).toUpperCase()}
     </button>
     <div
       id="nav-dropdown-popover"
@@ -148,6 +149,15 @@
         color: var(--link-hover-color);
     }
 
+    #nav-menu-toggle {
+        background-color: var(--surface-color-1);
+        border: 1px solid var(--border-color-4);
+        transition: background-color var(--transition-default);
+        height: 1.5em;
+        width: 1.5em;
+        line-height: 0;
+    }
+
     #nav-menu-toggle:focus-visible, #nav-menu-toggle:focus {
         outline-offset: -1px;
         outline-width: 1px;
@@ -165,14 +175,12 @@
         border-radius: var(--border-radius);
         box-shadow: var(--shadow-2);
         border: 1px solid var(--border-color-4);
-        position: absolute;
         inset: unset;
-        top: var(--top);
-        left: var(--left);
+        position: absolute;
+        transform-origin: top center;
+        right: var(--left);
+        transform: translateX(calc(-50% + (calc(var(--width) / 2)))) translateY(var(--space-1));
         padding: 0;
-        /*right: var(--right);*/
-        /*width: var(--width);*/
-        transform: translateY(var(--space-1)) translateX(calc((var(--right) - var(--left)) / 2)px);
     }
 
     #nav-dropdown-popover::backdrop {
@@ -183,7 +191,6 @@
       display: flex;
       flex-direction: column;
       gap: 0;
-      /*gap: var(--space-2);*/
       width: 100%;
   }
 
@@ -237,26 +244,23 @@
 
   @keyframes fly-in {
       from {
-          /*transform: translateY(-20px);*/
-          transform: rotateX(-90deg);
+          transform: rotateX(-90deg) translateX(calc(-50% + (calc(var(--width) / 2)))) translateY(var(--space-1));
           opacity: 0;
       }
       to {
           /*transform: translateY(0);*/
-          transform: rotateX(0);
+          transform: rotateX(0) translateX(calc(-50% + (calc(var(--width) / 2)))) translateY(var(--space-1));
           opacity: 1;
       }
   }
 
   @keyframes fly-out {
       from {
-          transform: rotateX(0);
-          /*transform: translateY(0);*/
+          transform: rotateX(0) translateX(calc(-50% + (calc(var(--width) / 2)))) translateY(var(--space-1));
           opacity: 1;
       }
       to {
-          /*transform: translateY(-20px);*/
-          transform: rotateX(-90deg)
+          transform: rotateX(-90deg) translateX(calc(-50% + (calc(var(--width) / 2)))) translateY(var(--space-1));
           opacity: 0;
       }
   }
