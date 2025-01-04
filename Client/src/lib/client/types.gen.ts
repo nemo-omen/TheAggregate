@@ -7,20 +7,9 @@ export type AccessTokenResponse = {
   refreshToken: string | null;
 };
 
-export type ApiResponse = {
-  success?: boolean;
-  message?: string | null;
-  errors?: Array<string> | null;
-  readonly hasErrors?: boolean;
-};
-
-export type AuthenticationResponse = {
-  success?: boolean;
-  message?: string | null;
-  errors?: Array<string> | null;
-  readonly hasErrors?: boolean;
-  token?: string | null;
-  expiration?: string;
+export type ChangeRoleRequest = {
+  email: string | null;
+  role: string | null;
 };
 
 export type Feed = {
@@ -68,12 +57,6 @@ export type HttpValidationProblemDetails = {
   [key: string]: (unknown | string | number) | undefined;
 };
 
-export type InfoRequest = {
-  newEmail?: string | null;
-  newPassword?: string | null;
-  oldPassword?: string | null;
-};
-
 export type InfoResponse = {
   email: string | null;
   isEmailConfirmed: boolean;
@@ -105,11 +88,6 @@ export type LoginRequest = {
   twoFactorRecoveryCode?: string | null;
 };
 
-export type LoginUserRequest = {
-  email: string;
-  password: string;
-};
-
 export type ProblemDetails = {
   type?: string | null;
   title?: string | null;
@@ -121,13 +99,6 @@ export type ProblemDetails = {
 
 export type RefreshRequest = {
   refreshToken: string | null;
-};
-
-export type RegisterUserRequest = {
-  name: string;
-  email: string;
-  password: string;
-  passwordConfirmation: string;
 };
 
 export type RegistrationRequest = {
@@ -167,43 +138,22 @@ export type TwoFactorResponse = {
   isMachineRemembered: boolean;
 };
 
+export type UpdateUserInfoRequest = {
+  newEmail?: string | null;
+  newPassword?: string | null;
+  oldPassword?: string | null;
+  name?: string | null;
+};
+
 export type UserWithRolesResponse = {
   name: string | null;
   email: string | null;
   roles?: Array<string> | null;
 };
 
-export type UserWithRolesResponseApiResponse = {
-  success?: boolean;
-  message?: string | null;
-  errors?: Array<string> | null;
-  readonly hasErrors?: boolean;
-  data?: UserWithRolesResponse;
-};
-
 export type Void = {
   [key: string]: unknown;
 };
-
-export type PostApiAccountRegisterData = {
-  body?: RegisterUserRequest;
-};
-
-export type PostApiAccountRegisterResponse = ApiResponse;
-
-export type PostApiAccountRegisterError = unknown;
-
-export type PostApiAccountLoginData = {
-  body?: LoginUserRequest;
-};
-
-export type PostApiAccountLoginResponse = AuthenticationResponse;
-
-export type PostApiAccountLoginError = unknown;
-
-export type GetApiAccountUserResponse = UserWithRolesResponseApiResponse;
-
-export type GetApiAccountUserError = unknown;
 
 export type GetApiFeedsResponse = Array<Feed>;
 
@@ -304,9 +254,17 @@ export type GetManageInfoResponse = UserWithRolesResponse;
 export type GetManageInfoError = HttpValidationProblemDetails | unknown;
 
 export type PostManageInfoData = {
-  body: InfoRequest;
+  body: UpdateUserInfoRequest;
 };
 
 export type PostManageInfoResponse = InfoResponse;
 
 export type PostManageInfoError = HttpValidationProblemDetails | unknown;
+
+export type PostManageRolesData = {
+  body: ChangeRoleRequest;
+};
+
+export type PostManageRolesResponse = UserWithRolesResponse;
+
+export type PostManageRolesError = HttpValidationProblemDetails | unknown;

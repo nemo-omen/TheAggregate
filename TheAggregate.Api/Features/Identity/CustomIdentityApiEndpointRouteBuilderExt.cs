@@ -377,14 +377,21 @@ public static class IdentityApiEndpointRouteBuilderExtensions
             return TypedResults.Ok(await CreateUserWithRolesResponseAsync(user, userManager));
         });
         
-        
+        // Original endpoint requires type `InfoRequest`, which we're customizing
+        // to allow the user to update custom properties on ApplicationUser
         accountGroup.MapPost("/info", async Task<Results<Ok<InfoResponse>, ValidationProblem, NotFound>>
-            (ClaimsPrincipal claimsPrincipal, [FromBody] InfoRequest infoRequest, HttpContext context, [FromServices] IServiceProvider sp) =>
+            (ClaimsPrincipal claimsPrincipal, [FromBody] UpdateUserInfoRequest infoRequest, HttpContext context, [FromServices] IServiceProvider sp) =>
         {
             var userManager = sp.GetRequiredService<UserManager<TUser>>();
             if (await userManager.GetUserAsync(claimsPrincipal) is not { } user)
             {
                 return TypedResults.NotFound();
+            }
+
+            if(!string.IsNullOrEmpty(infoRequest.Name))
+            {
+                user.Name = infoRequest.Name;
+                await userManager.UpdateAsync(user);
             }
         
             if (!string.IsNullOrEmpty(infoRequest.NewEmail) && !EmailAddressAttribute.IsValid(infoRequest.NewEmail))

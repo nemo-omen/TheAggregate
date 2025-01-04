@@ -15,7 +15,7 @@
     </fieldset>
     <fieldset>
       <label for="email">Email</label>
-      <input type="email" name="email" value={user().email}/>
+      <input type="email" name="newEmail" value={user().email}/>
     </fieldset>
     <div class="flex justify-end">
       <button type="submit">Save</button>
@@ -26,7 +26,7 @@
     <h3 class="font-size-body">Change Password</h3>
     <fieldset>
       <label for="currentPassword">Current Password</label>
-      <input type="password" name="currentPassword" />
+      <input type="password" name="oldPassword" />
     </fieldset>
     <fieldset>
       <label for="newPassword">New Password</label>

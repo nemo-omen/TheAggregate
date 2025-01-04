@@ -2,14 +2,6 @@
 
 import { createClient, createConfig, type OptionsLegacyParser } from '@hey-api/client-fetch';
 import type {
-  PostApiAccountRegisterData,
-  PostApiAccountRegisterError,
-  PostApiAccountRegisterResponse,
-  PostApiAccountLoginData,
-  PostApiAccountLoginError,
-  PostApiAccountLoginResponse,
-  GetApiAccountUserError,
-  GetApiAccountUserResponse,
   GetApiFeedsError,
   GetApiFeedsResponse,
   PostApiFeedsSearchData,
@@ -46,49 +38,13 @@ import type {
   GetManageInfoResponse,
   PostManageInfoData,
   PostManageInfoError,
-  PostManageInfoResponse
+  PostManageInfoResponse,
+  PostManageRolesData,
+  PostManageRolesError,
+  PostManageRolesResponse
 } from './types.gen';
 
 export const client = createClient(createConfig());
-
-export const postApiAccountRegister = <ThrowOnError extends boolean = false>(
-  options?: OptionsLegacyParser<PostApiAccountRegisterData, ThrowOnError>
-) => {
-  return (options?.client ?? client).post<
-    PostApiAccountRegisterResponse,
-    PostApiAccountRegisterError,
-    ThrowOnError
-  >({
-    ...options,
-    url: '/api/Account/register'
-  });
-};
-
-export const postApiAccountLogin = <ThrowOnError extends boolean = false>(
-  options?: OptionsLegacyParser<PostApiAccountLoginData, ThrowOnError>
-) => {
-  return (options?.client ?? client).post<
-    PostApiAccountLoginResponse,
-    PostApiAccountLoginError,
-    ThrowOnError
-  >({
-    ...options,
-    url: '/api/Account/login'
-  });
-};
-
-export const getApiAccountUser = <ThrowOnError extends boolean = false>(
-  options?: OptionsLegacyParser<unknown, ThrowOnError>
-) => {
-  return (options?.client ?? client).get<
-    GetApiAccountUserResponse,
-    GetApiAccountUserError,
-    ThrowOnError
-  >({
-    ...options,
-    url: '/api/Account/user'
-  });
-};
 
 export const getApiFeeds = <ThrowOnError extends boolean = false>(
   options?: OptionsLegacyParser<unknown, ThrowOnError>
@@ -228,5 +184,18 @@ export const postManageInfo = <ThrowOnError extends boolean = false>(
   >({
     ...options,
     url: '/manage/info'
+  });
+};
+
+export const postManageRoles = <ThrowOnError extends boolean = false>(
+  options: OptionsLegacyParser<PostManageRolesData, ThrowOnError>
+) => {
+  return (options?.client ?? client).post<
+    PostManageRolesResponse,
+    PostManageRolesError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/manage/roles'
   });
 };

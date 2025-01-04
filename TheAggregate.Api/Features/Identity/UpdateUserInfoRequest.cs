@@ -19,5 +19,7 @@ public sealed class UpdateUserInfoRequest
     /// The old password for the authenticated user. This is only required if a <see cref="P:Microsoft.AspNetCore.Identity.Data.InfoRequest.NewPassword" /> is provided.
     /// </summary>
     public string? OldPassword { get; init; }
-    public required string Name { get; init; }
+
+    // custom ApplicationUser properties
+    public string? Name { get; init; }
 }
