@@ -9,9 +9,9 @@
 
 <header class="appbar container-xlarge">
   <div class="flex justify-between align-center">
-    <div class="app-logo">
+    <a class="app-logo text-body" href="/frontpage">
       <Logo />
-    </div>
+    </a>
 
     {#if user()}
       <nav>
