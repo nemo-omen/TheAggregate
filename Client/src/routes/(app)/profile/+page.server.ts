@@ -29,6 +29,7 @@ export const actions: Actions = {
         return fail(400, { errors: errorMessages });
       }
     }
+
     return {
       success: true,
       body: response.data,
@@ -39,7 +40,6 @@ export const actions: Actions = {
     const { request } = event;
     const formData = await request.formData();
     const formDataEntries = Object.fromEntries(formData.entries());
-    console.log({formDataEntries});
 
     const validationResult = updatePasswordSchema.safeParse(formDataEntries);
     if(!validationResult.success) {
@@ -53,6 +53,7 @@ export const actions: Actions = {
         return fail(400, { errors: errorMessages });
       }
     }
+
     return {
       success: true,
       body: response.data,

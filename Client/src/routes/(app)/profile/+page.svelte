@@ -1,65 +1,20 @@
 <script lang="ts">
   import { z } from 'zod';
-  import { getContext, onMount } from 'svelte';
+  import { getContext } from 'svelte';
   import { enhance } from '$app/forms';
   import type { UserWithRolesResponse } from '$lib/client';
-  import type { ZodIssue } from 'zod';
-  import Input from '$lib/components/forms/Input.svelte';
   import { passwordSchema } from '$lib/schemas';
+  import Input from '$lib/components/forms/Input.svelte';
 
   let user: () => UserWithRolesResponse = getContext('user');
-  let infoUpdateErrors: ZodIssue[] = $state([]);
-  let passwordUpdateErrors: ZodIssue[] = $state([]);
-
   let newPasswordValue = $state('');
-
-  $inspect(infoUpdateErrors);
-
-  type Inputs = {
-    name: HTMLInputElement | undefined;
-    newEmail: HTMLInputElement | undefined;
-    oldPassword: HTMLInputElement | undefined;
-    newPassword: HTMLInputElement | undefined;
-    confirmPassword: HTMLInputElement | undefined;
-  };
-
-  const inputs: Inputs = {
-    name: undefined,
-    newEmail: undefined,
-    oldPassword: undefined,
-    newPassword: undefined,
-    confirmPassword: undefined,
-  };
-
-  // let usernameError: string = $derived.by(() => {
-  //   const error = infoUpdateErrors.find((error) => error.path[0] === 'name');
-  //   return error ? error.message : '';
-  // });
-  //
-  // let emailError: string = $derived.by(() => {
-  //   const error = infoUpdateErrors.find((error) => error.path[0] === 'newEmail');
-  //   return error ? error.message : '';
-  // });
-  //
-  // let oldPasswordError: string = $derived.by(() => {
-  //   const error = passwordUpdateErrors.find((error) => error.path[0] === 'oldPassword');
-  //   return error ? error.message : '';
-  // });
-  //
-  // let newPasswordError: string = $derived.by(() => {
-  //   const error = passwordUpdateErrors.find((error) => error.path[0] === 'newPassword');
-  //   return error ? error.message : '';
-  // });
-  //
-  // let confirmPasswordError: string = $derived.by(() => {
-  //   const error = passwordUpdateErrors.find((error) => error.path[0] === 'confirmPassword');
-  //   return error ? error.message : '';
-  // });
   let usernameError: string = $state('');
   let emailError: string = $state('');
   let oldPasswordError: string = $state('');
   let newPasswordError: string = $state('');
   let confirmPasswordError: string = $state('');
+  let userInfoLoading = $state(false);
+  let passwordLoading = $state(false);
 
   function hasUserInfoUpdateErrors() {
     return usernameError.length > 0 || emailError.length > 0;
@@ -72,21 +27,26 @@
 <div class="stack gap-4">
   <h2 class="margin-0">{user().name}</h2>
   <form method="post" action="?/updateInfo" use:enhance={({ formElement, formData, action, cancel }) => {
+    userInfoLoading = true;
     return async ({ result, update }) => {
-      infoUpdateErrors = [];
-      console.log({ result });
       if (result.type === 'success') {
-        const { data } = result;
-        console.log({ data });
         await update();
       }
 
       if (result.type === 'failure') {
-        console.log({result});
         const { errors } = result.data;
-        infoUpdateErrors = errors;
+        for(const error of errors) {
+          if(error.path === 'name') {
+            usernameError = error.message;
+          }
+
+          if(error.path === 'newEmail') {
+            emailError = error.message;
+          }
+        }
         await update();
       }
+      userInfoLoading = false;
     };
   }}>
     <h3 class="font-size-body">Profile Information</h3>
@@ -111,6 +71,8 @@
     <div class="flex justify-end">
       {#if hasUserInfoUpdateErrors()}
         <button type="submit" disabled>Update Info</button>
+        {:else if userInfoLoading}
+        <button type="submit" disabled>Loading...</button>
       {:else}
         <button type="submit">Update Info</button>
       {/if}
@@ -119,18 +81,31 @@
 
   <form action="?/updatePassword" method="post" use:enhance={({ formElement, formData, action, cancel }) => {
     return async ({ result, update }) => {
-      passwordUpdateErrors = [];
-      console.log({ result });
+      passwordLoading = true;
       if (result.type === 'success') {
         const { data } = result;
-        console.log({ data });
         await update();
       }
 
       if (result.type === 'failure') {
         const { errors } = result.data;
-        passwordUpdateErrors = errors;
+        for(const error of errors) {
+          if(error.path === 'oldPassword') {
+            oldPasswordError = error.message;
+          }
+
+          if(error.path === 'newPassword') {
+            newPasswordError = error.message;
+          }
+
+          if(error.path === 'confirmPassword') {
+            confirmPasswordError = error.message;
+          }
+        }
+        await update();
       }
+
+      passwordLoading = false;
     }
   }}>
     <h3 class="font-size-body">Change Password</h3>
@@ -165,6 +140,8 @@
     <div class="flex justify-end">
       {#if hasPasswordValidationErrors()}
         <button type="submit" disabled>Update Password</button>
+      {:else if passwordLoading}
+        <button type="submit" disabled>Loading...</button>
       {:else}
         <button type="submit">Update Password</button>
       {/if}
