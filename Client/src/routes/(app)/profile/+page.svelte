@@ -1,6 +1,6 @@
 <script lang="ts">
   import { z } from 'zod';
-  import { getContext } from 'svelte';
+  import { getContext, onMount } from 'svelte';
   import { enhance } from '$app/forms';
   import type { UserWithRolesResponse } from '$lib/client';
   import { passwordSchema } from '$lib/schemas';
@@ -23,10 +23,20 @@
   function hasPasswordValidationErrors() {
     return oldPasswordError.length > 0 || newPasswordError.length > 0 || confirmPasswordError.length > 0;
   }
+
+  onMount(() => {
+    console.log(user());
+  })
 </script>
 
 <div class="stack gap-4">
-  <h2 class="margin-0">{user().name}</h2>
+  <h2 class="margin-0 flex gap-4 align-end">{user().name}
+    {#if user().roles}
+      {#each user().roles as role}
+        <span class="badge font-size-small bg-3">{role}</span>
+      {/each}
+    {/if}
+  </h2>
   <form method="post" action="?/updateInfo" use:enhance={({ formElement, formData, action, cancel }) => {
     userInfoLoading = true;
     return async ({ result, update }) => {
@@ -79,8 +89,8 @@
   </form>
 
   <form action="?/updatePassword" method="post" use:enhance={({ formElement, formData, action, cancel }) => {
+    passwordLoading = true;
     return async ({ result, update }) => {
-      passwordLoading = true;
       if (result.type === 'success') {
         const { data } = result;
         await update();
@@ -103,7 +113,6 @@
         }
         await update();
       }
-
       passwordLoading = false;
     }
   }}>
