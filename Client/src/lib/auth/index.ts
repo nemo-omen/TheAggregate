@@ -20,7 +20,7 @@ export function authorize(event: ServerLoadEvent | RequestEvent) {
 }
 
 export function isAuthorized(event: ServerLoadEvent | RequestEvent): boolean {
-  console.log(event.locals);
+  // console.log(event.locals);
   if(!event.locals || !event.locals.user) {
     return false;
   }

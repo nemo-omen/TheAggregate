@@ -10,7 +10,6 @@
   let navMenuItems: NodeListOf<HTMLLIElement>;
 
   onMount(() => {
-    console.log(popMenu.getBoundingClientRect());
     popMenuRect.top = popMenu.getBoundingClientRect().top;
     popMenuRect.left = popMenu.getBoundingClientRect().left;
     popMenuRect.right = popMenu.getBoundingClientRect().right;
@@ -38,7 +37,6 @@
 
     function setMenuFocus(menuItem: HTMLLIElement) {
       if(menuItem.firstElementChild) {
-        console.log(menuItem.firstElementChild.tagName);
         if(menuItem.firstElementChild.tagName === 'FORM') {
           const child: HTMLButtonElement | null = menuItem.firstElementChild.firstElementChild as HTMLButtonElement;
           if(child) {

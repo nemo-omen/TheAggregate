@@ -1,6 +1,7 @@
 <script lang="ts">
   import { enhance } from "$app/forms";
   import { fade } from 'svelte/transition';
+  import FormErrorNotification from '$lib/components/notifications/FormErrorNotification.svelte';
   let { form } = $props();
 
   let registrationErrors = $state([]);
@@ -30,13 +31,7 @@
 >
   <h2 class="margin-0 text-center">Create an Account</h2>
   {#if registrationErrors.length > 0}
-    <div class="form-error">
-      <ul class="unstyled-list">
-        {#each registrationErrors as error}
-          <li class="text-danger alert alert-danger" transition:fade={{duration: 300}}>{error}</li>
-        {/each}
-      </ul>
-    </div>
+    <FormErrorNotification errors={registrationErrors} />
   {/if}
   <fieldset>
     <label for="registerEmail">Email</label>

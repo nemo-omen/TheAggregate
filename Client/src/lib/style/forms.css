@@ -16,6 +16,12 @@ button:hover, .button:hover {
     color: var(--text-1);
 }
 
+button:disabled, .button:disabled {
+    background-color: var(--surface-color-3);
+    color: var(--text-2);
+    cursor: not-allowed;
+}
+
 .button-transparent {
     background-color: transparent;
 }

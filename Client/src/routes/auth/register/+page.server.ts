@@ -1,5 +1,5 @@
 import type { RegisterResponse } from '$lib/auth';
-import { z, ZodError } from 'zod';
+import { registerSchema } from '$lib/schemas';
 import { fail, redirect } from '@sveltejs/kit';
 import { isAuthorized, register } from '$lib/auth';
 
@@ -8,19 +8,6 @@ export async function load(event) {
     redirect(303, '/frontpage');
   }
 }
-
-const registerSchema = z.object({
-  name: z.string().min(5, {message: "Name must to have at least 5 characters."}).optional(),
-  email: z.string().email({message: "Invalid email."}),
-  password: z.string()
-    .min(8, {message: "Password must have at least eight characters"})
-    .regex(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])/,
-      {
-        message: 'Password must include at least one uppercase letter, one lowercase letter, one number, and one special character',
-      }
-    ),
-});
 
 export const actions = {
   default: async (event) => {

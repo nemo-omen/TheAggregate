@@ -33,7 +33,7 @@ export const actions: Actions = {
       return fail(400, { errors: ['Invalid email or password'] });
     }
 
-    console.log({ response });
+    // console.log({ response });
 
     const { accessToken, refreshToken, expiresIn } = response;
 
