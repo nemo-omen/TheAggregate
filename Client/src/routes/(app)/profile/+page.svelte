@@ -5,6 +5,7 @@
   import type { UserWithRolesResponse } from '$lib/client';
   import { passwordSchema } from '$lib/schemas';
   import Input from '$lib/components/forms/Input.svelte';
+  import LoadingButton from '$lib/components/buttons/LoadingButton.svelte';
 
   let user: () => UserWithRolesResponse = getContext('user');
   let newPasswordValue = $state('');
@@ -71,10 +72,8 @@
     <div class="flex justify-end">
       {#if hasUserInfoUpdateErrors()}
         <button type="submit" disabled>Update Info</button>
-        {:else if userInfoLoading}
-        <button type="submit" disabled>Loading...</button>
       {:else}
-        <button type="submit">Update Info</button>
+        <LoadingButton type="submit" loading={userInfoLoading} text="Update Info" />
       {/if}
     </div>
   </form>
@@ -140,10 +139,8 @@
     <div class="flex justify-end">
       {#if hasPasswordValidationErrors()}
         <button type="submit" disabled>Update Password</button>
-      {:else if passwordLoading}
-        <button type="submit" disabled>Loading...</button>
       {:else}
-        <button type="submit">Update Password</button>
+        <LoadingButton type="submit" loading={passwordLoading} text="Update Password" />
       {/if}
     </div>
   </form>
