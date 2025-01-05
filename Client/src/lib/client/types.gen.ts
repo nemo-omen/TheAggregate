@@ -7,6 +7,25 @@ export type AccessTokenResponse = {
   refreshToken: string | null;
 };
 
+export type ApplicationUser = {
+  id?: string | null;
+  userName?: string | null;
+  normalizedUserName?: string | null;
+  email?: string | null;
+  normalizedEmail?: string | null;
+  emailConfirmed?: boolean;
+  passwordHash?: string | null;
+  securityStamp?: string | null;
+  concurrencyStamp?: string | null;
+  phoneNumber?: string | null;
+  phoneNumberConfirmed?: boolean;
+  twoFactorEnabled?: boolean;
+  lockoutEnd?: string | null;
+  lockoutEnabled?: boolean;
+  accessFailedCount?: number;
+  name?: string | null;
+};
+
 export type ChangeRoleRequest = {
   email: string | null;
   role: string | null;
@@ -122,6 +141,16 @@ export type SearchResponse = {
   items?: Array<ItemResponse> | null;
 };
 
+export type Subscription = {
+  id?: string;
+  userId?: string | null;
+  user?: ApplicationUser;
+  feedId?: string;
+  feed?: Feed;
+  createdAt?: string;
+  updatedAt?: string;
+};
+
 export type TwoFactorRequest = {
   enable?: boolean | null;
   twoFactorCode?: string | null;
@@ -168,6 +197,10 @@ export type PostApiFeedsSearchData = {
 export type PostApiFeedsSearchResponse = SearchResponse;
 
 export type PostApiFeedsSearchError = ProblemDetails;
+
+export type GetApiSubscriptionsResponse = Array<Subscription>;
+
+export type GetApiSubscriptionsError = ProblemDetails;
 
 export type PostLogoutData = {
   body: unknown;

@@ -16,6 +16,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     public DbSet<CollectionItem> CollectionItems { get; set; }
     public DbSet<Feed> Feeds { get; set; }
     public DbSet<FeedItem> FeedItems { get; set; }
+    public DbSet<Subscription> Subscriptions { get; set; }
     public DbSet<UserState> UserStates { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

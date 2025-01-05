@@ -7,6 +7,8 @@ import type {
   PostApiFeedsSearchData,
   PostApiFeedsSearchError,
   PostApiFeedsSearchResponse,
+  GetApiSubscriptionsError,
+  GetApiSubscriptionsResponse,
   PostLogoutData,
   PostLogoutError,
   PostLogoutResponse,
@@ -65,6 +67,19 @@ export const postApiFeedsSearch = <ThrowOnError extends boolean = false>(
   >({
     ...options,
     url: '/api/Feeds/search'
+  });
+};
+
+export const getApiSubscriptions = <ThrowOnError extends boolean = false>(
+  options?: OptionsLegacyParser<unknown, ThrowOnError>
+) => {
+  return (options?.client ?? client).get<
+    GetApiSubscriptionsResponse,
+    GetApiSubscriptionsError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/api/Subscriptions'
   });
 };
 

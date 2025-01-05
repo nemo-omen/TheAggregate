@@ -10,6 +10,7 @@ using Scalar.AspNetCore;
 using TheAggregate.Api.Data;
 using TheAggregate.Api.Features.Feeds;
 using TheAggregate.Api.Features.Identity;
+using TheAggregate.Api.Features.Subscriptions;
 using TheAggregate.Api.Features.SyndicationFeeds;
 using TheAggregate.Api.Jobs;
 using TheAggregate.Api.Models;
@@ -46,6 +47,7 @@ builder.Services.AddTransient<IJwtService, JwtService>();
 builder.Services.AddScoped<IFeedsRepository, FeedsRepository>();
 builder.Services.AddScoped<IFeedsService, FeedsService>();
 builder.Services.AddScoped<IAggregationService, AggregationService>();
+builder.Services.AddScoped<ISubscriptionsService, SubscriptionsService>();
 builder.Services.AddHostedService<PipelineInitializerHostedService>();
 
 string connectionString;

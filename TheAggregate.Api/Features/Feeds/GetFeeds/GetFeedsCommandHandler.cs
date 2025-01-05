@@ -22,10 +22,10 @@ public class GetFeedsCommandHandler : IRequestHandler<GetFeedsCommand, Result<Li
         Banner.Log($"[GetFeedsCommandHandler] - Getting feeds");
         var feedsResult = await _feedsService.GetFeedsAsync();
 
-        if (feedsResult.IsSuccess)
-        {
-            await _mediator.Publish(new GetFeedsEvent(feedsResult.Value), cancellationToken);
-        }
+        // if (feedsResult.IsSuccess)
+        // {
+        //     await _mediator.Publish(new GetFeedsEvent(feedsResult.Value), cancellationToken);
+        // }
         
         return Result.Ok(feedsResult.Value);
     }
