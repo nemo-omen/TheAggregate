@@ -30,4 +30,18 @@ public class SubscriptionsController : Controller
         var subscriptions = await _subscriptionsService.GetSubscriptions(userId);
         return Ok(subscriptions);
     }
+
+    [HttpPost("{feedId}")]
+    [ProducesResponseType(200)]
+    [ProducesResponseType(401)]
+    public async Task<ActionResult> SubscribeToFeed([FromRoute]Guid feedId)
+    {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if(string.IsNullOrWhiteSpace(userId))
+        {
+            return Unauthorized();
+        }
+        await _subscriptionsService.SubscribeToFeed(userId, feedId);
+        return Ok();
+    }
 }

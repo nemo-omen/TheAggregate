@@ -15,6 +15,9 @@ import type {
   GetFeedItemsByIdResponse,
   GetApiSubscriptionsError,
   GetApiSubscriptionsResponse,
+  PostApiSubscriptionsByFeedIdData,
+  PostApiSubscriptionsByFeedIdError,
+  PostApiSubscriptionsByFeedIdResponse,
   PostLogoutData,
   PostLogoutError,
   PostLogoutResponse,
@@ -112,6 +115,19 @@ export const getApiSubscriptions = <ThrowOnError extends boolean = false>(
   >({
     ...options,
     url: '/api/Subscriptions'
+  });
+};
+
+export const postApiSubscriptionsByFeedId = <ThrowOnError extends boolean = false>(
+  options: OptionsLegacyParser<PostApiSubscriptionsByFeedIdData, ThrowOnError>
+) => {
+  return (options?.client ?? client).post<
+    PostApiSubscriptionsByFeedIdResponse,
+    PostApiSubscriptionsByFeedIdError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/api/Subscriptions/{feedId}'
   });
 };
 

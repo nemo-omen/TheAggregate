@@ -1,25 +1,25 @@
 :root {
-    --card-width: calc(var(--space-8) * 10);
+    --card-width: calc(var(--space-8) * 8);
     --card-border: var(--border-color-4);
 }
 
 .container-xsmall {
-    width: min(var(--container-width--1), 90vw);
+    width: min(var(--container-width--1), 90%);
     margin-inline: auto;
 }
 
 .container-small {
-    width: min(var(--container-width-1), 90vw);
+    width: min(var(--container-width-1), 90%);
     margin-inline: auto;
 }
 
 .container-medium {
-    width: min(var(--container-width-2), 90vw);
+    width: min(var(--container-width-2), 90%);
     margin-inline: auto;
 }
 
 .container-large {
-    width: min(var(--container-width-3), 90vw);
+    width: min(var(--container-width-3), 90%);
     margin-inline: auto;
 }
 
@@ -28,7 +28,7 @@
 }
 
 .container {
-    width: min(var(--container-width-2), 90vw);
+    width: min(var(--container-width-2), 90%);
     margin-inline: auto;
 }
 
@@ -64,10 +64,15 @@ article, .card {
     border-radius: var(--border-radius);
     box-shadow: var(--card-shadow);
     background-color: var(--surface-color-0);
-    width: min(var(--card-width), 90vw);
+    /*width: min(var(--card-width), 90vw);*/
     transition: box-shadow var(--transition-default);
     border: 1px solid var(--border-color-5);
-    aspect-ratio: var(--aspect-ratio);
+    /*aspect-ratio: var(--aspect-ratio);*/
+
+    & a {
+        text-decoration: none;
+        color: var(--text-1);
+    }
 }
 
 article:hover, .card-hover {

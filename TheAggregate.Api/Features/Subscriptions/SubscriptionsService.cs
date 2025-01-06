@@ -7,6 +7,7 @@ namespace TheAggregate.Api.Features.Subscriptions;
 public interface ISubscriptionsService
 {
     Task<List<Subscription>> GetSubscriptions(string userId);
+    Task SubscribeToFeed(string userId, Guid feedId);
 }
 
 public class SubscriptionsService : ISubscriptionsService
@@ -26,5 +27,17 @@ public class SubscriptionsService : ISubscriptionsService
             .AsSplitQuery()
             .Where(x => string.Equals(x.UserId, userId))
             .ToListAsync();
+    }
+
+    public async Task SubscribeToFeed(string userId, Guid feedId)
+    {
+        var subscription = new Subscription
+        {
+            UserId = userId,
+            FeedId = feedId
+        };
+
+        await _context.Subscriptions.AddAsync(subscription);
+        await _context.SaveChangesAsync();
     }
 }

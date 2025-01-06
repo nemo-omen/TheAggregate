@@ -229,6 +229,16 @@ export type GetApiSubscriptionsResponse = Array<Subscription>;
 
 export type GetApiSubscriptionsError = ProblemDetails;
 
+export type PostApiSubscriptionsByFeedIdData = {
+  path: {
+    feedId: string;
+  };
+};
+
+export type PostApiSubscriptionsByFeedIdResponse = unknown;
+
+export type PostApiSubscriptionsByFeedIdError = ProblemDetails;
+
 export type PostLogoutData = {
   body: unknown;
 };
