@@ -126,7 +126,7 @@ if (app.Environment.IsDevelopment())
     app.MapScalarApiReference(options =>
     {
         // http://localhost:5050/scalar/v1
-        options.WithTitle("My API");
+        options.WithTitle("The Aggregate API");
         options.WithTheme(ScalarTheme.DeepSpace);
         options.WithSidebar(true);
     });

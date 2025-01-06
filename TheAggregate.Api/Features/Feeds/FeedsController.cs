@@ -1,9 +1,12 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using TheAggregate.Api.Features.Feeds.GetFeed;
+using TheAggregate.Api.Features.Feeds.GetFeedItem;
 using TheAggregate.Api.Features.Feeds.GetFeeds;
 using TheAggregate.Api.Features.Feeds.Search;
 using TheAggregate.Api.Features.Feeds.Types;
 using TheAggregate.Api.Models;
+using TheAggregate.Api.Shared.Types;
 
 namespace TheAggregate.Api.Features.Feeds.Controllers;
 
@@ -22,15 +25,38 @@ public class FeedsController : Controller
 
     [HttpGet]
     [ProducesResponseType<List<Feed>>(200)]
+    [ProducesResponseType<ApiError>(500)]
     public async Task<ActionResult<List<Feed>>> GetFeeds()
     {
         var feedsResponse = await _mediator.Send(new GetFeedsCommand());
         if (feedsResponse.IsFailed)
         {
-            return StatusCode(500, feedsResponse.Errors);
+            return StatusCode(500, new ApiError
+            {
+                Type = "https://www.rfc-editor.org/rfc/rfc9110.html#name-500-internal-server-error",
+                Title = "Internal Server Error",
+                Status = 500,
+                Detail = feedsResponse.Errors.First().Message
+            });
         }
         return Ok(feedsResponse.Value);
     }
+
+    [HttpGet("{id}")]
+    [ProducesResponseType<Feed>(200)]
+    [ProducesResponseType(404)]
+    [ProducesResponseType(500)]
+    public async Task<ActionResult<Feed>> GetFeed([FromRoute]Guid id)
+    {
+        var res = await _mediator.Send(new GetFeedQuery(id));
+        if (res.IsFailed)
+        {
+            if(res.Errors.Any(e => e.Message == "Not found")) return NotFound();
+            return StatusCode(500, res.Errors);
+        }
+        return Ok(res.Value);
+    }
+
 
     [HttpPost("search")]
     [ProducesResponseType<SearchResponse>(200)]
@@ -39,6 +65,21 @@ public class FeedsController : Controller
     {
         var res = await _mediator.Send(new SearchQuery(searchTerm));
         if(res.IsFailed) return StatusCode(500, res.Errors);
+        return Ok(res.Value);
+    }
+
+    [HttpGet("/FeedItems/{id}")]
+    [ProducesResponseType<FeedItem>(200)]
+    [ProducesResponseType(404)]
+    [ProducesResponseType(500)]
+    public async Task<ActionResult<FeedItem>> GetFeedItem(Guid id)
+    {
+        var res = await _mediator.Send(new GetFeedItemQuery(id));
+        if (res.IsFailed)
+        {
+            if(res.Errors.Any(e => e.Message == "Not found")) return NotFound();
+            return StatusCode(500, res.Errors);
+        }
         return Ok(res.Value);
     }
 }

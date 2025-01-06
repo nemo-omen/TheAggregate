@@ -1,6 +1,7 @@
 using Hangfire;
 using MediatR;
 using TheAggregate.Api.Features.Feeds.GetFeeds;
+using TheAggregate.Api.Features.Feeds.UpdateFeeds;
 
 namespace TheAggregate.Api.Jobs;
 
@@ -21,6 +22,6 @@ public class AggregationPipelineJob
 
     public async Task SendPipelineCommand()
     {
-        await _mediator.Send(new GetFeedsCommand());
+        await _mediator.Send(new UpdateFeedsCommand());
     }
 }

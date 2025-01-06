@@ -7,6 +7,13 @@ export type AccessTokenResponse = {
   refreshToken: string | null;
 };
 
+export type ApiError = {
+  type: string | null;
+  title: string | null;
+  detail: string | null;
+  status: number;
+};
+
 export type ApplicationUser = {
   id?: string | null;
   userName?: string | null;
@@ -186,7 +193,17 @@ export type Void = {
 
 export type GetApiFeedsResponse = Array<Feed>;
 
-export type GetApiFeedsError = unknown;
+export type GetApiFeedsError = ApiError;
+
+export type GetApiFeedsByIdData = {
+  path: {
+    id: string;
+  };
+};
+
+export type GetApiFeedsByIdResponse = Feed;
+
+export type GetApiFeedsByIdError = ProblemDetails | unknown;
 
 export type PostApiFeedsSearchData = {
   query?: {
@@ -197,6 +214,16 @@ export type PostApiFeedsSearchData = {
 export type PostApiFeedsSearchResponse = SearchResponse;
 
 export type PostApiFeedsSearchError = ProblemDetails;
+
+export type GetFeedItemsByIdData = {
+  path: {
+    id: string;
+  };
+};
+
+export type GetFeedItemsByIdResponse = FeedItem;
+
+export type GetFeedItemsByIdError = ProblemDetails | unknown;
 
 export type GetApiSubscriptionsResponse = Array<Subscription>;
 

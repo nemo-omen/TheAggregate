@@ -7,12 +7,10 @@ namespace TheAggregate.Api.Features.Feeds.GetFeeds;
 
 public class GetFeedsCommandHandler : IRequestHandler<GetFeedsCommand, Result<List<Feed>>>
 {
-    private readonly IMediator _mediator;
     private readonly IFeedsService _feedsService;
 
-    public GetFeedsCommandHandler(IFeedsService feedsService, IMediator mediator)
+    public GetFeedsCommandHandler(IFeedsService feedsService)
     {
-        _mediator = mediator;
         _feedsService = feedsService;
     }
 
@@ -21,11 +19,6 @@ public class GetFeedsCommandHandler : IRequestHandler<GetFeedsCommand, Result<Li
     {
         Banner.Log($"[GetFeedsCommandHandler] - Getting feeds");
         var feedsResult = await _feedsService.GetFeedsAsync();
-
-        // if (feedsResult.IsSuccess)
-        // {
-        //     await _mediator.Publish(new GetFeedsEvent(feedsResult.Value), cancellationToken);
-        // }
         
         return Result.Ok(feedsResult.Value);
     }

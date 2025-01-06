@@ -65,3 +65,18 @@ main {
   color: currentColor;
   transition: var(--transition-default);
 }
+
+.feed-logo {
+  height: 3rem;
+  border-radius: var(--border-radius);
+  /*width: 4rem;*/
+  /*border: 1px solid var(--border-color-4);*/
+  /*border-radius: var(--border-radius);*/
+  /*padding: var(--space-1);*/
+  /*display: flex;*/
+  /*justify-content: center;*/
+  /*align-items: center;*/
+  /*border-radius: 50%;*/
+  /*overflow: hidden;*/
+
+}

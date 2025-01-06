@@ -37,6 +37,10 @@
     flex-direction: column;
 }
 
+.hero {
+    margin-block: calc(var(--space-8) * 2);
+}
+
 .flex-grid {
     --min: 10ch;
     --gap: var(--space-4);
@@ -68,6 +72,21 @@ article, .card {
 
 article:hover, .card-hover {
     box-shadow: var(--card-hover-shadow);
+}
+
+article a:has(img) {
+    display: block;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+
+    & img {
+        aspect-ratio: var(--img-ratio);
+        object-fit: cover;
+        width: 100%;
+    }
 }
 
 article > img, .card > img {

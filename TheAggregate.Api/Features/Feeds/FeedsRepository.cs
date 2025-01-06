@@ -3,13 +3,14 @@ using FluentResults;
 using Microsoft.EntityFrameworkCore;
 using TheAggregate.Api.Data;
 using TheAggregate.Api.Models;
+using TheAggregate.Api.Shared.Exceptions;
 
 namespace TheAggregate.Api.Features.Feeds;
 
 public interface IFeedsRepository
 {
     Task<Result<List<Feed>>> GetFeedsAsync();
-    Task<Result<Feed>> GetFeedByIdAsync(int id);
+    Task<Feed> GetFeedByIdAsync(Guid id);
     Task<Result<Feed>> GetFeedByFeedUrlAsync(string feedUrl);
     Task<Result<List<Feed>>> UpdateFeedsAsync(List<Feed> feeds);
     // Task<Result<Feed>> CreateFeedAsync(Feed feed);
@@ -17,6 +18,7 @@ public interface IFeedsRepository
     Task<Result<List<Feed>>> SearchFeeds(string searchTerm);
     Task<Result<List<FeedItem>>> SearchItems(string searchTerm);
     // Task<Result<Feed>> DeleteFeedAsync(int id);
+    Task<FeedItem> GetFeedItemByIdAsync(Guid id);
 }
 
 public class FeedsRepository : IFeedsRepository
@@ -39,9 +41,19 @@ public class FeedsRepository : IFeedsRepository
         return Result.Ok(feeds);
     }
 
-    public Task<Result<Feed>> GetFeedByIdAsync(int id)
+    public async Task<Feed> GetFeedByIdAsync(Guid id)
     {
-        throw new NotImplementedException();
+        var feed = await _context.Feeds
+            .AsNoTracking()
+            .Include(f => f.Items.OrderByDescending(i => i.Published))
+            .FirstOrDefaultAsync(f => f.Id == id);
+
+        if (feed is null)
+        {
+            throw new NotFoundException("Not found");
+        }
+
+        return feed;
     }
 
     public Task<Result<Feed>> GetFeedByFeedUrlAsync(string feedUrl)
@@ -96,5 +108,20 @@ public class FeedsRepository : IFeedsRepository
         }
 
         return Result.Ok(feedItems);
+    }
+
+    public async Task<FeedItem> GetFeedItemByIdAsync(Guid id)
+    {
+        var item = await _context.FeedItems
+            .AsNoTracking()
+            .Include(fi => fi.Feed)
+            .FirstOrDefaultAsync(fi => fi.Id == id);
+
+        if (item is null)
+        {
+            throw new NotFoundException($"Feed with id {id} not found");
+        }
+
+        return item;
     }
 }

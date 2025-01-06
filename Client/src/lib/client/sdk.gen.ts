@@ -4,9 +4,15 @@ import { createClient, createConfig, type OptionsLegacyParser } from '@hey-api/c
 import type {
   GetApiFeedsError,
   GetApiFeedsResponse,
+  GetApiFeedsByIdData,
+  GetApiFeedsByIdError,
+  GetApiFeedsByIdResponse,
   PostApiFeedsSearchData,
   PostApiFeedsSearchError,
   PostApiFeedsSearchResponse,
+  GetFeedItemsByIdData,
+  GetFeedItemsByIdError,
+  GetFeedItemsByIdResponse,
   GetApiSubscriptionsError,
   GetApiSubscriptionsResponse,
   PostLogoutData,
@@ -57,6 +63,19 @@ export const getApiFeeds = <ThrowOnError extends boolean = false>(
   });
 };
 
+export const getApiFeedsById = <ThrowOnError extends boolean = false>(
+  options: OptionsLegacyParser<GetApiFeedsByIdData, ThrowOnError>
+) => {
+  return (options?.client ?? client).get<
+    GetApiFeedsByIdResponse,
+    GetApiFeedsByIdError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/api/Feeds/{id}'
+  });
+};
+
 export const postApiFeedsSearch = <ThrowOnError extends boolean = false>(
   options?: OptionsLegacyParser<PostApiFeedsSearchData, ThrowOnError>
 ) => {
@@ -67,6 +86,19 @@ export const postApiFeedsSearch = <ThrowOnError extends boolean = false>(
   >({
     ...options,
     url: '/api/Feeds/search'
+  });
+};
+
+export const getFeedItemsById = <ThrowOnError extends boolean = false>(
+  options: OptionsLegacyParser<GetFeedItemsByIdData, ThrowOnError>
+) => {
+  return (options?.client ?? client).get<
+    GetFeedItemsByIdResponse,
+    GetFeedItemsByIdError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/FeedItems/{id}'
   });
 };
 

@@ -1,5 +1,6 @@
 using MediatR;
 using TheAggregate.Api.Features.Feeds.GetFeeds;
+using TheAggregate.Api.Features.Feeds.UpdateFeeds;
 
 namespace TheAggregate.Api.Shared.Services;
 
@@ -17,7 +18,7 @@ public class PipelineInitializerHostedService : IHostedService
         // Initialize the news-gathering pipeline
         using var scope = _scopeFactory.CreateScope();
         var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
-        await mediator.Send(new GetFeedsCommand(), cancellationToken);
+        await mediator.Send(new UpdateFeedsCommand(), cancellationToken);
     }
     
     public Task StopAsync(CancellationToken cancellationToken)
