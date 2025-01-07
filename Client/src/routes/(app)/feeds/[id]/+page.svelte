@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { Feed } from '$lib/client';
   import { ArrowLeftCircle } from 'lucide-svelte';
+  import ImgWithFallback from '$lib/components/images/ImgWithFallback.svelte';
 
   type Props = {
     data: {
@@ -42,30 +43,27 @@
         <h1>{feed.title}</h1>
         <hr class="width-100">
           {#if feed.items && feed.items.length > 0}
-            <div class="stack gap-4">
-              <div class="flex gap-4">
-                <div class="flex flex-wrap gap-4">
-                  {#each feed.items.slice(0, feed.items.length >= 10 ? 10 : feed.items.length - 1) as item, index}
-                    <article>
-                      <a href="/articles/{item.id}" class="width-100">
-                        {#if item.imageUrl}
-                          <img src={item.imageUrl} alt={item.title} height="150" onerror={(event) => replaceImage(event)}/>
-                        {:else}
-                          <img src="/images/placeholder.svg" alt={item.title} height="150" style="opacity: 0.2"/>
-                        {/if}
-                      </a>
-                      <h4 class="margin-top-0 margin-bottom-0">
-                        <a href="/articles/{item.id}">
-                          {item.title}
-                        </a>
-                      </h4>
-                      <footer>
-                        <a href="/articles/{item.id}">Read More</a>
-                      </footer>
-                    </article>
-                  {/each}
-                </div>
-              </div>
+            <div class="card-grid">
+              {#each feed.items.slice(0, feed.items.length >= 10 ? 10 : feed.items.length - 1) as item, index}
+                <article>
+                  <a href="/articles/{item.id}" class="width-100">
+                    {#if item.imageUrl}
+                      <ImgWithFallback src={item.imageUrl} fallback="/images/placeholder.svg" alt={item.title?? ''} height={150} />
+<!--                      <img src={item.imageUrl} alt={item.title} height="150" onerror={(event) => replaceImage(event)}/>-->
+                    {:else}
+                      <img src="/images/placeholder.svg" alt={item.title} height="150" style="opacity: 0.2"/>
+                    {/if}
+                  </a>
+                  <h4 class="margin-top-0 margin-bottom-0">
+                    <a href="/articles/{item.id}">
+                      {item.title}
+                    </a>
+                  </h4>
+                  <footer>
+                    <a href="/articles/{item.id}">Read More</a>
+                  </footer>
+                </article>
+              {/each}
             </div>
           {/if}
       </div>

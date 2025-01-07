@@ -1,6 +1,7 @@
 <script lang="ts">
   import { LoaderCircle } from 'lucide-svelte';
   import { onMount } from 'svelte';
+  import Spinner from '$lib/components/ui/Spinner.svelte';
 
   type Props = {
     loading?: boolean;
@@ -29,9 +30,7 @@
     <span class="hidden">
       {text}
     </span>
-    <div class="spin">
-      <LoaderCircle />
-    </div>
+    <Spinner />
   {:else}
     {text}
   {/if}
@@ -41,15 +40,6 @@
     button {
       position: relative;
     }
-  .spin {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      grid-template-areas: 'button';
-      align-items: center;
-      justify-content: center;
-      animation: spin 1s linear infinite;
-  }
 
   .hidden {
       opacity: 0;

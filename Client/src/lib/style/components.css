@@ -94,7 +94,7 @@ article a:has(img) {
     }
 }
 
-article > img, .card > img {
+article > img, .card > img, article > .img-wrapper, .card > .img-wrapper {
     aspect-ratio: var(--img-ratio);
     object-fit: cover;
     width: 100%;
@@ -256,4 +256,13 @@ a {
     background-color: var(--surface-color-2);
     box-shadow: var(--shadow-1);
     transition: color var(--transition-default), background-color var(--transition-default);
+}
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(
+              auto-fill,
+              minmax(min(var(--card-width), 90vw), 1fr)
+      );
+    gap: var(--space-4);
 }

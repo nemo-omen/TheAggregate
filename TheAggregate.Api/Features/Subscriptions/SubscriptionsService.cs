@@ -23,7 +23,8 @@ public class SubscriptionsService : ISubscriptionsService
     {
         return await _context.Subscriptions
             .AsNoTracking()
-            .Include(s => s.FeedId)
+            .Include(s => s.Feed)
+            .ThenInclude(f => f.Items)
             .AsSplitQuery()
             .Where(x => string.Equals(x.UserId, userId))
             .ToListAsync();

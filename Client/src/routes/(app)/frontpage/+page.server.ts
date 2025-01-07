@@ -1,6 +1,6 @@
 import { authorize, initCredentialedApiClient, initCredentialedClient, isAuthorized } from '$lib/auth';
 import { fail, redirect } from '@sveltejs/kit';
-import { client, getApiFeeds, getApiSubscriptions, postApiSubscriptionsByFeedId } from '$lib/client';
+import { client, getApiFeeds, getApiSubscriptions, postApiSubscriptionsByFeedId, type Subscription } from '$lib/client';
 
 export async function load(event) {
   authorize(event);
@@ -22,11 +22,12 @@ export async function load(event) {
   }
 
   if(subscriptionsResponse.data) {
+    console.log(subscriptionsResponse.data);
     // for now, if the user has subscriptions, just return them
     // without a list of feeds they can subscribe to
     if(subscriptionsResponse.data.length > 0) {
       return {
-        subscriptions: subscriptionsResponse.data,
+        subscriptions: subscriptionsResponse.data as Subscription[],
         user: event.locals.user,
       }
     }
