@@ -22,12 +22,10 @@ export async function load(event) {
   }
 
   if(subscriptionsResponse.data) {
-    console.log(subscriptionsResponse.data);
-    // for now, if the user has subscriptions, just return them
-    // without a list of feeds they can subscribe to
     if(subscriptionsResponse.data.length > 0) {
+      const subscribedFeeds = subscriptionsResponse.data.map(s => s.feed);
       return {
-        subscriptions: subscriptionsResponse.data as Subscription[],
+        subscriptions: subscribedFeeds,
         user: event.locals.user,
       }
     }

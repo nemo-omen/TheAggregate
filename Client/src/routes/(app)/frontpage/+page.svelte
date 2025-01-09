@@ -10,35 +10,34 @@
   type Props = {
     data: {
       feeds: Feed[];
-      subscriptions: Subscription[];
+      subscriptions: Feed[];
     };
     form: ActionData;
   };
 
+  type ExtendedFeedItem = FeedItem & { feedImg: string; feedTitle: string, feedId: string };
+
   let { data, form }: Props = $props();
   let user = $derived(getContext('user'));
   let isLoading = $state(false);
-  let { subscriptions } = data;
-  let subscriptionItems: FeedItem[] = $derived.by(() => subscriptions.map(sub => sub.items).flat().sort((a, b) => {
-    return new Date(b.published!).getTime() - new Date(a.published!).getTime();
-  }));
+  let subscriptions = $derived(data.subscriptions);
+  let subscriptionItems: ExtendedFeedItem[] = $derived.by(() => subscriptions.map(sub =>
+    sub.items.map(i => ({ feedImg: sub.imageUrl, feedTitle: sub.title, feedId: sub.id, ...i })))
+    .flat()
+    .sort((a, b) => {
+      return new Date(b.published!).getTime() - new Date(a.published!).getTime();
+    }));
+
   $inspect(subscriptionItems);
-  // for(const subscription of subscriptions) {
-  //   if(subscription.feed && subscription.feed.items) {
-  //     subscriptionItems.push(...subscription.feed.items);
-  //     subscriptionItems.sort((a, b) => {
-  //       return new Date(b.published!).getTime() - new Date(a.published!).getTime();
-  //     });
-  //   }
-  // }
-  // console.log({subscriptionItems});
 
-  function hasSubscriptions() {
-    return data.subscriptions && data.subscriptions.length > 0;
-  }
-
-  function hasSubscriptionItems() {
-    return subscriptionItems && subscriptionItems.length > 0;
+  function getFirstSentence(text: string) {
+    const s = text
+      .replaceAll('. ', '.$')
+      .replaceAll('! ', '!$')
+      .replaceAll('? ', '?$')
+      .replaceAll('&#160; ', '$')
+      .split('$')[0];
+    return s;
   }
 </script>
 
@@ -47,7 +46,7 @@
     <Spinner />
   </div>
 {:else}
-  {#if !hasSubscriptions()}
+  {#if !data.subscriptions || data.subscriptions.length < 1}
     <div class="hero stack gap-8 align-center justify-center margin-top-8 padding-8 border-radius-2">
       <Newspaper size="144" opacity="15%" />
       <h2 class="margin-0">You're not subscribed to any feeds.</h2>
@@ -66,29 +65,53 @@
       {/if}
     </div>
   {:else}
-    <h2>The Latest</h2>
-    {#if hasSubscriptionItems()}
-      {@render subscriptionItemStack(subscriptionItems)}
-    {/if}
+    <div class="stack gap-8">
+      <h2>The Latest</h2>
+      {#if subscriptions && subscriptions.length > 0}
+        {@render subscriptionItemStack(subscriptionItems)}
+      {/if}
+    </div>
   {/if}
 {/if}
 
 {#snippet subscriptionItemStack(items: FeedItem[] | undefined)}
   {#if items}
     <div>
-        <div class="stack">
+        <div class="stack justify-stretch">
           {#each items as item}
-            {@render subscriptionItem(item)}
+              {@render subscriptionItem(item)}
           {/each}
         </div>
     </div>
   {/if}
 {/snippet}
 
-{#snippet subscriptionItem(item: FeedItem)}
+{#snippet subscriptionItem(item: ExtendedFeedItem)}
   <div class="subscription-item">
-<!--    <h2 class="font-size-body margin-0">{item.title}</h2>-->
-    <h2 class="font-size-body margin-0">DOOKIE</h2>
+    <div class="subscription-item-header">
+      <div class="flex gap-4 align-center">
+        {#if item.feedImg}
+          <img src={item.feedImg} alt={item.title} class="feed-item-logo" width="48px"/>
+        {/if}
+        <h2 class="font-size-body margin-0 font-weight-semibold">
+          <a href="/articles/{item.id}" class="text-body">
+            {item.title}
+          </a>
+        </h2>
+      </div>
+      <div class="flex gap-4">
+          <small class="text-subtle">
+            <a href="/feeds/{item.feedId}" class="text-subtle">
+              {item.feedTitle}
+            </a>
+          </small>
+          <small class="text-subtle">{new Date(item.published!).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</small>
+        <small class="text-subtle">{item.author}</small>
+      </div>
+    </div>
+    {#if item.summary && item.summary.length > 0}
+      <small class="margin-0 text-muted">{getFirstSentence(item.summary)}</small>
+    {/if}
   </div>
 {/snippet}
 
@@ -114,9 +137,9 @@
               }
 
               if(result.type === 'success') {
-                if(result.data) {
-                  subscriptions = result.data.subscriptions;
-                }
+                // if(result.data) {
+                //   subscriptions = result.data.subscriptions;
+                // }
                 update();
               }
               isLoading = false;
@@ -153,3 +176,21 @@
     </footer>
   </article>
 {/snippet}
+
+<style>
+  .subscription-item {
+      padding-inline: 0;
+      padding-block: var(--space-4);
+      width: 100%;
+      border-top: 1px solid var(--border-color-5);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+  }
+
+  .subscription-item-header {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+  }
+</style>

@@ -149,3 +149,11 @@ textarea:not([rows]) {
 .text-danger {
     color: var(--danger-color);
 }
+
+.text-muted {
+    color: var(--text-2);
+}
+
+.text-subtle {
+    color: var(--text-3);
+}

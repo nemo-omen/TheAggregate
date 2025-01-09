@@ -57,6 +57,134 @@
     border-width: var(--border-8);
 }
 
+.border-top-1 {
+    border-top-width: var(--border-1);
+}
+
+.border-top-2 {
+    border-top-width: var(--border-2);
+}
+
+.border-top-3 {
+    border-top-width: var(--border-3);
+}
+
+.border-top-4 {
+    border-top-width: var(--border-4);
+}
+
+.border-top-5 {
+    border-top-width: var(--border-5);
+}
+
+.border-top-6 {
+    border-top-width: var(--border-6);
+}
+
+.border-top-7 {
+    border-top-width: var(--border-7);
+}
+
+.border-top-8 {
+    border-top-width: var(--border-8);
+}
+
+.border-right-1 {
+    border-right-width: var(--border-1);
+}
+
+.border-right-2 {
+    border-right-width: var(--border-2);
+}
+
+.border-right-3 {
+    border-right-width: var(--border-3);
+}
+
+.border-right-4 {
+    border-right-width: var(--border-4);
+}
+
+.border-right-5 {
+    border-right-width: var(--border-5);
+}
+
+.border-right-6 {
+    border-right-width: var(--border-6);
+}
+
+.border-right-7 {
+    border-right-width: var(--border-7);
+}
+
+.border-right-8 {
+    border-right-width: var(--border-8);
+}
+
+.border-bottom-1 {
+    border-bottom-width: var(--border-1);
+}
+
+.border-bottom-2 {
+    border-bottom-width: var(--border-2);
+}
+
+.border-bottom-3 {
+    border-bottom-width: var(--border-3);
+}
+
+.border-bottom-4 {
+    border-bottom-width: var(--border-4);
+}
+
+.border-bottom-5 {
+    border-bottom-width: var(--border-5);
+}
+
+.border-bottom-6 {
+    border-bottom-width: var(--border-6);
+}
+
+.border-bottom-7 {
+    border-bottom-width: var(--border-7);
+}
+
+.border-bottom-8 {
+    border-bottom-width: var(--border-8);
+}
+
+.border-left-1 {
+    border-left-width: var(--border-1);
+}
+
+.border-left-2 {
+    border-left-width: var(--border-2);
+}
+
+.border-left-3 {
+    border-left-width: var(--border-3);
+}
+
+.border-left-4 {
+    border-left-width: var(--border-4);
+}
+
+.border-left-5 {
+    border-left-width: var(--border-5);
+}
+
+.border-left-6 {
+    border-left-width: var(--border-6);
+}
+
+.border-left-7 {
+    border-left-width: var(--border-7);
+}
+
+.border-left-8 {
+    border-left-width: var(--border-8);
+}
+
 .border-radius-1 {
     border-radius: var(--border-radius-1);
 }
