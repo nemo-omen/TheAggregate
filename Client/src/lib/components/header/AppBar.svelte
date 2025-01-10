@@ -19,18 +19,13 @@
         <NavDropdown {user} />
         <ThemeSwitcher />
       </nav>
-<!--      <div class="flex align-center">-->
-<!--        <form action="/auth/logout" method="post">-->
-<!--          <button class="btn btn-subtle">Logout</button>-->
-<!--        </form>-->
-<!--      </div>-->
     {/if}
   </div>
 </header>
 
 <style>
   .appbar {
-      background-color: var(--background-2);
+      background-color: var(--background-1);
       border-radius: var(--border-radius);
       box-shadow: var(--box-shadow-1);
       border: 1px solid var(--border-color-5);

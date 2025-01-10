@@ -148,9 +148,9 @@
     }
 
     #nav-menu-toggle {
-        background-color: var(--surface-color-1);
-        border: 1px solid var(--border-color-4);
-        transition: background-color var(--transition-default);
+        background-color: var(--surface-color-0);
+        border: 1px solid var(--border-color-5);
+        transition: background-color var(--transition-default), border-color var(--transition-default);
         height: 1.5em;
         width: 1.5em;
         line-height: 0;
@@ -159,8 +159,13 @@
     #nav-menu-toggle:focus-visible, #nav-menu-toggle:focus {
         outline-offset: -1px;
         outline-width: 1px;
-        outline-color: var(--border-color-3);
-        background-color: var(--surface-color-2);
+        outline-color: var(--border-color-4);
+        background-color: var(--surface-color-1);
+    }
+
+    #nav-menu-toggle:hover {
+        background-color: var(--surface-color-1);
+        border-color: var(--border-color-4);
     }
 
     #nav-menu-dropdown {
@@ -169,10 +174,10 @@
     }
 
     #nav-dropdown-popover {
-        background-color: var(--surface-color-1);
+        background-color: var(--surface-color-0);
         border-radius: var(--border-radius);
         box-shadow: var(--shadow-2);
-        border: 1px solid var(--border-color-4);
+        border: 1px solid var(--border-color-5);
         inset: unset;
         position: absolute;
         transform-origin: top center;
@@ -203,7 +208,7 @@
   }
 
   .dropdown-item a:hover {
-      background-color: var(--surface-color-2);
+      background-color: var(--surface-color-1);
   }
 
   .dropdown-item form {
@@ -218,7 +223,7 @@
       }
 
       button:hover {
-          background-color: var(--surface-color-2);
+          background-color: var(--surface-color-1);
       }
   }
 
@@ -228,7 +233,7 @@
     .dropdown-item button:focus-visible {
       outline-offset: -2px;
       outline-color: transparent;
-      background-color: var(--surface-color-2);
+      background-color: var(--surface-color-1);
   }
 
   [popover] {
