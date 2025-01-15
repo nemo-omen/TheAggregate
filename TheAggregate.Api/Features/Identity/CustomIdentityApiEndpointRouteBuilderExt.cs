@@ -34,7 +34,7 @@ public static class IdentityApiEndpointRouteBuilderExtensions
     /// </summary>
     /// <typeparam name="TUser">The type describing the user. This should match the generic parameter in <see cref="UserManager{TUser}"/>.</typeparam>
     /// <param name="endpoints">
-    /// The <see cref="IEndpointRouteBuilder"/> to add the identity endpoints to.
+    /// /// The <see cref="IEndpointRouteBuilder"/> to add the identity endpoints to.
     /// Call <see cref="EndpointRouteBuilderExtensions.MapGroup(IEndpointRouteBuilder, string)"/> to add a prefix to all the endpoints.
     /// </param>
     /// <returns>An <see cref="IEndpointConventionBuilder"/> to further customize the added endpoints.</returns>

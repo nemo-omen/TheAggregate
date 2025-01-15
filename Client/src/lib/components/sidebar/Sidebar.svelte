@@ -1,9 +1,21 @@
 <script lang="ts">
+  import { getContext } from 'svelte';
+  import type { Feed } from '$lib/client';
 
+  let subscriptions: Feed[] = getContext('subscriptions');
 </script>
 
 <aside class="sidebar">
-
+  {#if subscriptions}
+    <h2>Subscriptions</h2>
+    <ul>
+      {#each subscriptions as subscription}
+        <li>{subscription.title}</li>
+      {/each}
+    </ul>
+  {:else}
+    <p>No subscriptions found</p>
+  {/if}
 </aside>
 
 <style>

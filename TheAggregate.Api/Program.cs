@@ -1,6 +1,9 @@
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Elsa.EntityFrameworkCore.Modules.Management;
+using Elsa.EntityFrameworkCore.Modules.Runtime;
+using Elsa.Extensions;
 using Hangfire;
 using Hangfire.PostgreSql;
 using Microsoft.AspNetCore.Identity;
@@ -68,6 +71,10 @@ builder.Services.AddDbContextPool<ApplicationDbContext>(options =>
     options.UseNpgsql(connectionString);
 });
 
+var elsaSection = builder.Configuration.GetSection("Elsa");
+
+builder.Services.AddElsa();
+
 builder.Services.AddHangfire(config =>
     config.UsePostgreSqlStorage(c =>
         c.UseNpgsqlConnection(connectionString)));
@@ -104,6 +111,8 @@ builder.Services.AddCors(options =>
             policy.WithOrigins("http://localhost");
         });
 });
+
+builder.Services.AddHealthChecks();
 
 var app = builder.Build();
 

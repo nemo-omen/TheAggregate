@@ -1,5 +1,4 @@
 import { expiresSoon, getUserInfo, refreshAccessToken } from '$lib/auth';
-import { redirect } from '@sveltejs/kit';
 
 const unprotectedRoutes = [
   "/",

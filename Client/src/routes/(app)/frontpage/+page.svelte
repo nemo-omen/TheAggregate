@@ -6,6 +6,7 @@
   import Spinner from '$lib/components/ui/Spinner.svelte';
   import type { Feed, FeedItem, Subscription } from '$lib/client';
   import type { ActionData } from './$types';
+  import { setContext } from 'svelte';
 
   type Props = {
     data: {
@@ -28,14 +29,18 @@
       return new Date(b.published!).getTime() - new Date(a.published!).getTime();
     }));
 
-  $inspect(subscriptionItems);
+  setContext('subscriptions', () => subscriptions);
 
   function getFirstSentence(text: string) {
     const s = text
       .replaceAll('. ', '.$')
+      .replaceAll('." ', '."$')
       .replaceAll('! ', '!$')
+      .replaceAll('!" ', '!"$')
       .replaceAll('? ', '?$')
+      .replaceAll('?" ', '?"$')
       .replaceAll('&#160; ', '$')
+      .replaceAll('&#8230; ', '...')
       .split('$')[0];
     return s;
   }
