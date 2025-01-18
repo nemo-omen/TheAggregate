@@ -53,23 +53,24 @@
     --cyan-16: hsl(187, 100%, 6%);
     --cyan-accent: var(--cyan-8);
 
-    --red-1: hsl(2, 79%, 98%);
-    --red-2: hsl(2, 79%, 88%);
-    --red-3: hsl(2, 79%, 78%);
-    --red-4: hsl(2, 79%, 68%);
-    --red-5: hsl(2, 79%, 63%);
-    --red-6: hsl(2, 79%, 58%);
-    --red-7: hsl(2, 79%, 53%);
-    --red-8: hsl(2, 79%, 48%);
-    --red-9: hsl(2, 79%, 43%);
-    --red-10: hsl(2, 79%, 38%);
-    --red-11: hsl(2, 79%, 33%);
-    --red-12: hsl(2, 79%, 28%);
-    --red-13: hsl(2, 79%, 23%);
-    --red-14: hsl(2, 79%, 18%);
-    --red-15: hsl(2, 79%, 13%);
-    --red-16: hsl(2, 79%, 8%);
-    --red-accent: var(--red-8);
+    --red-1: hsl(13, 95%, 96%);
+    --red-2: hsl(13, 95%, 86%);
+    --red-3: hsl(13, 95%, 76%);
+    --red-4: hsl(13, 95%, 66%);
+    --red-5: hsl(13, 95%, 61%);
+    --red-6: hsl(13, 95%, 56%);
+    --red-7: hsl(13, 95%, 51%);
+    --red-8: hsl(13, 95%, 46%);
+    --red-9: hsl(13, 95%, 41%);
+    --red-10: hsl(13, 95%, 36%);
+    --red-11: hsl(13, 95%, 31%);
+    --red-12: hsl(13, 95%, 26%);
+    --red-13: hsl(13, 95%, 21%);
+    --red-14: hsl(13, 95%, 16%);
+    --red-15: hsl(13, 95%, 11%);
+    --red-16: hsl(13, 95%, 6%);
+    --red-accent-light: var(--red-5);
+    --red-accent-dark: var(--red-4);
 
     --pink-1: hsl(328, 100%, 94%);
     --pink-2: hsl(328, 100%, 84%);
@@ -107,23 +108,24 @@
     --green-16: hsl(150, 100%, 6%);
     --green-accent: var(--green-8);
 
-    --amber-1: hsl(49, 100%, 98%);
-    --amber-2: hsl(49, 100%, 88%);
-    --amber-3: hsl(49, 100%, 78%);
-    --amber-4: hsl(49, 100%, 68%);
-    --amber-5: hsl(49, 100%, 63%);
-    --amber-6: hsl(49, 100%, 58%);
-    --amber-7: hsl(49, 100%, 53%);
-    --amber-8: hsl(49, 100%, 48%);
-    --amber-9: hsl(49, 100%, 43%);
-    --amber-10: hsl(49, 100%, 38%);
-    --amber-11: hsl(49, 100%, 33%);
-    --amber-12: hsl(49, 100%, 28%);
-    --amber-13: hsl(49, 100%, 23%);
-    --amber-14: hsl(49, 100%, 18%);
-    --amber-15: hsl(49, 100%, 13%);
-    --amber-16: hsl(49, 100%, 8%);
-    --amber-accent: var(--amber-8);
+    --amber-1: hsl(51, 97%, 92%);
+    --amber-2: hsl(51, 97%, 82%);
+    --amber-3: hsl(51, 97%, 72%);
+    --amber-4: hsl(51, 97%, 67%);
+    --amber-5: hsl(51, 97%, 62%);
+    --amber-6: hsl(51, 97%, 57%);
+    --amber-7: hsl(51, 97%, 52%);
+    --amber-8: hsl(51, 97%, 47%);
+    --amber-9: hsl(51, 97%, 42%);
+    --amber-10: hsl(51, 97%, 37%);
+    --amber-11: hsl(51, 97%, 32%);
+    --amber-12: hsl(51, 97%, 27%);
+    --amber-13: hsl(51, 97%, 22%);
+    --amber-14: hsl(51, 97%, 17%);
+    --amber-15: hsl(51, 97%, 12%);
+    --amber-16: hsl(51, 97%, 7%);
+    --amber-accent-light: var(--amber-9);
+    --amber-accent-dark: var(--amber-5);
 
     --purple-1: hsl(275, 85%, 93%);
     --purple-2: hsl(275, 85%, 88%);
@@ -234,7 +236,8 @@
     --neutral-16: hsl(0, 0%, 4%);
     --neutral-accent: var(--neutral-8);
 
-    --primary-color: var(--amber-accent);
+    --primary-color-dark: var(--amber-accent-dark);
+    --primary-color-light: var(--red-accent-light);
     --primary-color-hover: color-mix(in oklch, black 10%, var(--primary-color));
     --accent-color: var(--pink-accent);
     --accent-color-hover: color-mix(in oklch, black 10%, var(--accent-color));
@@ -260,14 +263,16 @@
     --text-2-light: var(--slate-14);
     --text-3-light: var(--slate-10);
     --text-body-light: var(--text-1);
-    --text-secondary-light: var(--text-2);
-    --text-muted-light: var(--text-3);
+    --text-inverse-light: var(--slate-1);
+    --text-secondary-light: var(--slate-14);
+    --text-muted-light: var(--slate-10);
     --text-1-dark: var(--slate-1);
     --text-2-dark: var(--slate-3);
     --text-3-dark: var(--slate-6);
-    --text-body-dark: var(--text-1);
-    --text-secondary-dark: var(--text-2);
-    --text-muted-dark: var(--text-3);
+    --text-body-dark: var(--slate-1);
+    --text-inverse-dark: var(--slate-16);
+    --text-secondary-dark: var(--slate-3);
+    --text-muted-dark: var(--slate-6);
 
     --border-color-1-light: var(--slate-13);
     --border-color-2-light: var(--slate-10);
@@ -307,6 +312,7 @@
 
 html[data-theme='light'] {
     color-scheme: light;
+    --primary-color: var(--primary-color-light);
     --background-0: var(--background-0-light);
     --background-1: var(--background-1-light);
     --background-2: var(--background-2-light);
@@ -315,6 +321,7 @@ html[data-theme='light'] {
     --text-2: var(--text-2-light);
     --text-3: var(--text-3-light);
     --text-body: var(--text-1);
+    --text-inverse: var(--text-inverse-light);
     --text-secondary: var(--text-2);
     --text-muted: var(--text-3);
     --border-color-1: var(--border-color-1-light);
@@ -334,38 +341,10 @@ html[data-theme='light'] {
     --surface-color-4: var(--surface-color-4-light);
 }
 
-html[data-theme='dark'] {
-    color-scheme: dark;
-    --background-0: var(--background-0-dark);
-    --background-1: var(--background-1-dark);
-    --background-2: var(--background-2-dark);
-    --background-3: var(--background-3-dark);
-    --text-1: var(--text-1-dark);
-    --text-2: var(--text-2-dark);
-    --text-3: var(--text-3-dark);
-    --text-body: var(--text-body-dark);
-    --text-secondary: var(--text-secondary-dark);
-    --text-muted: var(--text-muted-dark);
-    --border-color-1: var(--border-color-1-dark);
-    --border-color-2: var(--border-color-2-dark);
-    --border-color-3: var(--border-color-3-dark);
-    --border-color-4: var(--border-color-4-dark);
-    --border-color-5: var(--border-color-5-dark);
-    --border-color-subtle: var(--border-color-subtle-dark);
-    --border-color: var(--border-color-dark);
-    --link-color: var(--link-color-dark);
-    --link-hover-color: var(--link-hover-color-dark);
-    --focus-ring-color: var(--focus-ring-color-dark);
-    --surface-color-0: var(--surface-color-0-dark);
-    --surface-color-1: var(--surface-color-1-dark);
-    --surface-color-2: var(--surface-color-2-dark);
-    --surface-color-3: var(--surface-color-3-dark);
-    --surface-color-4: var(--surface-color-4-dark);
-}
-
 @media(prefers-color-scheme: light) {
     :root {
         color-scheme: light;
+        --primary-color: var(--primary-color-light);
         --background-0: var(--background-0-light);
         --background-1: var(--background-1-light);
         --background-2: var(--background-2-light);
@@ -374,6 +353,7 @@ html[data-theme='dark'] {
         --text-2: var(--text-2-light);
         --text-3: var(--text-3-light);
         --text-body: var(--text-1);
+        --text-inverse: var(--text-inverse-light);
         --text-secondary: var(--text-2);
         --text-muted: var(--text-3);
         --border-color-1: var(--border-color-1-light);
@@ -394,9 +374,41 @@ html[data-theme='dark'] {
     }
 }
 
+html[data-theme='dark'] {
+    color-scheme: dark;
+    --primary-color: var(--primary-color-dark);
+    --background-0: var(--background-0-dark);
+    --background-1: var(--background-1-dark);
+    --background-2: var(--background-2-dark);
+    --background-3: var(--background-3-dark);
+    --text-1: var(--text-1-dark);
+    --text-2: var(--text-2-dark);
+    --text-3: var(--text-3-dark);
+    --text-body: var(--text-body-dark);
+    --text-inverse: var(--text-inverse-dark);
+    --text-secondary: var(--text-secondary-dark);
+    --text-muted: var(--text-muted-dark);
+    --border-color-1: var(--border-color-1-dark);
+    --border-color-2: var(--border-color-2-dark);
+    --border-color-3: var(--border-color-3-dark);
+    --border-color-4: var(--border-color-4-dark);
+    --border-color-5: var(--border-color-5-dark);
+    --border-color-subtle: var(--border-color-subtle-dark);
+    --border-color: var(--border-color-dark);
+    --link-color: var(--link-color-dark);
+    --link-hover-color: var(--link-hover-color-dark);
+    --focus-ring-color: var(--focus-ring-color-dark);
+    --surface-color-0: var(--surface-color-0-dark);
+    --surface-color-1: var(--surface-color-1-dark);
+    --surface-color-2: var(--surface-color-2-dark);
+    --surface-color-3: var(--surface-color-3-dark);
+    --surface-color-4: var(--surface-color-4-dark);
+}
+
 @media (prefers-color-scheme: dark) {
     :root {
         color-scheme: dark;
+        --primary-color: var(--primary-color-dark);
         --background-0: var(--background-0-dark);
         --background-1: var(--background-1-dark);
         --background-2: var(--background-2-dark);
@@ -405,6 +417,7 @@ html[data-theme='dark'] {
         --text-2: var(--text-2-dark);
         --text-3: var(--text-3-dark);
         --text-body: var(--text-body-dark);
+        --text-inverse: var(--text-inverse-dark);
         --text-secondary: var(--text-secondary-dark);
         --text-muted: var(--text-muted-dark);
         --border-color-1: var(--border-color-1-dark);

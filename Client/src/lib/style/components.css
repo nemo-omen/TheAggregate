@@ -114,11 +114,58 @@ article > :not(img), .card > :not(img) {
     padding-inline: var(--padding);
 }
 
+article > h1,
+article > h2,
+article > h3,
+article > h4,
+article > h5,
+article > h6,
+.card > h1,
+.card > h2,
+.card > h3,
+.card > h4,
+.card > h5,
+.card > h6 {
+    line-height: 1.5;
+    font-size: var(--font-size-body);
+}
+
+article > h1 a,
+article > h2 a,
+article > h3 a,
+article > h4 a,
+article > h5 a,
+article > h6 a,
+.card > h1 a,
+.card > h2 a,
+.card > h3 a,
+.card > h4 a,
+.card > h5 a,
+.card > h6 a {
+    transition: background-color var(--transition-default), color var(--transition-default);
+}
+
+
+article > h1 > a:focus-visible,
+article > h2 > a:focus-visible,
+article > h3 > a:focus-visible,
+article > h4 > a:focus-visible,
+article > h5 > a:focus-visible,
+article > h6 > a:focus-visible,
+.card > h1 > a:focus-visible,
+.card > h2 > a:focus-visible,
+.card > h3 > a:focus-visible,
+.card > h4 > a:focus-visible,
+.card > h5 > a:focus-visible,
+.card > h6 > a:focus-visible {
+    outline-offset: revert;
+    border-radius: revert;
+}
+
 article header, .card header {
     padding: var(--padding);
 
     & h1, & h2, & h3, & h4, & h5, & h6 {
-        margin-inline:;
         line-height: 1;
         font-size: var(--font-size-body);
     }
@@ -132,7 +179,6 @@ article footer, .card footer {
     padding: var(--padding);
     margin-top: auto;
     & p, & span {
-        margin-inline:;
         line-height: 1;
     }
 }
@@ -153,6 +199,41 @@ article:has(footer), .card:has(footer) {
     }
 }
 
+article:has(.card-cover), .card:has(.card-cover) {
+    position: relative;
+    min-height: 150px;
+    overflow: hidden;
+}
+
+article .card-cover, .card .card-cover {
+    position: absolute;
+    inset: 0;
+    object-fit: cover;
+    opacity: 0.5;
+    transition: opacity var(--transition-default);
+    z-index: 0;
+}
+
+article:is(a), .card:is(a) {
+    color: var(--text-1);
+    text-decoration: none;
+    transition: color var(--transition-default);
+
+    & :is(h1, h2, h3, h4, h5, h6) {
+        z-index: 1;
+    }
+}
+
+article:is(a):hover, .card:is(a):hover {
+    color: var(--text-1);
+    text-decoration: none;
+}
+
+article:hover .card-cover, .card:hover .card-cover {
+    opacity: 1;
+}
+
+
 header {
     padding-block: 1rem;
 }
@@ -168,12 +249,7 @@ nav menu {
     align-items: center;
     gap: 1rem;
     list-style-type: none;
-    margin-inline:;
     padding: 0;
-
-    & li {
-        margin-inline:;
-    }
 
     & li a {
         font-weight: 600;

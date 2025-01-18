@@ -51,6 +51,11 @@ export type Feed = {
   searchVector?: Array<Lexeme> | null;
 };
 
+export type FeedCategoryResponse = {
+  category?: string | null;
+  categoryImage?: string | null;
+};
+
 export type FeedItem = {
   id?: string;
   title: string | null;
@@ -148,12 +153,33 @@ export type SearchResponse = {
   items?: Array<ItemResponse> | null;
 };
 
-export type Subscription = {
+export type SubscriptionFeed = {
   id?: string;
+  title: string | null;
+  description: string | null;
+  webUrl: string | null;
+  feedUrl: string | null;
+  imageUrl?: string | null;
+  language?: string | null;
+  categories?: Array<string> | null;
+  items?: Array<SubscriptionFeedItem> | null;
+};
+
+export type SubscriptionFeedItem = {
+  feedItem?: FeedItem;
+  isRead?: boolean;
+  isBookmarked?: boolean;
+};
+
+export type SubscriptionFeedResponse = {
+  subscription?: SubscriptionResponse;
+  subscriptionFeed?: SubscriptionFeed;
+};
+
+export type SubscriptionResponse = {
   userId?: string | null;
   user?: ApplicationUser;
   feedId?: string;
-  feed?: Feed;
   createdAt?: string;
   updatedAt?: string;
 };
@@ -205,6 +231,10 @@ export type GetApiFeedsByIdResponse = Feed;
 
 export type GetApiFeedsByIdError = ProblemDetails | unknown;
 
+export type GetApiFeedsCategoriesResponse = Array<FeedCategoryResponse>;
+
+export type GetApiFeedsCategoriesError = unknown;
+
 export type PostApiFeedsSearchData = {
   query?: {
     searchTerm?: string;
@@ -225,9 +255,13 @@ export type GetFeedItemsByIdResponse = FeedItem;
 
 export type GetFeedItemsByIdError = ProblemDetails | unknown;
 
-export type GetApiSubscriptionsResponse = Array<Subscription>;
+export type GetApiSubscriptionsResponse = Array<SubscriptionFeedResponse>;
 
 export type GetApiSubscriptionsError = ProblemDetails;
+
+export type GetApiSubscriptionsItemsResponse = Array<SubscriptionFeedItem>;
+
+export type GetApiSubscriptionsItemsError = ProblemDetails;
 
 export type PostApiSubscriptionsByFeedIdData = {
   path: {
@@ -338,3 +372,7 @@ export type PostManageRolesData = {
 export type PostManageRolesResponse = UserWithRolesResponse;
 
 export type PostManageRolesError = HttpValidationProblemDetails | unknown;
+
+export type GetApiWorkflowsResponse = unknown;
+
+export type GetApiWorkflowsError = unknown;

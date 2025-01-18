@@ -8,9 +8,10 @@
     alt: string;
     height: number;
     width?: number;
+    square?: boolean;
   };
 
-  let { src, fallback, alt, height, width }: Props = $props();
+  let { src, fallback, alt, height, width, square }: Props = $props();
 
   let isLoading = $state(true);
   let isError = $state(false);
@@ -36,7 +37,7 @@
 </script>
 
 
-<div class="img-wrapper" style="height: {height}px;">
+<div class="img-wrapper {square ? 'square' : ''}" style="height: {height}px;">
     <img
       src={src}
       alt={alt}
@@ -54,21 +55,26 @@
     style="opacity: 0.2"
     alt={alt}
     height={height}
+    width={width}
   />
 </div>
 
 <style>
     .img-wrapper {
         position: relative;
-        width: 100%;
+        /*width: 100%;*/
+    }
+
+    .square {
+        aspect-ratio: 1;
     }
 
     img {
         position: absolute;
         top: 0;
         left: 0;
-        height: 100%;
-        width: 100%;
+        /*height: 100%;*/
+        /*width: 100%;*/
         object-fit: cover;
         transition: opacity var(--transition-default);
     }

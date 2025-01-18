@@ -31,7 +31,7 @@
   }
 </script>
 
-<div class="container-small stack">
+<div class="container-small margin-top-4 stack gap-8">
   <div class="article-header stack gap-8">
     {#if data.referer && data.referer.length > 0}
       <a href={data.referer} class="flex align-center outline-hidden">

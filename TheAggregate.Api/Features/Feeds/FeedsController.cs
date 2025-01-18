@@ -1,6 +1,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using TheAggregate.Api.Features.Feeds.GetFeed;
+using TheAggregate.Api.Features.Feeds.GetFeedCategories;
 using TheAggregate.Api.Features.Feeds.GetFeedItem;
 using TheAggregate.Api.Features.Feeds.GetFeeds;
 using TheAggregate.Api.Features.Feeds.Search;
@@ -8,7 +9,7 @@ using TheAggregate.Api.Features.Feeds.Types;
 using TheAggregate.Api.Models;
 using TheAggregate.Api.Shared.Types;
 
-namespace TheAggregate.Api.Features.Feeds.Controllers;
+namespace TheAggregate.Api.Features.Feeds;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -55,6 +56,19 @@ public class FeedsController : Controller
             return StatusCode(500, res.Errors);
         }
         return Ok(res.Value);
+    }
+
+    [HttpGet("categories")]
+    [ProducesResponseType<List<FeedCategoryResponse>>(200)]
+    [ProducesResponseType(500)]
+    public async Task<IActionResult> GetFeedCategoriesAsync()
+    {
+        var categoriesResult = await _mediator.Send(new GetFeedCategoriesCommand());
+        if (categoriesResult.IsFailed)
+        {
+            return StatusCode(500, categoriesResult.Errors);
+        }
+        return Ok(categoriesResult.Value);
     }
 
 

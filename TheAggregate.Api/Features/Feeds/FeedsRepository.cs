@@ -2,6 +2,7 @@ using System.Data.Common;
 using FluentResults;
 using Microsoft.EntityFrameworkCore;
 using TheAggregate.Api.Data;
+using TheAggregate.Api.Features.Feeds.GetFeedCategories;
 using TheAggregate.Api.Models;
 using TheAggregate.Api.Shared.Exceptions;
 
@@ -12,6 +13,7 @@ public interface IFeedsRepository
     Task<Result<List<Feed>>> GetFeedsAsync();
     Task<Feed> GetFeedByIdAsync(Guid id);
     Task<Result<Feed>> GetFeedByFeedUrlAsync(string feedUrl);
+    Task<List<FeedCategoryResponse>> GetFeedCategoriesAsync();
     Task<Result<List<Feed>>> UpdateFeedsAsync(List<Feed> feeds);
     // Task<Result<Feed>> CreateFeedAsync(Feed feed);
     Task<Result<Feed>> UpdateFeedAsync(Feed feed);
@@ -59,6 +61,22 @@ public class FeedsRepository : IFeedsRepository
     public Task<Result<Feed>> GetFeedByFeedUrlAsync(string feedUrl)
     {
         throw new NotImplementedException();
+    }
+
+    public async Task<List<FeedCategoryResponse>> GetFeedCategoriesAsync()
+    {
+        var categories = await _context.Feeds
+            .AsNoTracking()
+            .SelectMany(f => f.Categories)
+            .Distinct()
+            .ToListAsync();
+
+        var feedCategories = categories.Select(c => new FeedCategoryResponse
+        {
+            Category = c,
+            CategoryImage = ""
+        }).ToList();
+        return feedCategories;
     }
     
     public async Task<Result<List<Feed>>> UpdateFeedsAsync(List<Feed> feeds)

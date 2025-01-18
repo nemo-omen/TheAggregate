@@ -30,7 +30,7 @@
 
 </script>
 
-<div class="container">
+<div class="container margin-top-4">
   <div class="stack gap-8">
     {#if referer && referer.length > 0}
       <a href={referer} class="flex align-center outline-hidden">
@@ -46,12 +46,12 @@
             <div class="card-grid">
               {#each feed.items.slice(0, feed.items.length >= 10 ? 10 : feed.items.length - 1) as item, index}
                 <article>
-                  <a href="/articles/{item.id}" class="width-100">
+                  <a href="/articles/{item.id}">
                     {#if item.imageUrl}
                       <ImgWithFallback src={item.imageUrl} fallback="/images/placeholder.svg" alt={item.title?? ''} height={150} />
 <!--                      <img src={item.imageUrl} alt={item.title} height="150" onerror={(event) => replaceImage(event)}/>-->
                     {:else}
-                      <img src="/images/placeholder.svg" alt={item.title} height="150" style="opacity: 0.2"/>
+                      <img src="/images/placeholder.svg" alt={item.title} height="150" width="150" style="opacity: 0.2; aspect-ratio: 1;" />
                     {/if}
                   </a>
                   <h4 class="margin-top-0 margin-bottom-0">

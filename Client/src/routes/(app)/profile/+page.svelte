@@ -29,7 +29,7 @@
   })
 </script>
 
-<div class="stack gap-4">
+<div class="stack gap-4 margin-top-4">
   <h2 class="margin-0 flex gap-4 align-end">{user().name}
     {#if user().roles}
       {#each user().roles as role}

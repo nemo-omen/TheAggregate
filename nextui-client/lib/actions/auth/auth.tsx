@@ -29,7 +29,7 @@ export async function getUserInfoAction(session: Session): Promise<User> {
     })
     .then(response => {
         if(!response.ok) {
-            console.log(response.json());
+            // console.log(response.json());
             throw new Error('Failed to get user info');
         }
         return response.json();

@@ -7,6 +7,8 @@ import type {
   GetApiFeedsByIdData,
   GetApiFeedsByIdError,
   GetApiFeedsByIdResponse,
+  GetApiFeedsCategoriesError,
+  GetApiFeedsCategoriesResponse,
   PostApiFeedsSearchData,
   PostApiFeedsSearchError,
   PostApiFeedsSearchResponse,
@@ -15,6 +17,8 @@ import type {
   GetFeedItemsByIdResponse,
   GetApiSubscriptionsError,
   GetApiSubscriptionsResponse,
+  GetApiSubscriptionsItemsError,
+  GetApiSubscriptionsItemsResponse,
   PostApiSubscriptionsByFeedIdData,
   PostApiSubscriptionsByFeedIdError,
   PostApiSubscriptionsByFeedIdResponse,
@@ -52,7 +56,9 @@ import type {
   PostManageInfoResponse,
   PostManageRolesData,
   PostManageRolesError,
-  PostManageRolesResponse
+  PostManageRolesResponse,
+  GetApiWorkflowsError,
+  GetApiWorkflowsResponse
 } from './types.gen';
 
 export const client = createClient(createConfig());
@@ -76,6 +82,19 @@ export const getApiFeedsById = <ThrowOnError extends boolean = false>(
   >({
     ...options,
     url: '/api/Feeds/{id}'
+  });
+};
+
+export const getApiFeedsCategories = <ThrowOnError extends boolean = false>(
+  options?: OptionsLegacyParser<unknown, ThrowOnError>
+) => {
+  return (options?.client ?? client).get<
+    GetApiFeedsCategoriesResponse,
+    GetApiFeedsCategoriesError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/api/Feeds/categories'
   });
 };
 
@@ -115,6 +134,19 @@ export const getApiSubscriptions = <ThrowOnError extends boolean = false>(
   >({
     ...options,
     url: '/api/Subscriptions'
+  });
+};
+
+export const getApiSubscriptionsItems = <ThrowOnError extends boolean = false>(
+  options?: OptionsLegacyParser<unknown, ThrowOnError>
+) => {
+  return (options?.client ?? client).get<
+    GetApiSubscriptionsItemsResponse,
+    GetApiSubscriptionsItemsError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/api/Subscriptions/items'
   });
 };
 
@@ -260,5 +292,18 @@ export const postManageRoles = <ThrowOnError extends boolean = false>(
   >({
     ...options,
     url: '/manage/roles'
+  });
+};
+
+export const getApiWorkflows = <ThrowOnError extends boolean = false>(
+  options?: OptionsLegacyParser<unknown, ThrowOnError>
+) => {
+  return (options?.client ?? client).get<
+    GetApiWorkflowsResponse,
+    GetApiWorkflowsError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/api/Workflows'
   });
 };

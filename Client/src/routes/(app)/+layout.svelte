@@ -1,7 +1,17 @@
 <script lang="ts">
   import Sidebar from '$lib/components/sidebar/Sidebar.svelte';
+  import type { Feed, Subscription } from '$lib/client';
+  import { setContext } from 'svelte';
 
-  let { children } = $props();
+  type Props = {
+    children: any;
+    data: Feed[];
+  };
+
+  let { children, data } = $props();
+  const { user, subscriptions } = data;
+
+  setContext('subscriptions', subscriptions);
 </script>
 
 <div id="app-content" class="container-xlarge margin-top-0">

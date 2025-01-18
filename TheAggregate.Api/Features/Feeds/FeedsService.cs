@@ -1,6 +1,7 @@
 using System.ServiceModel.Syndication;
 using System.Xml.Linq;
 using FluentResults;
+using TheAggregate.Api.Features.Feeds.GetFeedCategories;
 using TheAggregate.Api.Features.Feeds.Types;
 using TheAggregate.Api.Models;
 using TheAggregate.Api.Shared.Exceptions;
@@ -14,6 +15,7 @@ public interface IFeedsService
     Task<Result<List<Feed>>> GetFeedsAsync();
     Task<Result<Feed>> GetFeedByIdAsync(Guid id);
     Task<Result<Feed>> GetFeedByFeedUrlAsync(string feedUrl);
+    Task<Result<List<FeedCategoryResponse>>> GetFeedCategoriesAsync();
     Task<List<Result<Feed>>> UpdateFeedItemsFromSyndicationAsync(List<SyndicationFeed> feeds);
 
     Task<Result<List<ItemResponse>>> SearchAsync(string searchTerm);
@@ -55,6 +57,12 @@ public class FeedsService : IFeedsService
     public async Task<Result<Feed>> GetFeedByFeedUrlAsync(string feedUrl)
     {
         return await _feedsRepository.GetFeedByFeedUrlAsync(feedUrl);
+    }
+
+    public async Task<Result<List<FeedCategoryResponse>>> GetFeedCategoriesAsync()
+    {
+        var cats = await _feedsRepository.GetFeedCategoriesAsync();
+        return Result.Ok(cats);
     }
 
     public async Task<List<Result<Feed>>> UpdateFeedItemsFromSyndicationAsync(List<SyndicationFeed> syndicationFeeds)

@@ -27,10 +27,11 @@
   .appbar {
       background-color: var(--background-1);
       border-radius: var(--border-radius);
-      box-shadow: var(--box-shadow-1);
+      box-shadow: var(--shadow-1);
       border: 1px solid var(--border-color-5);
       padding: var(--space-2) var(--space-4);
       margin-block-start: var(--space-4);
+      z-index: 10;
   }
 
   .app-logo {

@@ -4,32 +4,12 @@ import { client, getApiFeeds, getApiSubscriptions, postApiSubscriptionsByFeedId,
 
 export async function load(event) {
   authorize(event);
-  const { cookies } = event;
+  const { cookies, parent } = event;
   const accessToken = cookies.get('aggregate_accessToken');
   if(!accessToken) {
     redirect(303, '/auth/login');
   }
   initCredentialedClient(accessToken, client);
-
-  const subscriptionsResponse = await getApiSubscriptions();
-  if(subscriptionsResponse.error) {
-    console.log(subscriptionsResponse.error);
-    fail(500, { errors: ['Failed to load subscriptions'] });
-  }
-
-  if(!subscriptionsResponse.data) {
-    fail(500, { errors: ['Failed to load subscriptions'] });
-  }
-
-  if(subscriptionsResponse.data) {
-    if(subscriptionsResponse.data.length > 0) {
-      const subscribedFeeds = subscriptionsResponse.data.map(s => s.feed);
-      return {
-        subscriptions: subscribedFeeds,
-        user: event.locals.user,
-      }
-    }
-  }
 
   const feedsResponse = await getApiFeeds();
   if(feedsResponse.error) {
@@ -41,9 +21,11 @@ export async function load(event) {
     fail(500, { errors: ['Failed to load feeds'] });
   }
 
+  const { subscriptions } = await parent();
+
   return {
     feeds: feedsResponse.data,
-    subscriptions: [],
+    subscriptions,
     user: event.locals.user,
   }
 }
